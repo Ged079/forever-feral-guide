@@ -1,0 +1,58 @@
+siml 1
+spec feral_cat_druid
+talents "050021-53200032123012125001-055"
+use "prebis.gear.siml"
+
+settings:
+  race tauren
+  profession1 engineering
+  profession2 enchanting
+  reaction_time 150ms 350ms
+  distance_from_target 25
+  assume_bleed_active
+
+consumables:
+  flask flask_of_natural_aggression
+  food swiftstrike_steak
+  conjured demonic_rune
+  explosive ez_thro_dark_bomb
+  mh_imbue dense_weightstone
+  extra juju_might, ground_scorpok_assay, goblin_sapper_charge
+  elixir elixir_of_cunning, elixir_of_sages, elixir_of_the_phalanx, greater_mageblood_elixir, elixir_of_the_grizzly
+  resource_pot major_mana_potion
+  offensive_pot mighty_rage_potion
+
+buffs:
+  greater_blessing_of_kings
+  greater_blessing_of_might 1
+  greater_blessing_of_wisdom 1
+
+raid_buffs:
+  arcane_intellect, prayer_of_spirit, mark_of_the_wild
+  strength_of_earth_totem 1
+  grace_of_air_totem 1
+  windfury_totem
+  battle_shout 1
+  leader_of_the_pack
+
+debuffs:
+  judgement_of_light, judgement_of_wisdom, curse_of_elements, curse_of_recklessness, faerie_fire
+  expose_armor, sunder_armor, gift_of_arthas, insect_swarm
+
+sim: iterations 3000
+
+encounter:
+  duration 180
+  duration_variation 5
+  execute_proportion_20 0.2
+  execute_proportion_35 0.35
+  targets(id=31146,
+      name="Raid Target",
+      level=63,
+      mob_type=dragonkin,
+      stats(attack_power=320, block_value=54, armor=3731, health=1428900),
+      min_base_damage=2601,
+      damage_spread=0.5,
+      swing_speed=2,
+      parry_haste,
+      can_crush)

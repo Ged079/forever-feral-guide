@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forever Feral Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@700;800&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE  a raid guide from a friend: short, sure, every number simmed.
+   IDEA   a druid's field notebook: one page per step, the damage split laid out like a pelt's stripes.
+   PICTURE the chosen build's DPS, large, over its damage split as one wide striped bar.
+   COLOUR night forest ground, moss support, Rip-red accent, leather tan for numbers.
+   TYPE   Alegreya display, Alegreya Sans body. LAYOUT step tabs, one column, cards in wrapping grids. */
+:root{color-scheme:light dark;
+--bg:light-dark(#eef2ec,#0f1914);--card:light-dark(#ffffff,#16241d);--line:light-dark(#d3dccf,#26392e);
+--ink:light-dark(#14211a,#e6ede6);--mute:light-dark(#566457,#9fb0a2);--moss:light-dark(#2f6b48,#6fbf8a);
+--red:light-dark(#b8322e,#ef6a5f);--tan:light-dark(#8a5d22,#d8ae6b);--bar:light-dark(#2f6b48,#5fae7c)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Alegreya Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Alegreya,Georgia,serif;line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,52px)}h2{font-size:clamp(26px,4vw,34px);margin-bottom:6px}h3{font-size:20px}
+p{margin:.4em 0;max-width:68ch}.mute{color:var(--mute)}.small{font-size:14px;color:var(--mute)}
+a{color:var(--moss)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px}
+nav a{flex:none;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:500;font-size:15px;min-height:40px;display:flex;align-items:center}
+nav a:hover,nav a:focus-visible{border-color:var(--moss);outline:none}
+section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+.hero{padding-top:clamp(26px,4vw,48px)}
+.kicker{color:var(--tan);font-weight:700;font-size:15px;margin-bottom:6px}
+.pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:22px 0}
+.bcard{text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;min-height:44px}
+.bcard[aria-pressed=true]{border-color:var(--moss);box-shadow:0 0 0 3px color-mix(in srgb,var(--moss) 22%,transparent)}
+.bcard:focus-visible{outline:3px solid var(--moss);outline-offset:2px}
+.bhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.tag{font-size:13px;font-weight:700;border-radius:6px;padding:2px 8px;background:color-mix(in srgb,var(--moss) 18%,transparent);color:var(--moss)}
+.big{font-family:Alegreya,serif;font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1;color:var(--tan)}
+.lens{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--mute);margin-top:4px}
+.lens b{color:var(--ink);font-weight:700}
+.pelt{display:flex;height:54px;border-radius:12px;overflow:hidden;margin:14px 0 8px}
+.pelt span{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.rows{list-style:none;margin:8px 0 0;padding:0}
+.rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,38%);gap:4px 12px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
+.rows li:first-child{border-top:0}
+.rows .nm b{font-weight:700}.rows .nm small{display:block;color:var(--mute);font-size:14px;line-height:1.4}
+.val{display:grid;gap:4px;justify-items:end;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.val b{font-size:15px}.meter{width:100%;height:8px;border-radius:4px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}
+.meter span{display:block;height:100%;background:var(--bar);border-radius:4px}
+.neg b{color:var(--red)}.zero b{color:var(--mute);font-weight:400}
+.copy{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
+code{font:15px/1.4 ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;background:var(--moss);color:var(--bg);padding:10px 16px;min-height:44px;cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--tan);outline-offset:2px}
+ol.loop{list-style:none;counter-reset:s;margin:10px 0 0;padding:0}
+ol.loop li{counter-increment:s;display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+ol.loop li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--moss);color:var(--bg);font-weight:700}
+ol.loop.open li::before{background:var(--tan)}
+.note{border-left:3px solid var(--tan);padding:6px 0 6px 12px;margin:12px 0;color:var(--ink)}
+.fig{position:relative;height:220px;margin-top:8px}.fig svg{position:absolute;inset:0;width:100%;height:100%}
+table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:700;color:var(--mute);border-top:0}td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+footer{padding:28px 0 48px}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-top:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.stack td:empty{display:none}.pelt{height:44px}.pelt span{font-size:12px}}
+@media(prefers-reduced-motion:no-preference){.meter span,.pelt span{transition:width .35s ease}}
+</style>
+</head>
+<body>
+<nav aria-label="Steps"><div class="wrap">
+<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#method">How we tested</a>
+</div></nav>
+
+<main class="wrap">
+<section class="hero" id="build">
+  <div class="kicker">WoW Forever · Phase 1 · level 60 · Feral Cat</div>
+  <h1>Play Feral Cat in five steps</h1>
+  <p class="mute">Pick a build, copy its talents, learn one short loop, bring the right consumables. Every number here comes from WoWSims Forever, so you can trust the order without doing the maths.</p>
+  <div class="pick" id="pick"></div>
+  <div class="card" id="hero"></div>
+</section>
+
+<section id="talents">
+  <h2>Talents</h2>
+  <p class="mute">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
+  <div class="copy"><code id="tstr"></code><button class="btn" id="copyt" type="button">Copy talent string</button></div>
+  <ul class="rows" id="tlist"></ul>
+</section>
+
+<section id="play">
+  <h2>How to play</h2>
+  <p class="mute">The sim's own rotation (Adaptive Cat), written as plain steps. Every global, take the first step that's ready.</p>
+  <div class="grid2">
+    <div class="card"><h3>Opener</h3><ol class="loop open" id="opener"></ol></div>
+    <div class="card"><h3>The loop</h3><ol class="loop" id="loop"></ol><p class="note" id="loopend"></p><p class="small" id="cds"></p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Per 3 minute fight</h3><div class="legend" id="casts" style="margin-top:8px"></div></div>
+</section>
+
+<section id="prep">
+  <h2>Before the pull</h2>
+  <p class="mute" id="preptotal"></p>
+  <div class="grid2">
+    <div class="card"><h3>Consumables</h3><p class="small">What you lose without each one, with everything else on.</p><ul class="rows" id="cons"></ul></div>
+    <div class="card"><h3>Raid buffs &amp; debuffs</h3><p class="small">Same idea: the DPS each one brings you.</p><ul class="rows" id="buffs"></ul><p class="note" id="armor"></p></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Swaps</h3><p class="small">Swap the first for the second: change in DPS.</p><ul class="rows" id="swaps"></ul></div>
+    <div class="card"><h3>Race</h3><p class="small" id="racenote"></p><ul class="rows" id="races"></ul></div>
+  </div>
+</section>
+
+<section id="gear">
+  <h2>Gear &amp; stats</h2>
+  <div class="grid2">
+    <div class="card"><h3>Stat weights</h3><p class="small">DPS per point, with Agility = 1. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste.</p><ul class="rows" id="ep"></ul></div>
+    <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the pre-raid set.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>The pre-raid set these numbers use</h3>
+    <p class="small">The sim's preset, the same for both builds. Its two trinkets are the Horde and Alliance versions of the same item; in game you get one, so fill the other slot with your best trinket.</p>
+    <table class="stack"><thead><tr><th>Slot</th><th>Item</th><th>Enchant</th></tr></thead><tbody id="gearrows"></tbody></table>
+  </div>
+</section>
+
+<section id="method">
+  <h2>How we tested</h2>
+  <div class="card">
+    <p id="methodp"></p>
+    <p>A talent's, consumable's or buff's worth is the build's DPS minus the same build without it, on the same seed. Races are one sim each in the same gear. Stat weights add and remove a small amount of each stat (20,000 iterations each) and divide the gap.</p>
+    <p>Rerun on seeds with no iterations in common, every figure here moved by about 0.5 DPS or less, so treat gaps under 1 DPS as ties.</p>
+    <h3 style="margin-top:14px">Least certain</h3>
+    <ul>
+      <li><b>Gear is the sim's preset</b>, not a full slot-by-slot search like the hunter guide's. The ranking of builds and talents should hold; your own gear will move the exact numbers.</li>
+      <li><b>Bonuses that need a zone or creature type</b> (like the Rune of the Guard Captain's) don't count on the test boss.</li>
+      <li><b>Rend and Tear</b> assumes the boss is bleeding. Your own Rake and Rip cover that: with no other bleeder you lose <span id="bleed"></span> DPS.</li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer class="wrap small" id="foot"></footer>
+
+<script>
+{
+const D = /*DATA*/null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = v => (Math.abs(v) < 0.5 ? 'nothing' : (v > 0 ? '+' : '−') + Math.abs(v).toFixed(Math.abs(v) < 10 ? 1 : 0));
+const wh = (kind, id, name) => `<a href="https://www.wowhead.com/forever/${kind}=${id}" target="_blank" rel="noopener">${esc(name)}</a>`;
+const COLORS = {'Shred':'#3f8f5e','Claw':'#3f8f5e','Rip':'#c0392b','Melee swings':'#8a6a3b','Rake':'#d0743c','Windfury Totem':'#4f7fa8','Ferocious Bite':'#9b5fb0','Other':'#7c8a80'};
+let build = 'cat';
+try { const s = localStorage.getItem('ff-build'); if (s && D.builds[s]) build = s; } catch (e) {}
+
+function row(name, sub, v, max, opt = {}) {
+  const cls = opt.label ? '' : Math.abs(v) < 0.5 ? 'zero' : v < 0 ? 'neg' : '';
+  const w = max > 0 ? Math.max(0, Math.min(100, v / max * 100)) : 0;
+  return `<li class="${cls}"><span class="nm"><b>${name}</b>${sub ? `<small>${sub}</small>` : ''}</span>
+    <span class="val"><b>${opt.label ?? fmt(v) + (Math.abs(v) < 0.5 ? '' : ' DPS')}</b>${opt.nobar ? '' : `<span class="meter"><span style="width:${w.toFixed(0)}%"></span></span>`}</span></li>`;
+}
+
+function renderPick() {
+  $('pick').innerHTML = Object.entries(D.builds).map(([id, b]) => `<button class="bcard" type="button" data-b="${id}" aria-pressed="${id === build}">
+    <div class="bhead"><h3>${esc(b.name)}</h3><span class="tag">${esc(b.difficulty)}${b.main ? ' · top DPS' : ''}</span></div>
+    <div class="small">${esc(b.sub)}</div>
+    <div class="big" style="font-size:40px;margin-top:8px">${Math.round(b.dps[180])}<span class="small" style="font-family:inherit"> DPS</span></div>
+    <p class="small" style="margin-top:6px">${esc(b.when)}</p></button>`).join('');
+}
+
+function render() {
+  const b = D.builds[build];
+  renderPick();
+  const top = Math.max(...b.parts.map(p => p[1]));
+  $('hero').innerHTML = `<div class="bhead"><div><div class="small">You picked</div><h3 style="font-size:28px">${esc(b.name)}</h3></div>
+    <div style="text-align:right"><div class="big">${Math.round(b.dps[180])}</div><div class="small">DPS, 3 minute boss</div></div></div>
+    <div class="lens"><span>1.5 min <b>${Math.round(b.dps[90])}</b></span><span>3 min <b>${Math.round(b.dps[180])}</b></span><span>5 min <b>${Math.round(b.dps[300])}</b></span></div>
+    <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#7c8a80'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
+    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#7c8a80'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
+
+  $('tstr').textContent = b.talentsString;
+  const tmax = Math.max(...b.talents.map(t => t.all));
+  $('tlist').innerHTML = b.talents.map(t => row(`${wh('spell', t.spell, t.name)} ${t.points}/${t.max}`,
+    esc(t.text) + (t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''), t.all, tmax)).join('');
+
+  $('opener').innerHTML = D.opener.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
+  $('loop').innerHTML = b.loop.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
+  $('loopend').textContent = D.loopEnd;
+  $('cds').textContent = D.cooldowns;
+  $('casts').innerHTML = Object.entries(b.casts).map(([n, c]) => `<span><b>${c}</b> ${esc(n)}</span>`).join('');
+
+  const races = Object.entries(b.races).sort((x, y) => y[1] - x[1]);
+  const best = races[0][1];
+  $('races').innerHTML = races.map(([n, v], i) => {
+    const r = D.races.find(x => x[0] === n);
+    const pct = (v / best - 1) * 100;
+    return row(`${esc(n)} <span class="small">${r[1]}</span>`, esc(r[2]), 100 + pct * 20, 100,
+      {label: `${Math.round(v)}${i ? ' · ' + pct.toFixed(1) + '%' : ' · best'}`});
+  }).join('');
+  $('racenote').textContent = `All four races finish within ${((1 - races[races.length - 1][1] / best) * 100).toFixed(1)}% of each other on ${b.name}. Play the one you like.`;
+
+  const emax = Math.max(...b.ep.map(e => e[1]));
+  $('ep').innerHTML = b.ep.map(([n, e]) => row(esc(n), n === 'Hit Rating' ? `Only until the cap (${b.hitCap} rating from gear).` : '', e, emax, {label: e.toFixed(2)})).join('');
+  $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The pre-raid set has ${D.gearHit}. ${build === 'cat' ? 'Nature’s Reach 1/2 covers 2%.' : 'Nature’s Reach 2/2 covers 4%, so you need less.'}`;
+  drawHit();
+  try { localStorage.setItem('ff-build', build); } catch (e) {}
+}
+
+const svg = $('hitsvg');
+function drawHit() {
+  const b = D.builds[build], pts = b.hitCurve, W = svg.clientWidth, H = svg.clientHeight;
+  if (!W || !H) return;
+  const pad = {l: 44, r: 12, t: 12, b: 28};
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const x0 = Math.max(0, Math.min(...xs)), x1 = Math.max(...xs), y0 = Math.min(...ys) - 4, y1 = Math.max(...ys) + 4;
+  const X = v => pad.l + (v - x0) / (x1 - x0) * (W - pad.l - pad.r), Y = v => pad.t + (1 - (v - y0) / (y1 - y0)) * (H - pad.t - pad.b);
+  const vis = pts.filter(p => p[0] >= x0);
+  const path = vis.map((p, i) => `${i ? 'L' : 'M'}${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join('');
+  const cur = pts.find(p => p[0] === D.gearHit);
+  const ticks = W < 520 ? [0, 40, 80] : [0, 20, 40, 60, 80, 100];
+  const st = getComputedStyle(document.body);
+  const ink = st.getPropertyValue('--mute'), moss = st.getPropertyValue('--bar'), tan = st.getPropertyValue('--tan');
+  svg.innerHTML = `${ticks.filter(t => t <= x1).map(t => `<text x="${X(t)}" y="${H - 8}" fill="${ink}" font-size="12" text-anchor="middle">${t}</text>`).join('')}
+    <text x="4" y="${Y(y1 - 4) + 4}" fill="${ink}" font-size="12">${Math.round(y1 - 4)}</text><text x="4" y="${Y(y0 + 4) + 4}" fill="${ink}" font-size="12">${Math.round(y0 + 4)}</text>
+    <line x1="${X(b.hitCap)}" x2="${X(b.hitCap)}" y1="${pad.t}" y2="${H - pad.b}" stroke="${tan}" stroke-dasharray="4 4"/>
+    <text x="${X(b.hitCap) - 6}" y="${H - pad.b - 10}" text-anchor="end" fill="${tan}" font-size="12">cap ≈ ${b.hitCap}</text>
+    <path d="${path}" fill="none" stroke="${moss}" stroke-width="3"/>
+    ${cur ? `<circle cx="${X(cur[0])}" cy="${Y(cur[1])}" r="6" fill="${tan}"/>` : ''}`;
+}
+const ro = new ResizeObserver(drawHit); ro.observe(svg);
+
+// Build-independent parts
+const cmax = Math.max(...D.consumables.map(c => c.v));
+$('cons').innerHTML = D.consumables.map(c => row(wh('item', c.id, c.name), '', c.v, cmax)).join('');
+const bmax = Math.max(...D.buffs.map(c => c.v));
+$('buffs').innerHTML = D.buffs.map(c => row(esc(c.name), '', c.v, bmax)).join('');
+const A = D.armor;
+$('armor').innerHTML = `<b>Armor debuffs:</b> Sunder Armor (${fmt(A.sunderArmor)}) or Expose Armor (${fmt(A.exposeArmor)}) alone gets nearly all of it; both together give ${fmt(D.armorAll)}. You cast your own Faerie Fire, so the raid's Faerie Fire or Curse of Recklessness adds only ${fmt(A.faerieFire)}.`;
+$('swaps').innerHTML = D.swaps.map(s => row(`${esc(s.from)} → ${wh('item', s.toId, s.to)}`, '', s.v, 0, {nobar: true})).join('');
+$('preptotal').innerHTML = `On the Cat build, consumables are worth <b>${Math.round(D.totals.consumables)} DPS</b> together and raid buffs and debuffs <b>${Math.round(D.totals.buffs)}</b>, out of ${Math.round(D.totals.base)}. The numbers below are for Cat; Hybrid's follow the same order.`;
+$('gearrows').innerHTML = D.gear.map(g => `<tr><td data-l="Slot">${esc(g.slot)}</td><td data-l="Item">${wh('item', g.id, g.name)}</td><td data-l="Enchant">${esc(g.enchant || '')}</td></tr>`).join('');
+$('bleed').textContent = D.otherBleed.toFixed(1);
+$('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Tauren in the sim's pre-raid set, full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
+$('foot').innerHTML = `Simmed ${D.meta.date} · WoWSims Forever <code>${D.meta.forever}</code> · inspired by the Forever Hunter Guide`;
+
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-b]');
+  if (c) { build = c.dataset.b; render(); return; }
+  if (e.target.closest('#copyt')) {
+    const btn = $('copyt'), s = D.builds[build].talentsString;
+    const done = ok => { btn.textContent = ok ? 'Copied ✓' : 'Select and copy'; setTimeout(() => btn.textContent = 'Copy talent string', 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(s).then(() => done(true), () => done(false)); else done(false);
+  }
+});
+render();
+}
+</script>
+</body>
+</html>

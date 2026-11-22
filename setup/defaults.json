@@ -1,0 +1,190 @@
+{
+  "settings": {
+    "iterations": 3000
+  },
+  "raidBuffs": {
+    "arcaneIntellect": true,
+    "prayerOfSpirit": true,
+    "markOfTheWild": true,
+    "strengthOfEarthTotem": 1,
+    "graceOfAirTotem": 1,
+    "windfuryTotem": true,
+    "battleShout": 1,
+    "leaderOfThePack": true
+  },
+  "debuffs": {
+    "judgementOfLight": true,
+    "judgementOfWisdom": true,
+    "curseOfElements": true,
+    "curseOfRecklessness": true,
+    "faerieFire": true,
+    "exposeArmor": true,
+    "sunderArmor": true,
+    "giftOfArthas": true,
+    "insectSwarm": true
+  },
+  "player": {
+    "race": "RaceTauren",
+    "class": "ClassDruid",
+    "equipment": {
+      "items": [
+        {
+          "id": 8345,
+          "enchant": 1508
+        },
+        {
+          "id": 19491,
+          "enchant": 904
+        },
+        {
+          "id": 271955
+        },
+        {
+          "id": 18511,
+          "enchant": 7667
+        },
+        {
+          "id": 252484,
+          "enchant": 1891
+        },
+        {
+          "id": 19587,
+          "enchant": 7656
+        },
+        {
+          "id": 19049,
+          "enchant": 2564
+        },
+        {
+          "id": 272396
+        },
+        {
+          "id": 15065,
+          "enchant": 1508
+        },
+        {
+          "id": 12553,
+          "enchant": 1887
+        },
+        {
+          "id": 19325
+        },
+        {
+          "id": 275981
+        },
+        {
+          "id": 19120
+        },
+        {
+          "id": 270275
+        },
+        {
+          "id": 19323,
+          "enchant": 1896
+        },
+        {},
+        {
+          "id": 272427
+        }
+      ]
+    },
+    "consumables": {
+      "flaskId": 274274,
+      "foodId": 250072,
+      "conjuredId": 12662,
+      "explosiveId": 260817,
+      "mhImbueId": 12643,
+      "extraIds": [
+        12460,
+        8412,
+        10646
+      ],
+      "elixirIds": [
+        250328,
+        250338,
+        250329,
+        250341,
+        250351
+      ],
+      "resourcePotId": 13444,
+      "offensivePotId": 13442
+    },
+    "buffs": {
+      "greaterBlessingOfKings": true,
+      "greaterBlessingOfMight": 1,
+      "greaterBlessingOfWisdom": 1
+    },
+    "feralCatDruid": {
+      "options": {
+        "classOptions": {},
+        "assumeBleedActive": true
+      }
+    },
+    "talentsString": "050021-53200032123012125001-055",
+    "profession1": "Engineering",
+    "profession2": "Enchanting",
+    "reactionTimeMs": 150,
+    "reactionTimeMaxMs": 350,
+    "distanceFromTarget": 25
+  },
+  "encounter": {
+    "duration": 180,
+    "durationVariation": 5,
+    "executeProportion20": 0.2,
+    "executeProportion35": 0.35,
+    "targets": [
+      {
+        "id": 31146,
+        "name": "Raid Target",
+        "level": 63,
+        "mobType": "MobTypeDragonkin",
+        "stats": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          320,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          54,
+          0,
+          0,
+          3731,
+          0,
+          1428900,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minBaseDamage": 2601,
+        "damageSpread": 0.5,
+        "swingSpeed": 2,
+        "parryHaste": true,
+        "canCrush": true
+      }
+    ]
+  }
+}

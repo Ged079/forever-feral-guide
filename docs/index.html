@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forever Feral Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@700;800&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE  a raid guide from a friend: short, sure, every number simmed.
+   IDEA   a druid's field notebook: one page per step, the damage split laid out like a pelt's stripes.
+   PICTURE the chosen build's DPS, large, over its damage split as one wide striped bar.
+   COLOUR night forest ground, moss support, Rip-red accent, leather tan for numbers.
+   TYPE   Alegreya display, Alegreya Sans body. LAYOUT step tabs, one column, cards in wrapping grids. */
+:root{color-scheme:light dark;
+--bg:light-dark(#eef2ec,#0f1914);--card:light-dark(#ffffff,#16241d);--line:light-dark(#d3dccf,#26392e);
+--ink:light-dark(#14211a,#e6ede6);--mute:light-dark(#566457,#9fb0a2);--moss:light-dark(#2f6b48,#6fbf8a);
+--red:light-dark(#b8322e,#ef6a5f);--tan:light-dark(#8a5d22,#d8ae6b);--bar:light-dark(#2f6b48,#5fae7c)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Alegreya Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Alegreya,Georgia,serif;line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,52px)}h2{font-size:clamp(26px,4vw,34px);margin-bottom:6px}h3{font-size:20px}
+p{margin:.4em 0;max-width:68ch}.mute{color:var(--mute)}.small{font-size:14px;color:var(--mute)}
+a{color:var(--moss)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px}
+nav a{flex:none;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:500;font-size:15px;min-height:40px;display:flex;align-items:center}
+nav a:hover,nav a:focus-visible{border-color:var(--moss);outline:none}
+section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+.hero{padding-top:clamp(26px,4vw,48px)}
+.kicker{color:var(--tan);font-weight:700;font-size:15px;margin-bottom:6px}
+.pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:22px 0}
+.bcard{text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;min-height:44px}
+.bcard[aria-pressed=true]{border-color:var(--moss);box-shadow:0 0 0 3px color-mix(in srgb,var(--moss) 22%,transparent)}
+.bcard:focus-visible{outline:3px solid var(--moss);outline-offset:2px}
+.bhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.tag{font-size:13px;font-weight:700;border-radius:6px;padding:2px 8px;background:color-mix(in srgb,var(--moss) 18%,transparent);color:var(--moss)}
+.big{font-family:Alegreya,serif;font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1;color:var(--tan)}
+.lens{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--mute);margin-top:4px}
+.lens b{color:var(--ink);font-weight:700}
+.pelt{display:flex;height:54px;border-radius:12px;overflow:hidden;margin:14px 0 8px}
+.pelt span{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.rows{list-style:none;margin:8px 0 0;padding:0}
+.rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,38%);gap:4px 12px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
+.rows li:first-child{border-top:0}
+.rows .nm b{font-weight:700}.rows .nm small{display:block;color:var(--mute);font-size:14px;line-height:1.4}
+.val{display:grid;gap:4px;justify-items:end;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.val b{font-size:15px}.meter{width:100%;height:8px;border-radius:4px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}
+.meter span{display:block;height:100%;background:var(--bar);border-radius:4px}
+.neg b{color:var(--red)}.zero b{color:var(--mute);font-weight:400}
+.copy{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
+code{font:15px/1.4 ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;background:var(--moss);color:var(--bg);padding:10px 16px;min-height:44px;cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--tan);outline-offset:2px}
+ol.loop{list-style:none;counter-reset:s;margin:10px 0 0;padding:0}
+ol.loop li{counter-increment:s;display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+ol.loop li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--moss);color:var(--bg);font-weight:700}
+ol.loop.open li::before{background:var(--tan)}
+.note{border-left:3px solid var(--tan);padding:6px 0 6px 12px;margin:12px 0;color:var(--ink)}
+.fig{position:relative;height:220px;margin-top:8px}.fig svg{position:absolute;inset:0;width:100%;height:100%}
+table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:700;color:var(--mute);border-top:0}td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+footer{padding:28px 0 48px}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-top:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.stack td:empty{display:none}.pelt{height:44px}.pelt span{font-size:12px}}
+@media(prefers-reduced-motion:no-preference){.meter span,.pelt span{transition:width .35s ease}}
+</style>
+</head>
+<body>
+<nav aria-label="Steps"><div class="wrap">
+<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#method">How we tested</a>
+</div></nav>
+
+<main class="wrap">
+<section class="hero" id="build">
+  <div class="kicker">WoW Forever · Phase 1 · level 60 · Feral Cat</div>
+  <h1>Play Feral Cat in five steps</h1>
+  <p class="mute">Pick a build, copy its talents, learn one short loop, bring the right consumables. Every number here comes from WoWSims Forever, so you can trust the order without doing the maths.</p>
+  <div class="pick" id="pick"></div>
+  <div class="card" id="hero"></div>
+</section>
+
+<section id="talents">
+  <h2>Talents</h2>
+  <p class="mute">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
+  <div class="copy"><code id="tstr"></code><button class="btn" id="copyt" type="button">Copy talent string</button></div>
+  <ul class="rows" id="tlist"></ul>
+</section>
+
+<section id="play">
+  <h2>How to play</h2>
+  <p class="mute">The sim's own rotation (Adaptive Cat), written as plain steps. Every global, take the first step that's ready.</p>
+  <div class="grid2">
+    <div class="card"><h3>Opener</h3><ol class="loop open" id="opener"></ol></div>
+    <div class="card"><h3>The loop</h3><ol class="loop" id="loop"></ol><p class="note" id="loopend"></p><p class="small" id="cds"></p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Per 3 minute fight</h3><div class="legend" id="casts" style="margin-top:8px"></div></div>
+</section>
+
+<section id="prep">
+  <h2>Before the pull</h2>
+  <p class="mute" id="preptotal"></p>
+  <div class="grid2">
+    <div class="card"><h3>Consumables</h3><p class="small">What you lose without each one, with everything else on.</p><ul class="rows" id="cons"></ul></div>
+    <div class="card"><h3>Raid buffs &amp; debuffs</h3><p class="small">Same idea: the DPS each one brings you.</p><ul class="rows" id="buffs"></ul><p class="note" id="armor"></p></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Swaps</h3><p class="small">Swap the first for the second: change in DPS.</p><ul class="rows" id="swaps"></ul></div>
+    <div class="card"><h3>Race</h3><p class="small" id="racenote"></p><ul class="rows" id="races"></ul></div>
+  </div>
+</section>
+
+<section id="gear">
+  <h2>Gear &amp; stats</h2>
+  <div class="grid2">
+    <div class="card"><h3>Stat weights</h3><p class="small">DPS per point, with Agility = 1. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste.</p><ul class="rows" id="ep"></ul></div>
+    <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the pre-raid set.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>The pre-raid set these numbers use</h3>
+    <p class="small">The sim's preset, the same for both builds. Its two trinkets are the Horde and Alliance versions of the same item; in game you get one, so fill the other slot with your best trinket.</p>
+    <table class="stack"><thead><tr><th>Slot</th><th>Item</th><th>Enchant</th></tr></thead><tbody id="gearrows"></tbody></table>
+  </div>
+</section>
+
+<section id="method">
+  <h2>How we tested</h2>
+  <div class="card">
+    <p id="methodp"></p>
+    <p>A talent's, consumable's or buff's worth is the build's DPS minus the same build without it, on the same seed. Races are one sim each in the same gear. Stat weights add and remove a small amount of each stat (20,000 iterations each) and divide the gap.</p>
+    <p>Rerun on seeds with no iterations in common, every figure here moved by about 0.5 DPS or less, so treat gaps under 1 DPS as ties.</p>
+    <h3 style="margin-top:14px">Least certain</h3>
+    <ul>
+      <li><b>Gear is the sim's preset</b>, not a full slot-by-slot search like the hunter guide's. The ranking of builds and talents should hold; your own gear will move the exact numbers.</li>
+      <li><b>Bonuses that need a zone or creature type</b> (like the Rune of the Guard Captain's) don't count on the test boss.</li>
+      <li><b>Rend and Tear</b> assumes the boss is bleeding. Your own Rake and Rip cover that: with no other bleeder you lose <span id="bleed"></span> DPS.</li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer class="wrap small" id="foot"></footer>
+
+<script>
+{
+const D = {"builds":{"cat":{"name":"Cat","sub":"Shred build, 2/2 Blood Frenzy","difficulty":"Medium","main":true,"when":"Pure damage. Shred is your builder, Rip and Rake stay up, Bite between Rips.","talentsString":"050021-53200032123012125001-055","dps":{"90":955.3,"180":950.2,"300":949.3},"talents":[{"name":"Shifting Power","tree":"Feral Combat","points":1,"max":1,"spell":1322605,"all":169.5,"last":null,"text":"Turns mana into energy instantly, on an 8 s cooldown. Use it at 53 energy or less, about 23 times in a 3 minute fight. The biggest talent in the tree."},{"name":"Naturalist","tree":"Restoration","points":5,"max":5,"spell":17069,"all":84.3,"last":16.9,"text":"All your damage goes up by a flat percent."},{"name":"Rend and Tear","tree":"Feral Combat","points":5,"max":5,"spell":1223246,"all":83.8,"last":16.8,"text":"Your melee abilities hit harder on a bleeding target. Your own Rake and Rip keep the boss bleeding."},{"name":"Sharpened Claws","tree":"Feral Combat","points":2,"max":2,"spell":16942,"all":47.9,"last":23.9,"text":"More crit in Cat Form."},{"name":"Natural Instinct","tree":"Feral Combat","points":2,"max":2,"spell":1223242,"all":37.3,"last":18.6,"text":"Bigger crits on your melee abilities."},{"name":"Shredding Attacks","tree":"Feral Combat","points":3,"max":3,"spell":16966,"all":35.2,"last":38.5,"text":"Cheaper Shred. This is what makes Shred your builder; without it you Claw."},{"name":"Savage Fury","tree":"Feral Combat","points":2,"max":2,"spell":16998,"all":35.0,"last":17.5,"text":"More damage on Claw, Rake and Shred."},{"name":"Nature's Majesty","tree":"Balance","points":2,"max":2,"spell":1223082,"all":31.8,"last":15.7,"text":"More crit, melee included."},{"name":"Genesis","tree":"Balance","points":5,"max":5,"spell":1223081,"all":28.7,"last":5.7,"text":"Your bleeds (Rake, Rip) tick harder."},{"name":"Predatory Strikes","tree":"Feral Combat","points":3,"max":3,"spell":16972,"all":24.0,"last":8.0,"text":"Attack power in Cat Form, scaled to your level."},{"name":"Leader of the Pack","tree":"Feral Combat","points":1,"max":1,"spell":17007,"all":24.0,"last":null,"text":"+crit for you and your party. Worth this much to you alone; more to the raid."},{"name":"Heart of the Wild","tree":"Restoration","points":5,"max":5,"spell":17003,"all":18.9,"last":4.1,"text":"More Strength in Cat Form (and Intellect for mana)."},{"name":"Blood Frenzy","tree":"Feral Combat","points":2,"max":2,"spell":16958,"all":18.8,"last":18.4,"text":"Builder crits can give an extra combo point, so you reach 4 points faster."},{"name":"Ferocity","tree":"Feral Combat","points":5,"max":5,"spell":16934,"all":14.0,"last":4.4,"text":"Cheaper Claw and Rake. Worth a lot more on Hybrid, which Claws."},{"name":"Nature's Reach","tree":"Balance","points":1,"max":2,"spell":16819,"all":11.8,"last":null,"text":"+2% hit per point. Each point saves you 20 hit rating on gear."},{"name":"Predatory Discipline","tree":"Feral Combat","points":1,"max":1,"spell":1328613,"all":4.9,"last":null,"text":"Ferocious Bite stops eating your extra energy but still hits harder with it. Lets you weave Bites in while Rip runs."},{"name":"Furor","tree":"Feral Combat","points":3,"max":5,"spell":17056,"all":3.0,"last":1.1,"text":"Energy back when you shift into Cat Form. Barely matters, since you rarely leave it."},{"name":"Feral Swiftness","tree":"Feral Combat","points":2,"max":2,"spell":17002,"all":0.0,"last":0.0,"text":"Run speed and dodge. No DPS."},{"name":"Feral Charge","tree":"Feral Combat","points":1,"max":1,"spell":1238122,"all":0.0,"last":null,"text":"Bear charge. Utility."}],"ep":[["Agility",1.0],["Strength",0.9],["Crit Rating",0.78],["Hit Rating",0.75],["Expertise Rating",0.74],["Haste Rating",0.41],["Attack Power",0.37],["Armor Penetration",0.12]],"hitCap":60,"hitCurve":[[-46,920.4],[-36,920.4],[-26,920.5],[-16,922.4],[-6,928.9],[4,933.6],[14,938.8],[24,944.4],[34,950.0],[44,955.5],[54,960.8],[64,964.0],[74,964.1],[84,964.1],[94,964.1],[104,964.2],[114,964.3]],"loop":[["Shifting Power","At 53 energy or less, whenever it is off cooldown (8 s)."],["Ferocious Bite (mid-fight)","At 4+ combo points, while Rip still has 3+ s left and you have 75 energy (60 at 5 points, 45 with Clearcasting)."],["Clearcasting \u2192 Shred","A free Shred whenever Clearcasting is up and Bite is not ready."],["Rip","When it is down, at 4 (5 if one more Shred still leaves energy for Rip right after) combo points, if 8+ s of the fight are left."],["Rake","When it is down, if 6+ s of the fight are left."],["Shred","Your builder. Hold it back when you are pooling energy for a Bite."],["Innervate","Under 1400 mana with 30 energy or less, then shift back to Cat."]],"races":{"Night Elf":959.6,"Tauren":950.2,"High Order Skyborne":957.5,"Windshaper Skyborne":956.1},"parts":[["Shred",26.4],["Rip",23.2],["Melee swings",23.0],["Rake",14.4],["Windfury Totem",7.2],["Ferocious Bite",4.2],["Other",1.6]],"casts":{"Shred":50.6,"Rip":13.7,"Rake":18.5,"Ferocious Bite":4.2,"Shifting Power":23.4}},"hybrid":{"name":"Hybrid","sub":"Claw build, can tank","difficulty":"Easy","when":"Takes Thick Hide, Lacerate and Primal Bite so you can bear tank when needed. Claw replaces Shred, so you never need to be behind the boss.","talentsString":"050012-50230302123110125011-055","dps":{"90":895.3,"180":889.9,"300":891.5},"talents":[{"name":"Shifting Power","tree":"Feral Combat","points":1,"max":1,"spell":1322605,"all":179.0,"last":null,"text":"Turns mana into energy instantly, on an 8 s cooldown. Use it at 53 energy or less, about 23 times in a 3 minute fight. The biggest talent in the tree."},{"name":"Naturalist","tree":"Restoration","points":5,"max":5,"spell":17069,"all":78.8,"last":15.8,"text":"All your damage goes up by a flat percent."},{"name":"Rend and Tear","tree":"Feral Combat","points":5,"max":5,"spell":1223246,"all":75.6,"last":15.1,"text":"Your melee abilities hit harder on a bleeding target. Your own Rake and Rip keep the boss bleeding."},{"name":"Ferocity","tree":"Feral Combat","points":5,"max":5,"spell":16934,"all":49.4,"last":10.9,"text":"Cheaper Claw and Rake. Worth a lot more on Hybrid, which Claws."},{"name":"Sharpened Claws","tree":"Feral Combat","points":2,"max":2,"spell":16942,"all":42.6,"last":21.2,"text":"More crit in Cat Form."},{"name":"Natural Instinct","tree":"Feral Combat","points":2,"max":2,"spell":1223242,"all":32.6,"last":16.3,"text":"Bigger crits on your melee abilities."},{"name":"Savage Fury","tree":"Feral Combat","points":2,"max":2,"spell":16998,"all":32.1,"last":16.1,"text":"More damage on Claw, Rake and Shred."},{"name":"Genesis","tree":"Balance","points":5,"max":5,"spell":1223081,"all":28.4,"last":5.7,"text":"Your bleeds (Rake, Rip) tick harder."},{"name":"Predatory Strikes","tree":"Feral Combat","points":3,"max":3,"spell":16972,"all":22.4,"last":7.5,"text":"Attack power in Cat Form, scaled to your level."},{"name":"Leader of the Pack","tree":"Feral Combat","points":1,"max":1,"spell":17007,"all":21.4,"last":null,"text":"+crit for you and your party. Worth this much to you alone; more to the raid."},{"name":"Nature's Reach","tree":"Balance","points":2,"max":2,"spell":16819,"all":21.3,"last":10.0,"text":"+2% hit per point. Each point saves you 20 hit rating on gear."},{"name":"Heart of the Wild","tree":"Restoration","points":5,"max":5,"spell":17003,"all":18.1,"last":3.7,"text":"More Strength in Cat Form (and Intellect for mana)."},{"name":"Nature's Majesty","tree":"Balance","points":1,"max":2,"spell":1223082,"all":14.2,"last":null,"text":"More crit, melee included."},{"name":"Predatory Discipline","tree":"Feral Combat","points":1,"max":1,"spell":1328613,"all":0.5,"last":null,"text":"Ferocious Bite stops eating your extra energy but still hits harder with it. Lets you weave Bites in while Rip runs."},{"name":"Feral Swiftness","tree":"Feral Combat","points":2,"max":2,"spell":17002,"all":0.0,"last":0.0,"text":"Run speed and dodge. No DPS."},{"name":"Feral Instinct","tree":"Feral Combat","points":3,"max":3,"spell":16947,"all":0.0,"last":0.0,"text":"Bear Swipe damage. Tank talent."},{"name":"Thick Hide","tree":"Feral Combat","points":3,"max":3,"spell":16929,"all":0.0,"last":0.0,"text":"Armor. Tank talent."},{"name":"Feral Charge","tree":"Feral Combat","points":1,"max":1,"spell":1238122,"all":0.0,"last":null,"text":"Bear charge. Utility."},{"name":"Lacerate","tree":"Feral Combat","points":1,"max":1,"spell":1328617,"all":0.0,"last":null,"text":"Bear bleed. Tank talent."},{"name":"Primal Bite","tree":"Feral Combat","points":1,"max":1,"spell":407995,"all":0.0,"last":null,"text":"Bear threat attack. Tank talent."}],"ep":[["Agility",1.0],["Strength",0.91],["Expertise Rating",0.79],["Crit Rating",0.77],["Hit Rating",0.51],["Haste Rating",0.45],["Attack Power",0.38],["Armor Penetration",0.12]],"hitCap":40,"hitCurve":[[-46,850.1],[-36,851.9],[-26,858.3],[-16,863.6],[-6,868.3],[4,874.0],[14,879.5],[24,884.6],[34,889.7],[44,892.8],[54,892.8],[64,892.9],[74,892.9],[84,893.0],[94,893.0],[104,893.0],[114,893.1]],"loop":[["Shifting Power","At 53 energy or less, whenever it is off cooldown (8 s)."],["Ferocious Bite (mid-fight)","At 5+ combo points, while Rip still has 4+ s left and you have 75 energy (60 at 5 points, 45 with Clearcasting)."],["Clearcasting \u2192 Shred","A free Shred whenever Clearcasting is up and Bite is not ready."],["Rip","When it is down, at 4 (5 if one more Claw still leaves energy for Rip right after) combo points, if 8+ s of the fight are left."],["Rake","When it is down, if 6+ s of the fight are left."],["Claw","Your builder. Hold it back when you are pooling energy for a Bite."],["Innervate","Under 1400 mana with 30 energy or less, then shift back to Cat."]],"races":{"Night Elf":897.3,"Tauren":889.9,"High Order Skyborne":896.9,"Windshaper Skyborne":895.6},"parts":[["Rip",24.8],["Melee swings",24.6],["Claw",22.1],["Rake",14.9],["Windfury Totem",8.0],["Shred",3.1],["Other",2.5]],"casts":{"Shred":5.5,"Claw":49.9,"Rip":13.8,"Rake":17.9,"Ferocious Bite":0.9,"Shifting Power":23.5}}},"meta":{"iterations":3000,"forever":"a73af71","date":"2026-11-22"},"consumables":[{"name":"Elixir of Cunning","id":250328,"v":19.2},{"name":"Dense Weightstone","id":12643,"v":18.7},{"name":"Ground Scorpok Assay","id":8412,"v":17.7},{"name":"Elixir of the Grizzly","id":250351,"v":16.1},{"name":"Flask of Natural Aggression","id":274274,"v":15.7},{"name":"Swiftstrike Steak","id":250072,"v":14.5},{"name":"Juju Might","id":12460,"v":10.7},{"name":"Mighty Rage Potion","id":13442,"v":5.0},{"name":"Goblin Sapper Charge","id":10646,"v":4.6},{"name":"Greater Mageblood Elixir","id":250341,"v":1.7},{"name":"Demonic Rune","id":12662,"v":1.1},{"name":"EZ-Thro Dark Bomb","id":260817,"v":1.0},{"name":"Elixir of Sages","id":250338,"v":0.7},{"name":"Major Mana Potion","id":13444,"v":0.3},{"name":"Elixir of the Phalanx","id":250329,"v":0.0}],"swaps":[{"slot":"flaskId","from":"Flask of Natural Aggression","to":"Flask of Natural Accuracy","toId":274273,"v":-5.7},{"slot":"flaskId","from":"Flask of Natural Aggression","to":"Flask of Natural Precision","toId":274275,"v":-5.8},{"slot":"flaskId","from":"Flask of Natural Aggression","to":"Flask of Natural Swiftness","toId":274276,"v":-10.8},{"slot":"foodId","from":"Swiftstrike Steak","to":"Smoked Desert Dumplings","toId":20452,"v":-1.6},{"slot":"foodId","from":"Swiftstrike Steak","to":"Mightfish Steak","toId":13934,"v":-3.9},{"slot":"mhImbueId","from":"Dense Weightstone","to":"Elemental Sharpening Stone","toId":18262,"v":-3.5},{"slot":"offensivePotId","from":"Mighty Rage Potion","to":"Major Frenzy Potion","toId":250943,"v":-2.3},{"slot":"elixirIds","from":"Elixir of Cunning","to":"Elixir of the Mongoose","toId":13452,"v":-1.4},{"slot":"elixirIds","from":"Elixir of Cunning","to":"Elixir of Ferocity","toId":250350,"v":-11.4},{"slot":"elixirIds","from":"Elixir of the Grizzly","to":"Elixir of Brute Force","toId":13453,"v":-4.7},{"slot":"extraIds","from":"Juju Might","to":"Winterfall Firewater","toId":12820,"v":-1.3},{"slot":"explosiveId","from":"EZ-Thro Dark Bomb","to":"Dense Dynamite","toId":18641,"v":1.5}],"buffs":[{"name":"Windfury Totem","v":72.0},{"name":"Grace of Air Totem","v":55.8},{"name":"Greater Blessing of Kings","v":48.3},{"name":"Judgement of Wisdom","v":34.0},{"name":"Battle Shout","v":31.0},{"name":"Strength of Earth Totem","v":27.2},{"name":"Gift of Arthas","v":22.7},{"name":"Mark of the Wild","v":21.9},{"name":"Arcane Intellect","v":1.8},{"name":"Prayer of Spirit","v":1.4},{"name":"Judgement of Light","v":0.4},{"name":"Curse of the Elements","v":0.4},{"name":"Insect Swarm","v":0.0}],"armor":{"sunderArmor":147.9,"exposeArmor":150.3,"faerieFire":2.3,"curseOfRecklessness":2.3},"armorAll":153.2,"otherBleed":2.8,"totals":{"base":950.2,"consumables":142.1,"buffs":385.1},"races":[["Night Elf","Alliance","Elune's Light: +10% crit for 15 s"],["Tauren","Horde","War Stomp, +5% health"],["High Order Skyborne","Alliance","+2% haste"],["Windshaper Skyborne","Horde","+2% haste"]],"gear":[{"slot":"Head","id":8345,"name":"Wolfshead Helm","enchant":"Lesser Arcane Amalgamation"},{"slot":"Neck","id":19491,"name":"Amulet of the Darkmoon","enchant":"Agility"},{"slot":"Shoulder","id":271955,"name":"Theramore Pauldrons","enchant":null},{"slot":"Back","id":18511,"name":"Shifting Cloak","enchant":"Agility"},{"slot":"Chest","id":252484,"name":"Timbermaw Tunic","enchant":"Greater Stats"},{"slot":"Wrist","id":19587,"name":"Forest Stalker's Bracers","enchant":"Agility"},{"slot":"Hands","id":19049,"name":"Timbermaw Brawlers","enchant":"Superior Agility"},{"slot":"Waist","id":272396,"name":"Shifter's Belt","enchant":null},{"slot":"Legs","id":15065,"name":"Warbear Woolies","enchant":"Lesser Arcane Amalgamation"},{"slot":"Feet","id":12553,"name":"Swiftwalker Boots","enchant":"Greater Agility"},{"slot":"Ring","id":19325,"name":"Don Julio's Band","enchant":null},{"slot":"Ring","id":275981,"name":"Warden's Signet of Ferocity","enchant":null},{"slot":"Trinket","id":19120,"name":"Rune of the Guard Captain","enchant":null},{"slot":"Trinket","id":270275,"name":"Cleansed Vilebranch Medallion","enchant":null},{"slot":"Weapon","id":19323,"name":"The Unstoppable Force","enchant":"Superior Impact"},{"slot":"Idol","id":272427,"name":"Howling Idol","enchant":null}],"gearHit":34,"opener":[["Before the pull","Prowl about 1 s before, then Dash in as the pull starts."],["Faerie Fire","Keep it on the boss if nobody else does. If the raid already has it up, skip it."],["Into the loop","Rake, build points, Rip. The sim rarely opens with Ravage, so skip it."]],"loopEnd":"Last 8 s: no new Rip; Bite at 5 points. Last global: Bite at 2+ points.","cooldowns":"On cooldown: Mighty Rage Potion, Goblin Sapper Charge, your racial. Major Mana Potion under 1400 mana."};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = v => (Math.abs(v) < 0.5 ? 'nothing' : (v > 0 ? '+' : '−') + Math.abs(v).toFixed(Math.abs(v) < 10 ? 1 : 0));
+const wh = (kind, id, name) => `<a href="https://www.wowhead.com/forever/${kind}=${id}" target="_blank" rel="noopener">${esc(name)}</a>`;
+const COLORS = {'Shred':'#3f8f5e','Claw':'#3f8f5e','Rip':'#c0392b','Melee swings':'#8a6a3b','Rake':'#d0743c','Windfury Totem':'#4f7fa8','Ferocious Bite':'#9b5fb0','Other':'#7c8a80'};
+let build = 'cat';
+try { const s = localStorage.getItem('ff-build'); if (s && D.builds[s]) build = s; } catch (e) {}
+
+function row(name, sub, v, max, opt = {}) {
+  const cls = opt.label ? '' : Math.abs(v) < 0.5 ? 'zero' : v < 0 ? 'neg' : '';
+  const w = max > 0 ? Math.max(0, Math.min(100, v / max * 100)) : 0;
+  return `<li class="${cls}"><span class="nm"><b>${name}</b>${sub ? `<small>${sub}</small>` : ''}</span>
+    <span class="val"><b>${opt.label ?? fmt(v) + (Math.abs(v) < 0.5 ? '' : ' DPS')}</b>${opt.nobar ? '' : `<span class="meter"><span style="width:${w.toFixed(0)}%"></span></span>`}</span></li>`;
+}
+
+function renderPick() {
+  $('pick').innerHTML = Object.entries(D.builds).map(([id, b]) => `<button class="bcard" type="button" data-b="${id}" aria-pressed="${id === build}">
+    <div class="bhead"><h3>${esc(b.name)}</h3><span class="tag">${esc(b.difficulty)}${b.main ? ' · top DPS' : ''}</span></div>
+    <div class="small">${esc(b.sub)}</div>
+    <div class="big" style="font-size:40px;margin-top:8px">${Math.round(b.dps[180])}<span class="small" style="font-family:inherit"> DPS</span></div>
+    <p class="small" style="margin-top:6px">${esc(b.when)}</p></button>`).join('');
+}
+
+function render() {
+  const b = D.builds[build];
+  renderPick();
+  const top = Math.max(...b.parts.map(p => p[1]));
+  $('hero').innerHTML = `<div class="bhead"><div><div class="small">You picked</div><h3 style="font-size:28px">${esc(b.name)}</h3></div>
+    <div style="text-align:right"><div class="big">${Math.round(b.dps[180])}</div><div class="small">DPS, 3 minute boss</div></div></div>
+    <div class="lens"><span>1.5 min <b>${Math.round(b.dps[90])}</b></span><span>3 min <b>${Math.round(b.dps[180])}</b></span><span>5 min <b>${Math.round(b.dps[300])}</b></span></div>
+    <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#7c8a80'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
+    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#7c8a80'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
+
+  $('tstr').textContent = b.talentsString;
+  const tmax = Math.max(...b.talents.map(t => t.all));
+  $('tlist').innerHTML = b.talents.map(t => row(`${wh('spell', t.spell, t.name)} ${t.points}/${t.max}`,
+    esc(t.text) + (t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''), t.all, tmax)).join('');
+
+  $('opener').innerHTML = D.opener.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
+  $('loop').innerHTML = b.loop.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
+  $('loopend').textContent = D.loopEnd;
+  $('cds').textContent = D.cooldowns;
+  $('casts').innerHTML = Object.entries(b.casts).map(([n, c]) => `<span><b>${c}</b> ${esc(n)}</span>`).join('');
+
+  const races = Object.entries(b.races).sort((x, y) => y[1] - x[1]);
+  const best = races[0][1];
+  $('races').innerHTML = races.map(([n, v], i) => {
+    const r = D.races.find(x => x[0] === n);
+    const pct = (v / best - 1) * 100;
+    return row(`${esc(n)} <span class="small">${r[1]}</span>`, esc(r[2]), 100 + pct * 20, 100,
+      {label: `${Math.round(v)}${i ? ' · ' + pct.toFixed(1) + '%' : ' · best'}`});
+  }).join('');
+  $('racenote').textContent = `All four races finish within ${((1 - races[races.length - 1][1] / best) * 100).toFixed(1)}% of each other on ${b.name}. Play the one you like.`;
+
+  const emax = Math.max(...b.ep.map(e => e[1]));
+  $('ep').innerHTML = b.ep.map(([n, e]) => row(esc(n), n === 'Hit Rating' ? `Only until the cap (${b.hitCap} rating from gear).` : '', e, emax, {label: e.toFixed(2)})).join('');
+  $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The pre-raid set has ${D.gearHit}. ${build === 'cat' ? 'Nature’s Reach 1/2 covers 2%.' : 'Nature’s Reach 2/2 covers 4%, so you need less.'}`;
+  drawHit();
+  try { localStorage.setItem('ff-build', build); } catch (e) {}
+}
+
+const svg = $('hitsvg');
+function drawHit() {
+  const b = D.builds[build], pts = b.hitCurve, W = svg.clientWidth, H = svg.clientHeight;
+  if (!W || !H) return;
+  const pad = {l: 44, r: 12, t: 12, b: 28};
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const x0 = Math.max(0, Math.min(...xs)), x1 = Math.max(...xs), y0 = Math.min(...ys) - 4, y1 = Math.max(...ys) + 4;
+  const X = v => pad.l + (v - x0) / (x1 - x0) * (W - pad.l - pad.r), Y = v => pad.t + (1 - (v - y0) / (y1 - y0)) * (H - pad.t - pad.b);
+  const vis = pts.filter(p => p[0] >= x0);
+  const path = vis.map((p, i) => `${i ? 'L' : 'M'}${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join('');
+  const cur = pts.find(p => p[0] === D.gearHit);
+  const ticks = W < 520 ? [0, 40, 80] : [0, 20, 40, 60, 80, 100];
+  const st = getComputedStyle(document.body);
+  const ink = st.getPropertyValue('--mute'), moss = st.getPropertyValue('--bar'), tan = st.getPropertyValue('--tan');
+  svg.innerHTML = `${ticks.filter(t => t <= x1).map(t => `<text x="${X(t)}" y="${H - 8}" fill="${ink}" font-size="12" text-anchor="middle">${t}</text>`).join('')}
+    <text x="4" y="${Y(y1 - 4) + 4}" fill="${ink}" font-size="12">${Math.round(y1 - 4)}</text><text x="4" y="${Y(y0 + 4) + 4}" fill="${ink}" font-size="12">${Math.round(y0 + 4)}</text>
+    <line x1="${X(b.hitCap)}" x2="${X(b.hitCap)}" y1="${pad.t}" y2="${H - pad.b}" stroke="${tan}" stroke-dasharray="4 4"/>
+    <text x="${X(b.hitCap) - 6}" y="${H - pad.b - 10}" text-anchor="end" fill="${tan}" font-size="12">cap ≈ ${b.hitCap}</text>
+    <path d="${path}" fill="none" stroke="${moss}" stroke-width="3"/>
+    ${cur ? `<circle cx="${X(cur[0])}" cy="${Y(cur[1])}" r="6" fill="${tan}"/>` : ''}`;
+}
+const ro = new ResizeObserver(drawHit); ro.observe(svg);
+
+// Build-independent parts
+const cmax = Math.max(...D.consumables.map(c => c.v));
+$('cons').innerHTML = D.consumables.map(c => row(wh('item', c.id, c.name), '', c.v, cmax)).join('');
+const bmax = Math.max(...D.buffs.map(c => c.v));
+$('buffs').innerHTML = D.buffs.map(c => row(esc(c.name), '', c.v, bmax)).join('');
+const A = D.armor;
+$('armor').innerHTML = `<b>Armor debuffs:</b> Sunder Armor (${fmt(A.sunderArmor)}) or Expose Armor (${fmt(A.exposeArmor)}) alone gets nearly all of it; both together give ${fmt(D.armorAll)}. You cast your own Faerie Fire, so the raid's Faerie Fire or Curse of Recklessness adds only ${fmt(A.faerieFire)}.`;
+$('swaps').innerHTML = D.swaps.map(s => row(`${esc(s.from)} → ${wh('item', s.toId, s.to)}`, '', s.v, 0, {nobar: true})).join('');
+$('preptotal').innerHTML = `On the Cat build, consumables are worth <b>${Math.round(D.totals.consumables)} DPS</b> together and raid buffs and debuffs <b>${Math.round(D.totals.buffs)}</b>, out of ${Math.round(D.totals.base)}. The numbers below are for Cat; Hybrid's follow the same order.`;
+$('gearrows').innerHTML = D.gear.map(g => `<tr><td data-l="Slot">${esc(g.slot)}</td><td data-l="Item">${wh('item', g.id, g.name)}</td><td data-l="Enchant">${esc(g.enchant || '')}</td></tr>`).join('');
+$('bleed').textContent = D.otherBleed.toFixed(1);
+$('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Tauren in the sim's pre-raid set, full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
+$('foot').innerHTML = `Simmed ${D.meta.date} · WoWSims Forever <code>${D.meta.forever}</code> · inspired by the Forever Hunter Guide`;
+
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-b]');
+  if (c) { build = c.dataset.b; render(); return; }
+  if (e.target.closest('#copyt')) {
+    const btn = $('copyt'), s = D.builds[build].talentsString;
+    const done = ok => { btn.textContent = ok ? 'Copied ✓' : 'Select and copy'; setTimeout(() => btn.textContent = 'Copy talent string', 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(s).then(() => done(true), () => done(false)); else done(false);
+  }
+});
+render();
+}
+</script>
+</body>
+</html>

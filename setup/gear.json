@@ -1,0 +1,98 @@
+[
+ {
+  "slot": "Head",
+  "id": 8345,
+  "name": "Wolfshead Helm",
+  "enchant": "Lesser Arcane Amalgamation"
+ },
+ {
+  "slot": "Neck",
+  "id": 19491,
+  "name": "Amulet of the Darkmoon",
+  "enchant": "Enchant Boots - Agility"
+ },
+ {
+  "slot": "Shoulder",
+  "id": 271955,
+  "name": "Theramore Pauldrons",
+  "enchant": null
+ },
+ {
+  "slot": "Back",
+  "id": 18511,
+  "name": "Shifting Cloak",
+  "enchant": "Enchant Cloak - Agility"
+ },
+ {
+  "slot": "Chest",
+  "id": 252484,
+  "name": "Timbermaw Tunic",
+  "enchant": "Enchant Chest - Greater Stats"
+ },
+ {
+  "slot": "Wrist",
+  "id": 19587,
+  "name": "Forest Stalker's Bracers",
+  "enchant": "Enchant Bracer - Superior Agility"
+ },
+ {
+  "slot": "Hands",
+  "id": 19049,
+  "name": "Timbermaw Brawlers",
+  "enchant": "Enchant Weapon - Agility"
+ },
+ {
+  "slot": "Waist",
+  "id": 272396,
+  "name": "Shifter's Belt",
+  "enchant": null
+ },
+ {
+  "slot": "Legs",
+  "id": 15065,
+  "name": "Warbear Woolies",
+  "enchant": "Lesser Arcane Amalgamation"
+ },
+ {
+  "slot": "Feet",
+  "id": 12553,
+  "name": "Swiftwalker Boots",
+  "enchant": "Enchant Boots - Greater Agility"
+ },
+ {
+  "slot": "Ring",
+  "id": 19325,
+  "name": "Don Julio's Band",
+  "enchant": null
+ },
+ {
+  "slot": "Ring",
+  "id": 275981,
+  "name": "Warden's Signet of Ferocity",
+  "enchant": null
+ },
+ {
+  "slot": "Trinket",
+  "id": 19120,
+  "name": "Rune of the Guard Captain",
+  "enchant": null
+ },
+ {
+  "slot": "Trinket",
+  "id": 270275,
+  "name": "Cleansed Vilebranch Medallion",
+  "enchant": null
+ },
+ {
+  "slot": "Weapon",
+  "id": 19323,
+  "name": "The Unstoppable Force",
+  "enchant": "Enchant 2H Weapon - Superior Impact"
+ },
+ {
+  "slot": "Idol",
+  "id": 272427,
+  "name": "Howling Idol",
+  "enchant": null
+ }
+]
