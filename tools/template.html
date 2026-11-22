@@ -96,6 +96,14 @@ ol.loop{list-style:none;counter-reset:s;margin:10px 0 0;padding:0}
 ol.loop li{counter-increment:s;display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line)}
 ol.loop li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--acc);color:var(--on-acc);font:700 17px/1 var(--head)}
 ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:none;align-items:flex-start;justify-content:center;padding:4vh 12px;overflow-y:auto}
+.modal.open{display:flex}
+.mbox{background:var(--card);border:1px solid var(--line);border-radius:16px;width:min(1000px,100%);padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.mhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.mhead h3{font-size:28px}.xbtn{font:inherit;font-size:22px;line-height:1;width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;flex:none}
+.mtrees{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:820px){.mtrees{grid-template-columns:minmax(0,1fr)}}
+.mfoot{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:14px -18px -18px;padding:12px 18px;position:sticky;bottom:-4vh;background:var(--card);border-top:1px solid var(--line);border-radius:0 0 16px 16px}
 .ep{list-style:none;counter-reset:e;margin:10px 0;padding:0}
 .ep li{counter-increment:e;display:grid;grid-template-columns:26px minmax(0,1.1fr) minmax(70px,1.3fr) 44px;gap:12px;align-items:center;padding:7px 0}
 .ep li::before{content:counter(e);color:var(--mute);font:600 17px/1 var(--head)}
@@ -135,7 +143,7 @@ footer{padding:28px 0 48px}
   <p class="small">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
   <ul class="rows" id="tlist"></ul>
   <div class="card" style="margin-top:16px"><h3>Other builds we simmed</h3><p class="small">Same gear, 10,000 iterations each. Gaps under 1 DPS are ties.</p>
-    <table class="stack"><thead><tr><th>Build</th><th>DPS</th><th>vs Cat</th><th>Talents</th></tr></thead><tbody id="altrows"></tbody></table></div>
+    <table class="stack"><thead><tr><th>Build</th><th>DPS</th><th>vs Cat</th><th></th></tr></thead><tbody id="altrows"></tbody></table></div>
 </section>
 
 <section id="play">
@@ -199,6 +207,11 @@ footer{padding:28px 0 48px}
   </div>
 </section>
 </main>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox">
+  <div class="mhead"><div><div class="small">Talent build</div><h3 id="mtitle"></h3><div class="small" id="msub"></div></div><button class="xbtn" type="button" id="mclose" aria-label="Close">×</button></div>
+  <div class="mtrees" id="mtrees"></div>
+  <div class="mfoot"><button class="btn" type="button" id="mcopy">Copy talent string</button><span class="small" id="mpts"></span><span class="lg small"><i style="border-color:#e0a84a"></i>Different from the main Cat build</span></div>
+</div></div>
 <footer class="wrap small" id="foot"></footer>
 
 <script>
@@ -313,6 +326,30 @@ function renderTalents() {
     + `<div class="tfoot"><span class="lg"><i style="border-color:#e0a84a"></i>Core · 40+ DPS</span><span class="lg"><i style="border-color:#5aa3d6"></i>Good · 10–40</span><span class="lg"><i style="border-color:#9a9da4"></i>Small · under 10</span><span class="lg"><span class="ti-i" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#fff;border:1px solid #888;color:#111;font:700 11px/16px Georgia,serif;text-align:center">i</span>Worth reading</span><span>Faded = not taken</span>
       <span class="sp"></span><span>${totals.join(' / ')}</span><button class="btn" id="copyt" type="button">Copy talent string</button></div>`;
 }
+function plainTrees(str) {
+  const pts = str.split('-').map(x => x.split('').map(Number));
+  const base = D.builds.cat.talentsString.split('-').map(x => x.split('').map(Number));
+  return D.trees.map((tr, ti) => {
+    const P = pts[ti] || [];
+    const total = tr.talents.reduce((t, x, i) => t + (P[i] || 0), 0);
+    return `<div class="tcol"><div class="bg" style="background-image:url(${D.treeBg[ti]})"></div><div class="th"><b>${esc(tr.name)}</b><span>${total} pts</span></div>
+      <div class="tg">${tr.talents.map((x, i) => { const n = P[i] || 0, d = n !== ((base[ti] || [])[i] || 0); return `<span class="ti${n ? ' on' : ''}${d ? ' t-core' : ''}" title="${esc(x.n)} ${n}/${x.m}${d ? ' (Cat build: ' + ((base[ti] || [])[i] || 0) + ')' : ''}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})"><span class="rk">${n}/${x.m}</span></span>`; }).join('')}</div></div>`;
+  }).join('');
+}
+let mStr = '', lastFocus = null;
+function openModal(x) {
+  mStr = x.talents; lastFocus = document.activeElement;
+  $('mtitle').textContent = x.name;
+  $('msub').textContent = `${Math.round(x.dps)} DPS${x.delta ? ' · ' + (Math.abs(x.delta) < 1 ? 'tie with Cat' : fmt(x.delta) + ' vs Cat') : ''} · ${x.note}`;
+  $('mtrees').innerHTML = plainTrees(x.talents);
+  const pts = x.talents.split('-').map(p => p.split('').reduce((t, c) => t + +c, 0));
+  while (pts.length < 3) pts.push(0);
+  $('mpts').textContent = pts.join(' / ') + ' points';
+  $('mcopy').textContent = 'Copy talent string';
+  $('modal').classList.add('open'); document.body.style.overflow = 'hidden'; $('mclose').focus();
+}
+function closeModal() { $('modal').classList.remove('open'); document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+addEventListener('keydown', e => { if (e.key === 'Escape' && $('modal').classList.contains('open')) closeModal(); });
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(renderTalents, 150); });
 const svg = $('hitsvg');
 function drawHit() {
@@ -361,7 +398,7 @@ renderGear();
 $('macronote').textContent = D.macroNote;
 $('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><h3>${esc(t)}</h3><p class="small">${esc(x)}</p><pre style="margin:8px 0"><code id="m${i}">${esc(m)}</code></pre><button class="btn" type="button" data-copy="m${i}">Copy</button></div>`).join('');
 const alts = D.alternatives || [];
-$('altrows').innerHTML = alts.map(x => `<tr><td data-l="Build"><b>${esc(x.name)}</b><div class="small">${esc(x.note)}</div></td><td data-l="DPS" class="n">${Math.round(x.dps)}</td><td data-l="vs Cat" class="n">${x.delta === 0 ? '—' : Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)}</td><td data-l="Talents"><button class="btn ghost" type="button" data-ct="${esc(x.talents)}">Copy</button></td></tr>`).join('');
+$('altrows').innerHTML = alts.map((x, i) => `<tr><td data-l="Build"><b>${esc(x.name)}</b><div class="small">${esc(x.note)}</div></td><td data-l="DPS" class="n">${Math.round(x.dps)}</td><td data-l="vs Cat" class="n">${x.delta === 0 ? '—' : Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)}</td><td data-l="Talents"><button class="btn ghost" type="button" data-view="${i}">View</button></td></tr>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);
 $('rs').textContent = D.restart.map(r => `one from ${Math.round(r.start)} DPS took ${r.steps} moves and ended ${r.final === D.builds.cat.talentsString ? 'on the exact same build' : 'on the bear-ready Cat build below, a tie'}.`).join(' The other, ');
 $('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Tauren in the sim's pre-raid set, full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
@@ -374,6 +411,15 @@ document.addEventListener('click', e => {
   if (tt) { selTal = tt.dataset.t.split(',').map(Number); renderTalents(); return; }
   const f = e.target.closest('[data-f]');
   if (f) { fac = f.dataset.f; renderGear(); return; }
+  const vw = e.target.closest('[data-view]');
+  if (vw) { openModal((D.alternatives || [])[+vw.dataset.view]); return; }
+  if (e.target.closest('#mclose') || e.target.id === 'modal') { closeModal(); return; }
+  if (e.target.closest('#mcopy')) {
+    const btn = $('mcopy');
+    const done = ok => { btn.textContent = ok ? 'Copied ✓' : 'Copy failed'; setTimeout(() => btn.textContent = 'Copy talent string', 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(mStr).then(() => done(true), () => done(false)); else done(false);
+    return;
+  }
   const ct = e.target.closest('[data-ct]');
   if (ct) {
     const lbl = ct.textContent;
