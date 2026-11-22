@@ -123,9 +123,21 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .bignum{font:700 44px/1 var(--head);color:var(--ink)}
 .ico{width:30px;height:30px;border-radius:6px;border:1px solid #4a4d55;vertical-align:middle;margin-right:10px;flex:none}
 #racefull,#prepfull{scroll-margin-top:76px}
-.cname{display:inline-flex;align-items:center}.swp{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.cname{display:inline-flex;align-items:center}.tl{display:flex;gap:12px;align-items:center}.tl .ico{width:40px;height:40px;margin:0}.tl small{display:block;font-weight:400;color:var(--mute);font-size:14px;line-height:1.4;margin-top:2px}.note .cname{display:inline;white-space:nowrap}.note .ico{width:20px;height:20px;margin:0 5px 0 2px;border-radius:4px;vertical-align:-4px}.swp{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
 .bring{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}.bring li{display:flex;align-items:center;gap:10px}.bring .ico{width:36px;height:36px;margin:0}
 .bring .r{font:700 15px/1 var(--head);color:var(--mute);width:14px}
+.whyhd{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.pill{font-size:13px;font-weight:700;border-radius:999px;padding:4px 10px;background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc);white-space:nowrap}
+.pill.neg{background:color-mix(in srgb,var(--mute) 18%,transparent);color:var(--mute)}.pill.tie{background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink)}
+.moves{display:flex;flex-wrap:wrap;gap:8px}
+.mv{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:8px 12px;font-size:14.5px}
+.mv .n{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--acc);color:var(--on-acc);font:700 14px/1 var(--head)}
+.mv .lo{color:var(--mute)}.mv .g{font-weight:700;color:var(--acc);margin-left:4px}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.acard{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.acard.main{border-color:var(--acc)}.ahd{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.adps{font:700 30px/1 var(--head)}.acard p{flex:1;margin:2px 0 8px}.acard .btn{align-self:flex-start;min-height:38px;padding:6px 14px}
+#altgrid{scroll-margin-top:76px}
 .ep{list-style:none;counter-reset:e;margin:10px 0;padding:0}
 .ep li{counter-increment:e;display:grid;grid-template-columns:26px minmax(0,1.1fr) minmax(70px,1.3fr) 44px;gap:12px;align-items:center;padding:7px 0}
 .ep li::before{content:counter(e);color:var(--mute);font:600 17px/1 var(--head)}
@@ -164,8 +176,6 @@ footer{padding:28px 0 48px}
   <h3 style="margin-top:22px">What each point is worth</h3>
   <p class="small">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
   <ul class="rows" id="tlist"></ul>
-  <div class="card" style="margin-top:16px"><h3>Other builds we simmed</h3><p class="small">Same gear, 10,000 iterations each. Gaps under 1 DPS are ties.</p>
-    <table class="stack"><thead><tr><th>Build</th><th>DPS</th><th>vs Cat</th><th></th></tr></thead><tbody id="altrows"></tbody></table></div>
 </section>
 
 <section id="play">
@@ -282,14 +292,15 @@ function render() {
     <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#6b6f77'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
 
 
-  $('found').innerHTML = `<h3>Why this build: ${fmt(b.dps[180] - b.preset[180])} DPS over the sim's own</h3>
-    <p>WoWSims Forever ships its own ${esc(b.name)} build. Starting from it, we simmed every legal way to move points between talents and kept a move only when it added DPS and still did on fresh runs. These are the moves it took, in order; after them, no single move helped.</p>
-    <p class="small">${esc(b.changes)}</p>
-    <ol class="loop" style="margin-top:4px">${b.path.map(([m, g]) => `<li><div><b>${esc(m)}</b><div class="small">${fmt(g)} DPS</div></div></li>`).join('')}</ol>
-    <div class="copy"><button class="btn ghost" type="button" data-ct="${esc(b.presetString)}">Copy the sim's ${esc(b.name)} build</button><span class="small">${Math.round(b.preset[180])} DPS, for comparison</span></div>`;
+  const ALTS = D.alternatives || [];
+  $('found').innerHTML = `<div class="whyhd"><h3>Why this build</h3><span class="pill">${fmt(b.dps[180] - b.preset[180])} DPS over the sim's own ${esc(b.name)}</span></div>
+    <p class="small" style="margin:6px 0 12px">We started from WoWSims Forever's ${esc(b.name)} build, simmed every legal way to move points, and kept only moves that added DPS on fresh runs. These are the moves; after them, nothing helped.</p>
+    <div class="moves">${b.path.map(([m, g], i) => { const [a, c] = m.split(' → '); return `<span class="mv"><span class="n">${i + 1}</span><span><span class="lo">${esc(a)}</span> → <b>${esc(c)}</b></span><span class="g">${fmt(g)}</span></span>`; }).join('')}</div>
+    <button class="btn ghost" type="button" data-toggle="altgrid" style="margin-top:14px">Show other builds we simmed (${ALTS.length}) →</button>
+    <div id="altgrid" hidden><p class="small" style="margin:12px 0 10px">Same gear, 10,000 iterations each. Gaps under 1 DPS are ties.</p><div class="agrid">${ALTS.map((x, i) => `<div class="acard${i ? '' : ' main'}"><div class="ahd"><b>${esc(x.name)}</b><span class="pill ${i ? (Math.abs(x.delta) < 1 ? 'tie' : 'neg') : ''}">${i ? (Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)) : 'best'}</span></div><div class="adps">${Math.round(x.dps)}<span class="small"> DPS</span></div><p class="small">${esc(x.note)}</p><button class="btn ghost" type="button" data-view="${i}">View tree</button></div>`).join('')}</div></div>`;
   const tmax = Math.max(...b.talents.map(t => t.all));
-  $('tlist').innerHTML = b.talents.map(t => row(`${wh('spell', t.spell, t.name)} ${t.points}/${t.max}`,
-    esc(t.text) + (t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''), t.all, tmax)).join('');
+  const TI = {}; D.trees.forEach(tr => tr.talents.forEach(x => TI[x.n] = D.icons[x.icon.toLowerCase()]));
+  $('tlist').innerHTML = b.talents.map(t => row(`<span class="tl">${TI[t.name] ? `<img class="ico" alt="" src="${TI[t.name]}">` : ''}<span>${wh('spell', t.spell, t.name)} ${t.points}/${t.max}<small>${esc(t.text)}${t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''}</small></span></span>`, '', t.all, tmax)).join('');
 
   renderTalents();
   const IC = n => D.icons[n] ? `<img alt="" src="${D.icons[n]}">` : '';
@@ -419,9 +430,10 @@ const ro = new ResizeObserver(drawHit); ro.observe(svg);
 // Build-independent parts
 
 const bmax = Math.max(...D.buffs.map(c => c.v));
-$('buffs').innerHTML = D.buffs.map(c => row(esc(c.name), '', c.v, bmax)).join('');
+const BIc = n => D.buffIcon[n] && D.icons[D.buffIcon[n]] ? `<img class="ico" alt="" src="${D.icons[D.buffIcon[n]]}">` : '';
+$('buffs').innerHTML = D.buffs.map(c => row(`<span class="cname">${BIc(c.name)}${esc(c.name)}</span>`, '', c.v, bmax)).join('');
 const A = D.armor;
-$('armor').innerHTML = `<b>Armor debuffs:</b> Sunder Armor (${fmt(A.sunderArmor)}) or Expose Armor (${fmt(A.exposeArmor)}) alone gets nearly all of it; both together give ${fmt(D.armorAll)}. You cast your own Faerie Fire, so the raid's Faerie Fire or Curse of Recklessness adds only ${fmt(A.faerieFire)}.`;
+$('armor').innerHTML = `<b>Armor debuffs:</b> <span class="cname">${BIc('Sunder Armor')}Sunder Armor</span> (${fmt(A.sunderArmor)}) or <span class="cname">${BIc('Expose Armor')}Expose Armor</span> (${fmt(A.exposeArmor)}) alone gets nearly all of it; both together give ${fmt(D.armorAll)}. You cast your own <span class="cname">${BIc('Faerie Fire')}Faerie Fire</span>, so the raid's Faerie Fire or <span class="cname">${BIc('Curse of Recklessness')}Curse of Recklessness</span> adds only ${fmt(A.faerieFire)}.`;
 
 $('wcons').textContent = '+' + Math.round(D.totals.consumables);
 $('wbuffs').textContent = '+' + Math.round(D.totals.buffs);
@@ -441,8 +453,6 @@ function renderGear() {
 renderGear();
 $('macronote').textContent = D.macroNote;
 $('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><h3>${esc(t)}</h3><p class="small">${esc(x)}</p><pre style="margin:8px 0"><code id="m${i}">${esc(m)}</code></pre><button class="btn" type="button" data-copy="m${i}">Copy</button></div>`).join('');
-const alts = D.alternatives || [];
-$('altrows').innerHTML = alts.map((x, i) => `<tr><td data-l="Build"><b>${esc(x.name)}</b><div class="small">${esc(x.note)}</div></td><td data-l="DPS" class="n">${Math.round(x.dps)}</td><td data-l="vs Cat" class="n">${x.delta === 0 ? '—' : Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)}</td><td data-l="Talents"><button class="btn ghost" type="button" data-view="${i}">View</button></td></tr>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);
 $('rs').textContent = D.restart.map(r => `one from ${Math.round(r.start)} DPS took ${r.steps} moves and ended ${r.final === D.builds.cat.talentsString ? 'on the exact same build' : 'on the bear-ready Cat build below, a tie'}.`).join(' The other, ');
 $('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Tauren in the sim's pre-raid set, full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;

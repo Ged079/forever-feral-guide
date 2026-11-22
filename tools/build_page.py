@@ -148,6 +148,7 @@ data['weaponNotes'] = [
     "<b>Enchant:</b> Superior Impact (+9 weapon damage) edges out +25 Agility by about 3 DPS, because the paw uses the weapon's damage.",
     "<b>Idol:</b> Idol of the Dream (Enchanting, or a Sunken Temple drop) is about 13 DPS over the next best, Howling Idol.",
 ]
+data['buffIcon'] = json.load(open('../setup/buff_icons.json'))
 data['macros'] = C.MACROS
 data['macroNote'] = C.MACRO_NOTE
 data['opener'] = C.OPENER
