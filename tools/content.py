@@ -50,7 +50,7 @@ LOOP = [
     ('Shifting Power', 'At 53 energy or less, whenever it is off cooldown (8 s).', ['cat', 'hybrid']),
     ('Ferocious Bite (mid-fight)', 'At {bite_cp}+ combo points, while Rip still has {rip_left}+ s left and you have 75 energy (60 at 5 points, 45 with Clearcasting).', ['cat', 'hybrid']),
     ('Clearcasting → Shred', 'A free Shred whenever Clearcasting is up and Bite is not ready.', ['cat', 'hybrid']),
-    ('Rip', 'When it is down, at {rip_cp} combo points, if 8+ s of the fight are left.', ['cat', 'hybrid']),
+    ('Rip', 'When it is down and 8+ s of the fight are left: at 4 combo points, or 5 if one more Shred still leaves energy for Rip right after.', ['cat', 'hybrid']),
     ('Rake', 'When it is down, if 6+ s of the fight are left.', ['cat', 'hybrid']),
     ('{builder}', 'Your builder. Hold it back when you are pooling energy for a Bite.', ['cat', 'hybrid']),
     ('Innervate', 'Under 1400 mana with 30 energy or less, then shift back to Cat. On fights of 3 minutes or less you can skip it (a few DPS more); on longer ones you need the mana.', ['cat', 'hybrid']),
@@ -104,3 +104,20 @@ CONSUMABLE_NOTE = {
     'cat': 'Sorted by what you lose without it. Everything is on in the setup, so each number is its worth on top of the rest.',
     'hybrid': 'Same consumables, measured on Hybrid.',
 }
+
+
+LOOP_ICONS = {'Shifting Power': 'spell_druid_displacement', 'Ferocious Bite (mid-fight)': 'ability_druid_ferociousbite',
+              'Clearcasting \u2192 Shred': 'spell_shadow_manaburn', 'Rip': 'ability_ghoulfrenzy', 'Rake': 'ability_druid_disembowel',
+              'Shred': 'spell_shadow_vampiricaura', 'Claw': 'ability_druid_rake', 'Innervate': 'spell_nature_lightning'}
+
+# From a sim log of the Cat build: what it casts in the first seconds.
+OPENER_CHIPS = [
+    (['ability_ambush'], 'Prowl', 'before the pull'),
+    (['ability_druid_dash'], 'Dash', 'on the pull'),
+    (['spell_nature_moonglow', 'inv_potion_41', 'spell_fire_selfdestruct'], 'Racial + Mighty Rage Potion + Sapper', 'as you reach the boss'),
+    (['ability_druid_disembowel'], 'Rake', ''),
+    (['spell_shadow_vampiricaura'], 'Shred', ''),
+    (['spell_druid_displacement'], 'Shifting Power', ''),
+    (['spell_shadow_vampiricaura'], 'Shred', 'to 4 points'),
+    (['ability_ghoulfrenzy'], 'Rip', ''),
+]

@@ -72,6 +72,7 @@ for b, cons in R['consumables'].items():
         'adds': cons['adds']}
 data['alternatives'] = json.load(open('../setup/alternatives.json')) if os.path.exists('../setup/alternatives.json') else []
 bl = R['buffs']['list']
+data['buffRaw'] = {x['key']: x['v'] for x in bl}
 data['buffs'] = sorted([{'name': C.BUFF_NAMES[x['key']], 'v': x['v']} for x in bl
                         if x['kind'] in ('raid', 'blessing', 'debuff') and x['key'] not in
                         ('sunderArmor', 'exposeArmor', 'faerieFire', 'curseOfRecklessness')], key=lambda x: -x['v'])
@@ -150,6 +151,8 @@ data['weaponNotes'] = [
 data['macros'] = C.MACROS
 data['macroNote'] = C.MACRO_NOTE
 data['opener'] = C.OPENER
+data['openerChips'] = C.OPENER_CHIPS
+data['loopIcons'] = C.LOOP_ICONS
 data['loopEnd'] = C.LOOP_END
 data['cooldowns'] = C.COOLDOWNS
 data['restart'] = [{'start': SEARCH[r]['log'][0]['dps'], 'steps': len(SEARCH[r]['log']) - 1, 'final': SEARCH[r]['final']} for r in ('restart1', 'restart4')]
