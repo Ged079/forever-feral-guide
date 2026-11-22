@@ -1,7 +1,7 @@
 # Hand-written prose for the guide. Numbers never live here: they come from results.json.
 
 TALENT_TEXT = {
-    'Shifting Power': 'Turns mana into energy instantly, on an 8 s cooldown. Use it at 53 energy or less, about 23 times in a 3 minute fight. The biggest talent in the tree.',
+    'Shifting Power': 'Turns mana into energy instantly, on an 8 s cooldown. Use it at 53 energy or less, about {sp} times in a 3 minute fight. The biggest talent in the tree.',
     'Naturalist': 'All your damage goes up by a flat percent.',
     'Rend and Tear': 'Your melee abilities hit harder on a bleeding target. Your own Rake and Rip keep the boss bleeding.',
     'Sharpened Claws': 'More crit in Cat Form.',
@@ -13,7 +13,7 @@ TALENT_TEXT = {
     'Predatory Strikes': 'Attack power in Cat Form, scaled to your level.',
     'Heart of the Wild': 'More Strength in Cat Form (and Intellect for mana).',
     'Blood Frenzy': 'Builder crits can give an extra combo point, so you reach 4 points faster.',
-    'Ferocity': 'Cheaper Claw and Rake. Worth a lot more on Hybrid, which Claws.',
+    'Ferocity': 'Cheaper Claw and Rake. Rake is the part that matters here, since both builds Shred.',
     "Nature's Reach": '+2% hit per point. Each point saves you 20 hit rating on gear.',
     'Predatory Discipline': 'Ferocious Bite stops eating your extra energy but still hits harder with it. Lets you weave Bites in while Rip runs.',
     'Furor': 'Energy back when you shift into Cat Form, like after Innervate. Small, but it beats the utility talents.',

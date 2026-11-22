@@ -62,7 +62,7 @@ def main():
                         pick = iid
                         break
             easy[slot] = [pick]
-        data['factions'][fac] = {'race': g['race'], 'dps': g['dps'], 'rankBase': r['base'], 'slots': slots,
+        data['factions'][fac] = {'race': g['race'], 'dps': r['base'], 'rankBase': r['base'], 'slots': slots,
                                  'easy': {k: v[0] for k, v in easy.items()}, 'easyDelta': round(easy_delta, 1), 'easySwaps': swaps,
                                  'enchants': g['enchants'], 'log': g['log']}
     icons = H.load_icons({II.get(i) for i in used if II.get(i)})

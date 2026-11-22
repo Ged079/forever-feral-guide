@@ -40,7 +40,8 @@ SEARCH = {n: json.load(open(f'../setup/search_v1/{n}.json')) for n in ('cat', 'h
 SEARCH['restart4'] = json.load(open('../setup/search/restart4.json'))
 data = {'builds': {}, 'meta': {'iterations': a.sim.ITER, 'forever': 'a73af71', 'date': '2026-11-22'}}
 for b, info in C.BUILDS.items():
-    talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '')) for t in R['talents'][b]]
+    _sp = round(breakdown(b)['casts'].get('Shifting Power', 0))
+    talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '').replace('{sp}', str(_sp))) for t in R['talents'][b]]
     talents.sort(key=lambda t: -t['all'])
     sw = R['stats'][b]['perPoint']
     xw = json.load(open('../setup/extra_weights.json'))
@@ -123,30 +124,43 @@ def source(iid):
     return list(dict.fromkeys(out))[:2]
 
 
+_SFX = {x['id']: x['name'] for x in a.DB['randomSuffixes']}
+RANK = {f: json.load(open(f'../setup/rank/{f}.json')) for f in ('alliance', 'horde')}
+
+
 def gear_card(fac):
     g = json.load(open(f'../setup/gear/cat_{fac}.json'))
     rows = []
     for x in g['gear']:
+        rk = RANK[fac]['slots'].get(x['slot'], {}).get('options', [])
+        seen_n = {x['name']}
+        alts_r = []
+        for o in rk:
+            n = ITEMS[o['id']]['name'] + (' ' + _SFX[o['suffix']] if o.get('suffix') in _SFX else '')
+            if o['id'] != x['id'] and n not in seen_n:
+                seen_n.add(n); alts_r.append({'name': n, 'id': o['id'], 'delta': o['delta']})
         rows.append({'slot': SLOTNAME[x['slot']], 'id': x['id'], 'name': x['name'], 'enchant': enchant_name(x.get('enchant'), x['slot']),
-                     'src': source(x['id']), 'alts': [dict(y, src=source(y['id'])) for y in g['alternatives'].get(x['slot'], [])
+                     'src': source(x['id']), 'alts': [dict(y, src=source(y['id'])) for y in alts_r
                                                      if y['id'] != x['id'] and G.allowed_source(ITEMS[y['id']])][:3]})
-    return {'race': g['race'], 'dps': g['dps'], 'rows': rows, 'log': g['log'], 'enchants': g['enchants']}
+    return {'race': g['race'], 'dps': RANK[fac]['base'], 'rows': rows, 'log': g['log'], 'enchants': g['enchants']}
 
 
 data['gear'] = {f: gear_card(f) for f in ('alliance', 'horde')}
 data['gearHit'] = R['gear']['Hit Rating']
 data['trees'] = json.load(open('../setup/trees.json'))
-data['talentText'] = C.TALENT_TEXT
+data['talentText'] = {k: v.replace('{sp}', str(round(data['builds']['cat']['casts'].get('Shifting Power', 22)))) for k, v in C.TALENT_TEXT.items()}
 _TA = json.load(open('../setup/talent_assets.json'))
 data['icons'] = _TA['icons']
 data['treeBg'] = _TA['bg']
+_ir = [o for o in RANK['alliance']['slots']['ranged']['options'] if o['delta'] < 0][0]
+_idol = (ITEMS[_ir['id']]['name'], _ir['delta'])
 xw = json.load(open('../setup/extra_weights.json'))
 wd = round(xw['Weapon DPS'] / xw['Agility'], 1)
 data['weaponNotes'] = [
     f"<b>Weapon DPS matters.</b> In Forever, Cat Form's claws hit harder with a higher-DPS weapon: each point of weapon DPS is worth about {wd} Agility. A slow, hard-hitting two-hander beats a stat stick.",
     "<b>Best:</b> The Unstoppable Force (Alterac Valley vendor). Without AV reputation: Bonecrusher, then Brutehammer.",
     "<b>Enchant:</b> Superior Impact (+9 weapon damage) edges out +25 Agility by about 3 DPS, because the paw uses the weapon's damage.",
-    "<b>Idol:</b> Idol of the Dream (Enchanting, or a Sunken Temple drop) is about 13 DPS over the next best, Howling Idol.",
+    f"<b>Idol:</b> Idol of the Dream (Enchanting, or a Sunken Temple drop) is about {-_idol[1]:.0f} DPS over the next best, {_idol[0]}.",
 ]
 data['buffIcon'] = json.load(open('../setup/buff_icons.json'))
 data['macros'] = C.MACROS

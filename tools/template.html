@@ -84,7 +84,7 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .val{display:grid;gap:4px;justify-items:end;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .val b{font-size:15px}.meter{width:100%;height:8px;border-radius:4px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}
 .meter span{display:block;height:100%;background:var(--bar);border-radius:4px}
-.neg .val b{color:var(--red)}.zero .val b{color:var(--mute);font-weight:400}
+.neg .val b{color:var(--mute)}.zero .val b{color:var(--mute);font-weight:400}
 pre code{display:block;white-space:pre;padding:10px 12px;overflow-x:auto}
 code.ts{display:inline-block;font-size:13px;padding:4px 8px;white-space:nowrap}
 .copy{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
@@ -240,7 +240,7 @@ footer{padding:28px 0 48px}
     <p id="methodp"></p>
     <p><b>How the builds were found.</b> Starting from each of the sim's presets, every legal way to move 1, 2, 3 or 5 points from one talent to another (row requirements, prerequisites, 51 points) was simmed at 1,000 iterations; the best move was kept only if it still won at 6,000 iterations on fresh random runs, and the climb repeated until no move helped. Hybrid had to keep Thick Hide, Lacerate and Primal Bite. Two more Cat searches started from scrambled builds: <span id="rs"></span> The gear search then ran on the found Cat build, and both builds were searched again on the new gear; neither moved.</p>
     <p><b>Rotation.</b> Every number in the sim's Adaptive Cat rotation (Shifting Power threshold, Rip and Bite combo points, Bite energy targets and timings) was swept for both builds, along with reorderings (Rip before Bite, Rake before Rip, Shifting Power earlier or later, no Bite, no Rake). The sim's values were already the best; the one gain, skipping Innervate, only holds on fights of 3 minutes or less.</p>
-    <p>A talent's, consumable's or buff's worth is the build's DPS minus the same build without it, on the same seed. Races are one sim each in the same gear. Stat weights add and remove a small amount of each stat (20,000 iterations each) and divide the gap.</p>
+    <p>A talent's, consumable's or buff's worth is the build's DPS minus the same build without it, on the same seed. Races are one sim each, in their faction's best-in-slot set. Stat weights add and remove a small amount of each stat (20,000 iterations each) and divide the gap.</p>
     <p>Rerun on seeds with no iterations in common, every figure here moved by about 0.5 DPS or less, so treat gaps under 1 DPS as ties.</p>
     <h3 style="margin-top:14px">Least certain</h3>
     <ul>
@@ -301,7 +301,7 @@ function render() {
     <p class="small" style="margin:6px 0 12px">We started from WoWSims Forever's ${esc(b.name)} build, simmed every legal way to move points, and kept only moves that added DPS on fresh runs. These are the moves; after them, nothing helped.</p>
     <div class="moves">${b.path.map(([m, g], i) => { const [a, c] = m.split(' → '); return `<span class="mv"><span class="n">${i + 1}</span><span><span class="lo">${esc(a)}</span> → <b>${esc(c)}</b></span><span class="g">${fmt(g)}</span></span>`; }).join('')}</div>
     <button class="btn ghost" type="button" data-toggle="altgrid" style="margin-top:14px">Show other builds we simmed (${ALTS.length}) →</button>
-    <div id="altgrid" hidden><p class="small" style="margin:12px 0 10px">Same gear, 10,000 iterations each. Gaps under 1 DPS are ties.</p><div class="agrid">${ALTS.map((x, i) => `<div class="acard${i ? '' : ' main'}"><div class="ahd"><b>${esc(x.name)}</b><span class="pill ${i ? (Math.abs(x.delta) < 1 ? 'tie' : 'neg') : ''}">${i ? (Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)) : 'best'}</span></div><div class="adps">${Math.round(x.dps)}<span class="small"> DPS</span></div><p class="small">${esc(x.note)}</p><button class="btn ghost" type="button" data-view="${i}">View tree</button></div>`).join('')}</div></div>`;
+    <div id="altgrid" hidden><p class="small" style="margin:12px 0 10px">Same gear and the same 3,000 simmed fights as the rest of the guide. Gaps under 1 DPS are ties.</p><div class="agrid">${ALTS.map((x, i) => `<div class="acard${i ? '' : ' main'}"><div class="ahd"><b>${esc(x.name)}</b><span class="pill ${i ? (Math.abs(x.delta) < 1 ? 'tie' : 'neg') : ''}">${i ? (Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)) : 'best'}</span></div><div class="adps">${Math.round(x.dps)}<span class="small"> DPS</span></div><p class="small">${esc(x.note)}</p><button class="btn ghost" type="button" data-view="${i}">View tree</button></div>`).join('')}</div></div>`;
   const tmax = Math.max(...b.talents.map(t => t.all));
   const TI = {}; D.trees.forEach(tr => tr.talents.forEach(x => TI[x.n] = D.icons[x.icon.toLowerCase()]));
   $('tlist').innerHTML = b.talents.map(t => row(`<span class="tl">${TI[t.name] ? `<img class="ico" alt="" src="${TI[t.name]}">` : ''}<span>${wh('spell', t.spell, t.name)} ${t.points}/${t.max}<small>${esc(t.text)}${t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''}</small></span></span>`, '', t.all, tmax)).join('');
@@ -459,7 +459,7 @@ $('macronote').textContent = D.macroNote;
 $('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><h3>${esc(t)}</h3><p class="small">${esc(x)}</p><pre style="margin:8px 0"><code id="m${i}">${esc(m)}</code></pre><button class="btn" type="button" data-copy="m${i}">Copy</button></div>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);
 $('rs').textContent = D.restart.map(r => `one from ${Math.round(r.start)} DPS took ${r.steps} moves and ended ${r.final === D.builds.cat.talentsString ? 'on the exact same build' : 'on the bear-ready Cat build below, a tie'}.`).join(' The other, ');
-$('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Tauren in the sim's pre-raid set, full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
+$('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Night Elf in the searched best-in-slot set (Tauren in the Horde set for Horde numbers), full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
 $('foot').innerHTML = `Simmed ${D.meta.date} · WoWSims Forever <code>${D.meta.forever}</code> · inspired by the Forever Hunter Guide`;
 
 document.addEventListener('click', e => {

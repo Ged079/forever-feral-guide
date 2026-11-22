@@ -8,7 +8,7 @@ B = [
     ('Sim preset: Cat', a.PRESETS['cat'], 'The sim’s own Cat build, for comparison.'),
     ('Sim preset: Hybrid', a.PRESETS['hybrid'], 'The sim’s own Hybrid build, for comparison.'),
 ]
-v = [r[0] for r in sim.runmany([a.setup(t) for _, t, _ in B], iterations=10000, seed=3_000_000)]
+v = [r[0] for r in sim.runmany([a.setup(t) for _, t, _ in B], iterations=3000, seed=1)]
 out = [{'name': n, 'talents': t, 'note': note, 'dps': round(d, 1), 'delta': round(d - v[0], 1) if i else 0}
        for i, ((n, t, note), d) in enumerate(zip(B, v))]
 for o in out: print(o['name'], o['dps'], o['delta'])
