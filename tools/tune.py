@@ -142,12 +142,12 @@ def tune(name, talents):
         slow.append(sim.run(s, iterations=CONFIRM, seed=SEED2)[0])
     rob['slow reactions'] = [round(slow[1], 1), round(slow[0], 1)]
     print(f'[{name}] robustness (original → tuned): {rob}', flush=True)
-    os.makedirs('../setup/tune', exist_ok=True)
-    json.dump(apl, open(f'../setup/tune/{name}.apl.json', 'w'), indent=1)
+    os.makedirs(sim.data('tune'), exist_ok=True)
+    json.dump(apl, open(sim.data(f'tune/{name}.apl.json'), 'w'), indent=1)
     return {'name': name, 'talents': talents, 'log': log, 'variants': vlog, 'robust': rob}
 
 
 if __name__ == '__main__':
     name, talents = sys.argv[1], sys.argv[2]
     r = tune(name, a.TALENTS.get(talents, talents))
-    json.dump(r, open(f'../setup/tune/{name}.json', 'w'), indent=1)
+    json.dump(r, open(sim.data(f'tune/{name}.json'), 'w'), indent=1)

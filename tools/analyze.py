@@ -24,7 +24,7 @@ NSTATS = 39
 
 
 FACTION_RACE = {'alliance': 'RaceNightElf', 'horde': 'RaceTauren'}
-GEAR_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../setup/gear')
+GEAR_DIR = sim.data('gear')
 
 
 def setup(talents='cat', duration=180, faction='alliance'):
@@ -244,8 +244,8 @@ def gear_hit():
 def main():
     R = {'meta': {'iterations': sim.ITER, 'seed': sim.SEED}}
     which = sys.argv[1:] or ['builds', 'talents', 'cons', 'buffs', 'races', 'stats', 'hit']
-    if os.path.exists('../setup/results.json'):
-        R = json.load(open('../setup/results.json'))
+    if os.path.exists(sim.data('results.json')):
+        R = json.load(open(sim.data('results.json')))
     if 'builds' in which:
         R['builds'] = {b: {L: round(dps(setup(b, L)), 1) for L in LENGTHS} for b in TALENTS}
         R['presets'] = {b: {L: round(dps(setup(PRESETS[b], L)), 1) for L in LENGTHS} for b in PRESETS}
@@ -279,7 +279,7 @@ def main():
         R['gear'] = gear_hit()
         R['hit'] = {b: hit_curve(b) for b in TALENTS}
         print('hit', R['gear'], flush=True)
-    json.dump(R, open('../setup/results.json', 'w'), indent=1)
+    json.dump(R, open(sim.data('results.json'), 'w'), indent=1)
 
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ each slot's top 3 is tried, then weapon enchants. Writes gear/<name>.json.
 
     gear.py NAME FACTION TALENTS [START_GEAR_JSON]
 """
-import copy, itertools, json, math, os, sys, time
+import copy, itertools, json, os, sys, time
 import analyze as a
 import sim
 
@@ -28,7 +28,6 @@ ZONES = {z['id']: z['name'] for z in DB['zones']}
 RAID_ZONES = {'Molten Core', "Onyxia's Lair", "Zul'Gurub", 'Blackwing Lair', "Ahn'Qiraj", "Ruins of Ahn'Qiraj",
               'Naxxramas', "Temple of Ahn'Qiraj"}
 WATCHERS = 2819
-GEAR_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../setup/gear')
 RAID_QUESTS = {7490, 7491, 7495, 7496}  # Onyxia head turn-ins: the rewards need a raid kill
 SLOTS = ['head', 'neck', 'shoulder', 'back', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet',
          'finger1', 'finger2', 'trinket1', 'trinket2', 'main_hand', 'off_hand', 'ranged']
@@ -38,7 +37,7 @@ TWO_HAND_OK = {4, 6, 8}
 WEAPON_ENCHANTS_2H = [2646, 1896, 8215, 7940]   # 2H Agility, Superior Impact, 2H Strength, Grand Crusader
 WEAPON_ENCHANTS_1H = [2564, 7940, 1900, 2563, 1897]  # Agility, Grand Crusader, Crusader, Strength, Superior Striking
 
-W = json.load(open('../setup/extra_weights.json'))
+W = json.load(open(sim.data('extra_weights.json')))
 EP = {0: 0.658, 1: 0.74, 14: 0.272, 16: 0.27, 17: 0.45, 18: 0.575, 19: 0.30, 20: 0.09, 21: 0.53,
       3: W['Intellect'], 13: W['Spirit'], 31: W['MP5'], 2: 0.002}
 WEAPON_DPS = W['Weapon DPS']
@@ -308,9 +307,9 @@ def search(name, faction, talents, start=None):
                             'delta': round(v - cur, 1)})
     res = {'name': name, 'faction': faction, 'race': race, 'talents': talents, 'dps': round(final, 1), 'log': log,
            'gear': describe(setup), 'items': gear_of(setup), 'enchants': enchants, 'alternatives': alts}
-    os.makedirs(GEAR_OUT, exist_ok=True)
-    json.dump(res, open(f'{GEAR_OUT}/{name}.json', 'w'), indent=1)
-    json.dump(gear_of(setup), open(f'{GEAR_OUT}/{name}.items.json', 'w'))
+    os.makedirs(sim.data('gear'), exist_ok=True)
+    json.dump(res, open(sim.data(f'gear/{name}.json'), 'w'), indent=1)
+    json.dump(gear_of(setup), open(sim.data(f'gear/{name}.items.json'), 'w'))
     print(f'[{name}] done {final:.1f}', flush=True)
     return res
 

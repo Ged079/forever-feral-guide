@@ -86,7 +86,6 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .meter span{display:block;height:100%;background:var(--bar);border-radius:4px}
 .neg .val b{color:var(--mute)}.zero .val b{color:var(--mute);font-weight:400}
 pre code{display:block;white-space:pre;padding:10px 12px;overflow-x:auto}
-code.ts{display:inline-block;font-size:13px;padding:4px 8px;white-space:nowrap}
 .copy{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
 code{font:15px/1.4 ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
 .btn{font:inherit;font-weight:700;border:0;border-radius:10px;background:var(--acc);color:var(--on-acc);padding:10px 16px;min-height:44px;cursor:pointer}
@@ -144,7 +143,8 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .bph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg2{display:flex;gap:6px}.seg2 button{font:inherit;font-size:14px;font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;min-height:38px;cursor:pointer}
 .seg2 button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}
-.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:6px 14px}
+.bgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 14px}
+@media (max-width:900px){.bgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.bgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 8px}.bit{grid-template-columns:32px minmax(0,1fr);gap:8px}.bit img{width:32px;height:32px}.bit .nm{font-size:14px!important;white-space:normal!important;line-height:1.2!important}.bisprev .bislink{flex-direction:column;align-items:flex-start}}
 .bit{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;align-items:center;padding:6px 4px;border-radius:10px;text-decoration:none;color:inherit}
 .bit:hover{background:color-mix(in srgb,var(--line) 45%,transparent)}
@@ -182,7 +182,7 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
 th{font-weight:700;color:var(--mute);border-top:0}td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 footer{padding:28px 0 48px}
-@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-top:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.stack td:empty{display:none}.pelt{height:44px}.pelt span{font-size:12px}.stack td.n{text-align:start}code.ts{white-space:normal;overflow-wrap:anywhere}}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-top:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.stack td:empty{display:none}.pelt{height:44px}.pelt span{font-size:12px}.stack td.n{text-align:start}}
 @media(prefers-reduced-motion:no-preference){.meter span,.pelt span{transition:width .35s ease}}
 </style>
 </head>
@@ -280,7 +280,7 @@ footer{padding:28px 0 48px}
     <p>Rerun on seeds with no iterations in common, every figure here moved by about 0.5 DPS or less, so treat gaps under 1 DPS as ties.</p>
     <h3 style="margin-top:14px">Least certain</h3>
     <ul>
-      <li><b>Gear</b> was searched for the Cat build only; Hybrid wears the same set. Items that need a reputation or profession you don't have are in the list as found; check the runner-up column.</li>
+      <li><b>Gear</b> was searched for the Cat build only; Hybrid wears the same set. Items that need a reputation or profession you don't have are listed as found; the BiS page ranks the next best options for every slot.</li>
       <li><b>Bonuses that need a zone or creature type</b> (like the Rune of the Guard Captain's) don't count on the test boss.</li>
       <li><b>Rend and Tear</b> assumes the boss is bleeding. Your own Rake and Rip cover that: with no other bleeder you lose <span id="bleed"></span> DPS.</li>
     </ul>

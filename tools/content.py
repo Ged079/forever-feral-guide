@@ -19,7 +19,7 @@ TALENT_TEXT = {
     'Furor': 'Energy back when you shift into Cat Form, like after Innervate. Small, but it beats the utility talents.',
     'Leader of the Pack': '+crit for you and your party. Worth this much to you alone; more to the raid.',
     'Feral Swiftness': 'Run speed and dodge. No DPS; the builds above skip it. Taking it back costs about 2 DPS.',
-    'Feral Charge': 'Bear charge. Utility; the builds above skip it. Taking it back costs about 10 DPS (the Nature\u2019s Reach or Majesty point).',
+    'Feral Charge': 'Bear charge. Utility; the builds above skip it. Taking it back costs about {fc} DPS (see the other builds we simmed).',
     'Feral Instinct': 'Bear Swipe damage. Tank talent.',
     'Thick Hide': 'Armor. Tank talent.',
     'Lacerate': 'Bear bleed. Tank talent.',
@@ -78,11 +78,6 @@ RACES = {
     'RaceWindshaperSkyborne': ('Windshaper Skyborne', 'Horde', '+3 Agility. +2% attack speed, +5% damage to Elementals, a run-speed cast'),
 }
 
-ENCHANTS = {
-    'Head': 'Lesser Arcane Amalgamation', 'Neck': 'Agility', 'Back': 'Agility', 'Chest': 'Greater Stats',
-    'Wrist': 'Agility', 'Hands': 'Superior Agility', 'Legs': 'Lesser Arcane Amalgamation', 'Feet': 'Greater Agility',
-    'Weapon': 'Superior Impact',
-}
 
 PROFESSIONS = {1: 'Alchemy', 2: 'Blacksmithing', 3: 'Enchanting', 4: 'Engineering', 8: 'Leatherworking', 11: 'Tailoring'}
 
@@ -100,10 +95,6 @@ MACROS = [
 ]
 MACRO_NOTE = 'Forever uses the Classic client’s macro conditions, the same ones the hunter guide’s macros use. Form 3 is Cat Form when you know Bear, Aquatic and Cat; check yours with /dump GetShapeshiftForm() if it differs.'
 
-CONSUMABLE_NOTE = {
-    'cat': 'Sorted by what you lose without it. Everything is on in the setup, so each number is its worth on top of the rest.',
-    'hybrid': 'Same consumables, measured on Hybrid.',
-}
 
 
 LOOP_ICONS = {'Shifting Power': 'spell_druid_displacement', 'Ferocious Bite (mid-fight)': 'ability_druid_ferociousbite',

@@ -4,7 +4,7 @@
 Each option = DPS of the BiS set with only that slot swapped, minus the BiS set (same seed, 3000 iterations),
 so the numbers compare cleanly within a slot. Writes rank/<faction>.json.
 """
-import copy, json, os, sys
+import json, os, sys
 import analyze as a
 import gear as G
 import sim
@@ -40,8 +40,8 @@ def rank(faction):
         rows.sort(key=lambda r: -r['delta'])
         out['slots'][slot] = {'bis': cur, 'options': rows}
         print(faction, slot, len(rows), rows[:2], flush=True)
-    os.makedirs('../setup/rank', exist_ok=True)
-    json.dump(out, open(f'../setup/rank/{faction}.json', 'w'), indent=1)
+    os.makedirs(sim.data('rank'), exist_ok=True)
+    json.dump(out, open(sim.data(f'rank/{faction}.json'), 'w'), indent=1)
 
 
 if __name__ == '__main__':

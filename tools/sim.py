@@ -12,15 +12,23 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FOREVER = os.environ.get('FOREVER', os.path.expanduser('~/forever'))  # a wowsims/forever checkout
 CLI = os.environ.get('WOWSIMCLI', os.path.join(FOREVER, 'bin/wowsimcli'))
 APL = os.path.join(FOREVER, 'ui/specs/druid/feralcat/apls/adaptive.apl.json')
+SETUP = os.path.join(HERE, '..', 'setup')  # sim inputs and results
+DOCS = os.path.join(HERE, '..', 'docs')    # the built pages
 CACHE = os.path.join(HERE, 'cache')
 os.makedirs(CACHE, exist_ok=True)
+
+
+def data(*p):
+    """Path inside setup/."""
+    return os.path.join(SETUP, *p)
+
 
 ITER = 3000
 SEED = 1
 
 
 def base():
-    d = json.load(open(os.path.join(HERE, '../setup/defaults.json')))
+    d = json.load(open(data('defaults.json')))
     p = d['player']
     p['rotation'] = json.load(open(APL))
     return d

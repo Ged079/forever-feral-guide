@@ -29,19 +29,32 @@ build's DPS minus the same build without it. Stat weights use ±steps at 20,000 
 
 ## Rebuilding
 
-Needs a `wowsims/forever` checkout with its CLI built (`make bin/wowsimcli`).
+Needs a `wowsims/forever` checkout with its CLI built (`make bin/wowsimcli`) and, for the item and talent icons,
+a sparse clone of github.com/Gethe/wow-ui-textures (the scripts check out the icons they need).
 
 ```sh
-export FOREVER=~/forever                  # the checkout
+export FOREVER=~/forever                  # the sim checkout
 export WOWSIMCLI=$FOREVER/bin/wowsimcli   # optional, this is the default
+export ICON_REPO=~/wow-ui-textures        # optional, this is the default
 cd tools
-python3 search.py cat cat      # optional: redo the talent search
-python3 tune.py cat <talents>  # optional: redo the rotation sweep
-python3 analyze.py            # all sims -> ../setup/results.json (or name parts: builds talents cons buffs races stats hit)
-python3 build_page.py         # ../setup/*.json + content.py + template.html -> ../docs/index.html
+python3 search.py cat cat      # optional: redo the talent search      -> ../setup/search/
+python3 tune.py cat <talents>  # optional: redo the rotation sweep     -> ../setup/tune/
+python3 gear.py cat_alliance alliance cat   # optional: redo the gear search (and cat_horde horde cat) -> ../setup/gear/
+python3 analyze.py             # values, weights, hit curve            -> ../setup/results.json
+python3 extra_weights.py       # Int, Spirit, MP5, Feral AP, weapon DPS -> ../setup/extra_weights.json
+python3 alternatives.py        # the other builds on the page          -> ../setup/alternatives.json
+python3 rank.py                # per-slot ranking, both factions       -> ../setup/rank/
+python3 build_page.py          # the guide   -> ../docs/index.html
+python3 build_bis.py           # the BiS page -> ../docs/bis/index.html
 ```
 
+Sim results are cached in `tools/cache/` by request, so rebuilding the pages without changing a setup runs no sims.
+All paths are relative to the scripts (`sim.SETUP`, `sim.DOCS`), so they run from any folder.
+
 - `setup/defaults.siml` is the full setup; `setup/defaults.json` is what `wowsimcli siml parse -json` makes of it.
-- `tools/content.py` holds the prose; numbers come only from `results.json`.
+  `setup/prebis.gear.siml` is the sim's own pre-raid gear, used for `results_presetgear.json`.
+- `tools/content.py` holds the prose; numbers come only from the JSON in `setup/`.
+- `tools/template.html` and `tools/bis_template.html` are the two pages; the build scripts embed the data and icons,
+  so each output is one self-contained file.
 - `tools/gosum_check.py` and `tools/make_file_proxy.py` build the sim's Go dependencies from GitHub when
   proxy.golang.org is unreachable, checking each against the sim's own `go.sum` first.

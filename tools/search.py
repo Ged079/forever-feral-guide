@@ -8,7 +8,7 @@ by more than MARGIN, re-checked at CONFIRM iterations on another seed. Ends when
 
     search.py NAME START_STRING [--keep Talent,Talent]   (--keep: talents that must stay maxed)
 """
-import argparse, copy, json, os, sys, time
+import argparse, copy, json, os, time
 import analyze as a
 import sim
 
@@ -108,5 +108,5 @@ if __name__ == '__main__':
     ap.add_argument('--keep', default='')
     x = ap.parse_args()
     res = search(x.name, a.TALENTS.get(x.start, x.start), [k for k in x.keep.split(',') if k])
-    os.makedirs('../setup/search', exist_ok=True)
-    json.dump(res, open(f'../setup/search/{x.name}.json', 'w'), indent=1)
+    os.makedirs(sim.data('search'), exist_ok=True)
+    json.dump(res, open(sim.data(f'search/{x.name}.json'), 'w'), indent=1)

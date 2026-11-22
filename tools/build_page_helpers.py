@@ -1,5 +1,5 @@
 """Shared bits for the guide pages: item sources, enchant names, embedded icons."""
-import base64, io, json, os, subprocess
+import base64, io, os, subprocess
 from PIL import Image
 import analyze as a
 import content as C
@@ -11,6 +11,24 @@ REP = {4: 'Neutral', 5: 'Friendly', 6: 'Honored', 7: 'Revered', 8: 'Exalted'}
 SLOTTYPE = {'head': 1, 'neck': 2, 'shoulder': 3, 'back': 4, 'chest': 5, 'wrist': 6, 'hands': 7, 'waist': 8, 'legs': 9,
             'feet': 10, 'finger1': 11, 'finger2': 11, 'trinket1': 12, 'trinket2': 12, 'main_hand': 13, 'off_hand': 13, 'ranged': 14}
 AV_ZONES = ('Alterac Valley', 'Alterac Mountains')
+QUALITY = {0: '#9d9d9d', 1: '#e6e6e6', 2: '#1eff00', 3: '#0070dd', 4: '#a335ee', 5: '#ff8000'}
+_FALLBACK = {1: 'inv_helmet_04', 2: 'inv_jewelry_necklace_07', 3: 'inv_shoulder_02', 4: 'inv_misc_cape_02', 5: 'inv_chest_leather_01',
+             6: 'inv_bracer_02', 7: 'inv_gauntlets_05', 8: 'inv_belt_04', 9: 'inv_pants_leather_01', 10: 'inv_boots_01',
+             11: 'inv_jewelry_ring_01', 13: 'inv_mace_04'}
+_ICON = {i['id']: i.get('icon') for i in a.DB['items']}
+_ICON.update({x['id']: x.get('icon') for x in a.DB['itemIcons'] if x.get('icon') and not _ICON.get(x['id'])})
+
+
+def item_icon(iid):
+    """Icon name for an item, with a generic icon for its slot when the data has none."""
+    n = _ICON.get(iid) or _FALLBACK.get(ITEMS.get(iid, {}).get('type'), 'inv_misc_questionmark')
+    return n.lower()
+
+
+def quality(iid):
+    return QUALITY.get(ITEMS.get(iid, {}).get('quality', 1), '#e6e6e6')
+
+
 ICON_REPO = os.environ.get('ICON_REPO', os.path.expanduser('~/wow-ui-textures'))  # sparse clone of github.com/Gethe/wow-ui-textures
 
 
@@ -93,10 +111,10 @@ def load_icons(names, size=36, quality=78):
     cur = [c for c in open(os.path.join(ICON_REPO, '.git/info/sparse-checkout')).read().split('\n') if c]
     missing = [w for w in want if not os.path.exists(os.path.join(ICON_REPO, w))]
     if missing:
-        p = subprocess.run(['git', 'sparse-checkout', 'set', '--no-cone', '--stdin'], cwd=ICON_REPO, input='\n'.join(cur + missing), text=True)
+        subprocess.run(['git', 'sparse-checkout', 'set', '--no-cone', '--stdin'], cwd=ICON_REPO, input='\n'.join(cur + missing), text=True)
         subprocess.run(['git', 'checkout', '-q', 'HEAD'], cwd=ICON_REPO)
     out = {}
-    for n in names:
+    for n in sorted(names):
         if n in idx and os.path.exists(os.path.join(ICON_REPO, idx[n])):
             im = Image.open(os.path.join(ICON_REPO, idx[n])).convert('RGB').resize((size, size), Image.LANCZOS)
             b = io.BytesIO(); im.save(b, 'JPEG', quality=quality)

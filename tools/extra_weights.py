@@ -15,4 +15,4 @@ for name, idx, step in [('Intellect',3,40), ('Spirit',13,40), ('MP5',31,10), ('F
 up, dn = sim.runmany([bonus(pidx=0, amt=5), bonus(pidx=0, amt=-5)], iterations=IT)
 out['Weapon DPS'] = round((up[0]-dn[0])/10, 4)
 print(out)
-json.dump(out, open('../setup/extra_weights.json','w'))
+json.dump(out, open(sim.data('extra_weights.json'), 'w'))
