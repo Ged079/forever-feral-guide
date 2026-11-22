@@ -1,72 +1,54 @@
 {
  "name": "cat",
- "start": "050021-53200032123012125001-055",
+ "start": "050022-55000032023012125001-055",
  "final": "050022-55000032023012125001-055",
  "log": [
   {
-   "build": "050021-53200032123012125001-055",
-   "dps": 949.5,
-   "move": "start"
-  },
-  {
-   "build": "050022-53200032023012125001-055",
-   "dps": 960.4,
-   "move": "Feral Charge -1 \u2192 Nature's Reach +1",
-   "confirm": [
-    950.2,
-    959.9
-   ]
-  },
-  {
    "build": "050022-55000032023012125001-055",
-   "dps": 961.6,
-   "move": "Feral Swiftness -2 \u2192 Furor +2",
-   "confirm": [
-    959.9,
-    961.7
-   ]
+   "dps": 1009.6,
+   "move": "start"
   }
  ],
  "neighbours": [
   {
    "build": "050022-54100032023012125001-055",
    "move": "Furor -1 \u2192 Feral Swiftness +1",
-   "screen": 960.5
+   "screen": 1009.3
   },
   {
    "build": "050022-54010032023012125001-055",
    "move": "Furor -1 \u2192 Feral Instinct +1",
-   "screen": 960.5
+   "screen": 1009.3
   },
   {
    "build": "050022-54001032023012125001-055",
    "move": "Furor -1 \u2192 Brutal Impact +1",
-   "screen": 960.5
+   "screen": 1009.3
   },
   {
    "build": "050022-54000132023012125001-055",
    "move": "Furor -1 \u2192 Thick Hide +1",
-   "screen": 960.5
+   "screen": 1009.3
   },
   {
    "build": "050022-53200032023012125001-055",
    "move": "Furor -2 \u2192 Feral Swiftness +2",
-   "screen": 960.4
+   "screen": 1009.1
   },
   {
    "build": "050022-53020032023012125001-055",
    "move": "Furor -2 \u2192 Feral Instinct +2",
-   "screen": 960.4
+   "screen": 1009.1
   },
   {
    "build": "050022-53002032023012125001-055",
    "move": "Furor -2 \u2192 Brutal Impact +2",
-   "screen": 960.4
+   "screen": 1009.1
   },
   {
    "build": "050022-53000232023012125001-055",
    "move": "Furor -2 \u2192 Thick Hide +2",
-   "screen": 960.4
+   "screen": 1009.1
   }
  ]
 }

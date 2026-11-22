@@ -1,0 +1,54 @@
+{
+ "name": "cat_charge",
+ "start": "050021-55000032123012125001-055",
+ "final": "050021-55000032123012125001-055",
+ "log": [
+  {
+   "build": "050021-55000032123012125001-055",
+   "dps": 995.1,
+   "move": "start"
+  }
+ ],
+ "neighbours": [
+  {
+   "build": "050021-53200032123012125001-055",
+   "move": "Furor -2 \u2192 Feral Swiftness +2",
+   "screen": 995.1
+  },
+  {
+   "build": "050021-53020032123012125001-055",
+   "move": "Furor -2 \u2192 Feral Instinct +2",
+   "screen": 995.1
+  },
+  {
+   "build": "050021-53002032123012125001-055",
+   "move": "Furor -2 \u2192 Brutal Impact +2",
+   "screen": 995.1
+  },
+  {
+   "build": "050021-53000232123012125001-055",
+   "move": "Furor -2 \u2192 Thick Hide +2",
+   "screen": 995.1
+  },
+  {
+   "build": "050021-54100032123012125001-055",
+   "move": "Furor -1 \u2192 Feral Swiftness +1",
+   "screen": 994.9
+  },
+  {
+   "build": "050021-54010032123012125001-055",
+   "move": "Furor -1 \u2192 Feral Instinct +1",
+   "screen": 994.9
+  },
+  {
+   "build": "050021-54001032123012125001-055",
+   "move": "Furor -1 \u2192 Brutal Impact +1",
+   "screen": 994.9
+  },
+  {
+   "build": "050021-54000132123012125001-055",
+   "move": "Furor -1 \u2192 Thick Hide +1",
+   "screen": 994.9
+  }
+ ]
+}

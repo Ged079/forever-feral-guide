@@ -83,3 +83,24 @@ ENCHANTS = {
     'Wrist': 'Agility', 'Hands': 'Superior Agility', 'Legs': 'Lesser Arcane Amalgamation', 'Feet': 'Greater Agility',
     'Weapon': 'Superior Impact',
 }
+
+PROFESSIONS = {1: 'Alchemy', 2: 'Blacksmithing', 3: 'Enchanting', 4: 'Engineering', 8: 'Leatherworking', 11: 'Tailoring'}
+
+MACROS = [
+    ('Prowl', 'First press shifts you to Cat, second press Prowls.',
+     '#showtooltip Prowl\n/cast [noform:3] Cat Form; Prowl'),
+    ('Shred (and the opener)', 'Starts your auto attack, opens with Ravage from Prowl, otherwise Shreds.',
+     '#showtooltip\n/startattack\n/cast [stealth] Ravage; Shred'),
+    ('Cat Form (no toggle)', 'The ! stops a second press from dropping you out of Cat. Use it after Innervate; Furor gives energy back.',
+     '#showtooltip\n/cast !Cat Form'),
+    ('Innervate yourself', 'Drops Cat Form and Innervates you in one press, even with a friendly target. Then hit Cat Form.',
+     '#showtooltip Innervate\n/cancelform [form:3]\n/cast [@player] Innervate'),
+    ('Cooldowns', 'Both trinket slots and the strength potion on one key, for the start of the fight.',
+     '#showtooltip\n/use 13\n/use 14\n/use Mighty Rage Potion'),
+]
+MACRO_NOTE = 'Forever uses the Classic client’s macro conditions, the same ones the hunter guide’s macros use. Form 3 is Cat Form when you know Bear, Aquatic and Cat; check yours with /dump GetShapeshiftForm() if it differs.'
+
+CONSUMABLE_NOTE = {
+    'cat': 'Sorted by what you lose without it. Everything is on in the setup, so each number is its worth on top of the rest.',
+    'hybrid': 'Same consumables, measured on Hybrid.',
+}

@@ -1,0 +1,153 @@
+{
+ "name": "restart4",
+ "start": "12-5520221102301012401-2510305",
+ "final": "050022-51002232023012125001-055",
+ "log": [
+  {
+   "build": "12-5520221102301012401-2510305",
+   "dps": 635.6,
+   "move": "start"
+  },
+  {
+   "build": "12-55202201023010124011-2510305",
+   "dps": 792.7,
+   "move": "Shredding Attacks -1 \u2192 Shifting Power +1",
+   "confirm": [
+    635.0,
+    792.9
+   ]
+  },
+  {
+   "build": "12-55202201023010124011-2540302",
+   "dps": 838.0,
+   "move": "Gift of Nature -3 \u2192 Naturalist +3",
+   "confirm": [
+    792.9,
+    838.2
+   ]
+  },
+  {
+   "build": "12-52202231023010124011-2540302",
+   "dps": 871.6,
+   "move": "Furor -3 \u2192 Shredding Attacks +3",
+   "confirm": [
+    838.2,
+    870.8
+   ]
+  },
+  {
+   "build": "12-52202232023010124011-2540202",
+   "dps": 888.7,
+   "move": "Natural Shapeshifter -1 \u2192 Savage Fury +1",
+   "confirm": [
+    870.8,
+    887.9
+   ]
+  },
+  {
+   "build": "02-52202232023010124011-2550202",
+   "dps": 904.7,
+   "move": "Improved Wrath -1 \u2192 Naturalist +1",
+   "confirm": [
+    887.9,
+    903.9
+   ]
+  },
+  {
+   "build": "02-51202232023010125011-2550202",
+   "dps": 920.7,
+   "move": "Furor -1 \u2192 Rend and Tear +1",
+   "confirm": [
+    903.9,
+    919.9
+   ]
+  },
+  {
+   "build": "02-51002232023012125011-2550202",
+   "dps": 934.7,
+   "move": "Feral Swiftness -2 \u2192 Blood Frenzy +2",
+   "confirm": [
+    919.9,
+    934.1
+   ]
+  },
+  {
+   "build": "04-51002232023012125011-0550202",
+   "dps": 946.3,
+   "move": "Nature's Focus -2 \u2192 Genesis +2",
+   "confirm": [
+    934.1,
+    945.7
+   ]
+  },
+  {
+   "build": "05-51002232023012125001-0550202",
+   "dps": 952.1,
+   "move": "Primal Bite -1 \u2192 Genesis +1",
+   "confirm": [
+    945.7,
+    951.5
+   ]
+  },
+  {
+   "build": "05002-51002232023012125001-05502",
+   "dps": 983.0,
+   "move": "Gift of Nature -2 \u2192 Nature's Majesty +2",
+   "confirm": [
+    951.5,
+    983.0
+   ]
+  },
+  {
+   "build": "050022-51002232023012125001-055",
+   "dps": 1008.7,
+   "move": "Natural Shapeshifter -2 \u2192 Nature's Reach +2",
+   "confirm": [
+    983.0,
+    1006.4
+   ]
+  }
+ ],
+ "neighbours": [
+  {
+   "build": "050022-53000232023012125001-055",
+   "move": "Brutal Impact -2 \u2192 Furor +2",
+   "screen": 1009.1
+  },
+  {
+   "build": "050022-53002032023012125001-055",
+   "move": "Thick Hide -2 \u2192 Furor +2",
+   "screen": 1009.1
+  },
+  {
+   "build": "050022-52001232023012125001-055",
+   "move": "Brutal Impact -1 \u2192 Furor +1",
+   "screen": 1008.9
+  },
+  {
+   "build": "050022-52002132023012125001-055",
+   "move": "Thick Hide -1 \u2192 Furor +1",
+   "screen": 1008.9
+  },
+  {
+   "build": "050022-51101232023012125001-055",
+   "move": "Brutal Impact -1 \u2192 Feral Swiftness +1",
+   "screen": 1008.7
+  },
+  {
+   "build": "050022-51200232023012125001-055",
+   "move": "Brutal Impact -2 \u2192 Feral Swiftness +2",
+   "screen": 1008.7
+  },
+  {
+   "build": "050022-51011232023012125001-055",
+   "move": "Brutal Impact -1 \u2192 Feral Instinct +1",
+   "screen": 1008.7
+  },
+  {
+   "build": "050022-51020232023012125001-055",
+   "move": "Brutal Impact -2 \u2192 Feral Instinct +2",
+   "screen": 1008.7
+  }
+ ]
+}

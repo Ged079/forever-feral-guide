@@ -1,81 +1,54 @@
 {
  "name": "hybrid",
- "start": "050012-50230302123110125011-055",
+ "start": "050022-52000332023110125011-055",
  "final": "050022-52000332023110125011-055",
  "log": [
   {
-   "build": "050012-50230302123110125011-055",
-   "dps": 888.4,
-   "move": "start"
-  },
-  {
-   "build": "050012-50200332123110125011-055",
-   "dps": 924.2,
-   "move": "Feral Instinct -3 \u2192 Shredding Attacks +3",
-   "confirm": [
-    889.6,
-    924.0
-   ]
-  },
-  {
-   "build": "050022-50200332023110125011-055",
-   "dps": 939.1,
-   "move": "Feral Charge -1 \u2192 Nature's Majesty +1",
-   "confirm": [
-    924.0,
-    938.7
-   ]
-  },
-  {
    "build": "050022-52000332023110125011-055",
-   "dps": 940.6,
-   "move": "Feral Swiftness -2 \u2192 Furor +2",
-   "confirm": [
-    938.7,
-    940.8
-   ]
+   "dps": 988.2,
+   "move": "start"
   }
  ],
  "neighbours": [
   {
-   "build": "050022-43000332023110125011-055",
-   "move": "Ferocity -1 \u2192 Furor +1",
-   "screen": 940.1
-  },
-  {
    "build": "050022-51100332023110125011-055",
    "move": "Furor -1 \u2192 Feral Swiftness +1",
-   "screen": 940.0
+   "screen": 988.0
   },
   {
    "build": "050022-51010332023110125011-055",
    "move": "Furor -1 \u2192 Feral Instinct +1",
-   "screen": 940.0
+   "screen": 988.0
   },
   {
    "build": "050022-51001332023110125011-055",
    "move": "Furor -1 \u2192 Brutal Impact +1",
-   "screen": 940.0
+   "screen": 988.0
   },
   {
    "build": "050022-50200332023110125011-055",
    "move": "Furor -2 \u2192 Feral Swiftness +2",
-   "screen": 939.1
+   "screen": 987.6
   },
   {
    "build": "050022-50020332023110125011-055",
    "move": "Furor -2 \u2192 Feral Instinct +2",
-   "screen": 939.1
+   "screen": 987.6
   },
   {
    "build": "050022-50002332023110125011-055",
    "move": "Furor -2 \u2192 Brutal Impact +2",
-   "screen": 939.1
+   "screen": 987.6
+  },
+  {
+   "build": "050022-52000332023110125011-145",
+   "move": "Heart of the Wild -1 \u2192 Nature's Focus +1",
+   "screen": 984.3
   },
   {
    "build": "050022-34000332023110125011-055",
    "move": "Ferocity -2 \u2192 Furor +2",
-   "screen": 938.9
+   "screen": 984.0
   }
  ]
 }

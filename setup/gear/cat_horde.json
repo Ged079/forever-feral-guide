@@ -1,0 +1,487 @@
+{
+ "name": "cat_horde",
+ "faction": "horde",
+ "race": "RaceTauren",
+ "talents": "050022-55000032023012125001-055",
+ "dps": 997.7,
+ "log": [
+  {
+   "move": "start",
+   "dps": 963.8
+  },
+  {
+   "move": "head: Feralheart Cap",
+   "gain": 13.9
+  },
+  {
+   "move": "ranged: Idol of the Dream",
+   "gain": 10.2
+  },
+  {
+   "move": "back: Cape of the Black Baron",
+   "gain": 4.3
+  },
+  {
+   "move": "hands: Raider Gloves",
+   "gain": 3.0
+  },
+  {
+   "move": "feet: Grovekeeper Sandals",
+   "gain": 2.0
+  }
+ ],
+ "gear": [
+  {
+   "slot": "head",
+   "id": 226792,
+   "suffix": null,
+   "enchant": 1508,
+   "name": "Feralheart Cap"
+  },
+  {
+   "slot": "neck",
+   "id": 19491,
+   "suffix": null,
+   "enchant": 904,
+   "name": "Amulet of the Darkmoon"
+  },
+  {
+   "slot": "shoulder",
+   "id": 272105,
+   "suffix": null,
+   "enchant": null,
+   "name": "Darkspear Pauldrons"
+  },
+  {
+   "slot": "back",
+   "id": 13340,
+   "suffix": null,
+   "enchant": 7667,
+   "name": "Cape of the Black Baron"
+  },
+  {
+   "slot": "chest",
+   "id": 252484,
+   "suffix": null,
+   "enchant": 1891,
+   "name": "Timbermaw Tunic"
+  },
+  {
+   "slot": "wrist",
+   "id": 19587,
+   "suffix": null,
+   "enchant": 7656,
+   "name": "Forest Stalker's Bracers"
+  },
+  {
+   "slot": "hands",
+   "id": 272099,
+   "suffix": null,
+   "enchant": 2564,
+   "name": "Raider Gloves"
+  },
+  {
+   "slot": "waist",
+   "id": 272396,
+   "suffix": null,
+   "enchant": null,
+   "name": "Shifter's Belt"
+  },
+  {
+   "slot": "legs",
+   "id": 15065,
+   "suffix": null,
+   "enchant": 1508,
+   "name": "Warbear Woolies"
+  },
+  {
+   "slot": "feet",
+   "id": 273891,
+   "suffix": null,
+   "enchant": 1887,
+   "name": "Grovekeeper Sandals"
+  },
+  {
+   "slot": "finger1",
+   "id": 19325,
+   "suffix": null,
+   "enchant": null,
+   "name": "Don Julio's Band"
+  },
+  {
+   "slot": "finger2",
+   "id": 19510,
+   "suffix": null,
+   "enchant": null,
+   "name": "Legionnaire's Band"
+  },
+  {
+   "slot": "trinket1",
+   "id": 19120,
+   "suffix": null,
+   "enchant": null,
+   "name": "Rune of the Guard Captain"
+  },
+  {
+   "slot": "trinket2",
+   "id": 18537,
+   "suffix": null,
+   "enchant": null,
+   "name": "Counterattack Lodestone"
+  },
+  {
+   "slot": "main_hand",
+   "id": 19323,
+   "suffix": null,
+   "enchant": 1896,
+   "name": "The Unstoppable Force"
+  },
+  {
+   "slot": "ranged",
+   "id": 220606,
+   "suffix": null,
+   "enchant": null,
+   "name": "Idol of the Dream"
+  }
+ ],
+ "items": [
+  {
+   "id": 226792,
+   "enchant": 1508
+  },
+  {
+   "id": 19491,
+   "enchant": 904
+  },
+  {
+   "id": 272105
+  },
+  {
+   "id": 13340,
+   "enchant": 7667
+  },
+  {
+   "id": 252484,
+   "enchant": 1891
+  },
+  {
+   "id": 19587,
+   "enchant": 7656
+  },
+  {
+   "id": 272099,
+   "enchant": 2564
+  },
+  {
+   "id": 272396
+  },
+  {
+   "id": 15065,
+   "enchant": 1508
+  },
+  {
+   "id": 273891,
+   "enchant": 1887
+  },
+  {
+   "id": 19325
+  },
+  {
+   "id": 19510
+  },
+  {
+   "id": 19120
+  },
+  {
+   "id": 18537
+  },
+  {
+   "id": 19323,
+   "enchant": 1896
+  },
+  {},
+  {
+   "id": 220606
+  }
+ ],
+ "enchants": {
+  "Enchant 2H Weapon - Agility": 995.4,
+  "Enchant 2H Weapon - Superior Impact": 997.7,
+  "Enchant 2H Weapon - Strength": 993.0,
+  "Enchant Weapon - Grand Crusader": 976.7
+ },
+ "alternatives": {
+  "finger2": [
+   {
+    "name": "Opal Ring",
+    "id": 11980,
+    "delta": -0.5
+   },
+   {
+    "name": "Cutthroat's Signet",
+    "id": 272408,
+    "delta": -1.4
+   },
+   {
+    "name": "Drakeclaw Band",
+    "id": 10795,
+    "delta": -2.0
+   }
+  ],
+  "trinket2": [
+   {
+    "name": "Hand of Justice",
+    "id": 11815,
+    "delta": -0.9
+   },
+   {
+    "name": "Vigilance Charm",
+    "id": 18370,
+    "delta": -1.6
+   },
+   {
+    "name": "Adaptive Combat Assistant",
+    "id": 272437,
+    "delta": -2.6
+   }
+  ],
+  "legs": [
+   {
+    "name": "Grovekeeper Kilt",
+    "id": 273888,
+    "delta": -1.6
+   },
+   {
+    "name": "Outrider's Leather Pants",
+    "id": 22740,
+    "delta": -3.0
+   },
+   {
+    "name": "Plaguehound Leggings",
+    "id": 18736,
+    "delta": -5.2
+   }
+  ],
+  "finger1": [
+   {
+    "name": "Opal Ring",
+    "id": 11980,
+    "delta": -1.8
+   },
+   {
+    "name": "Cutthroat's Signet",
+    "id": 272408,
+    "delta": -2.2
+   },
+   {
+    "name": "Drakeclaw Band",
+    "id": 10795,
+    "delta": -2.8
+   }
+  ],
+  "trinket1": [
+   {
+    "name": "Hand of Justice",
+    "id": 11815,
+    "delta": -1.8
+   },
+   {
+    "name": "Vigilance Charm",
+    "id": 18370,
+    "delta": -2.3
+   },
+   {
+    "name": "Adaptive Combat Assistant",
+    "id": 272437,
+    "delta": -2.8
+   }
+  ],
+  "feet": [
+   {
+    "name": "Supreme Shoes",
+    "id": 15435,
+    "delta": -2.0
+   },
+   {
+    "name": "Swiftwalker Boots",
+    "id": 12553,
+    "delta": -2.0
+   },
+   {
+    "name": "Mighty Boots",
+    "id": 10146,
+    "delta": -3.1
+   }
+  ],
+  "back": [
+   {
+    "name": "Blackveil Cape",
+    "id": 11626,
+    "delta": -2.3
+   },
+   {
+    "name": "Master's Cloak",
+    "id": 10249,
+    "delta": -3.3
+   },
+   {
+    "name": "Deathguard's Cloak",
+    "id": 20068,
+    "delta": -3.9
+   }
+  ],
+  "chest": [
+   {
+    "name": "Dawn Armor",
+    "id": 252483,
+    "delta": -2.7
+   },
+   {
+    "name": "Feralheart Tunic",
+    "id": 226795,
+    "delta": -13.2
+   },
+   {
+    "name": "Mighty Tunic",
+    "id": 10151,
+    "delta": -16.9
+   }
+  ],
+  "waist": [
+   {
+    "name": "Might of the Timbermaw",
+    "id": 19044,
+    "delta": -3.0
+   },
+   {
+    "name": "Cloudrunner Girdle",
+    "id": 13252,
+    "delta": -8.3
+   },
+   {
+    "name": "Skulker's Leather Waistguard",
+    "id": 252474,
+    "delta": -8.9
+   }
+  ],
+  "wrist": [
+   {
+    "name": "Forest Stalker's Bracers",
+    "id": 19589,
+    "delta": -3.4
+   },
+   {
+    "name": "Forest Stalker's Bracers",
+    "id": 19590,
+    "delta": -6.6
+   },
+   {
+    "name": "Mighty Armsplints",
+    "id": 10147,
+    "delta": -7.6
+   }
+  ],
+  "neck": [
+   {
+    "name": "Onyxia Tooth Pendant",
+    "id": 18404,
+    "delta": -3.6
+   },
+   {
+    "name": "Mark of Fordring",
+    "id": 15411,
+    "delta": -5.6
+   },
+   {
+    "name": "Prismatic Pendant",
+    "id": 12048,
+    "delta": -6.1
+   }
+  ],
+  "hands": [
+   {
+    "name": "Timbermaw Brawlers",
+    "id": 19049,
+    "delta": -4.2
+   },
+   {
+    "name": "Raider Gloves",
+    "id": 272100,
+    "delta": -4.3
+   },
+   {
+    "name": "Slaghide Gauntlets",
+    "id": 13258,
+    "delta": -7.2
+   }
+  ],
+  "head": [
+   {
+    "name": "Outlaw's Collar",
+    "id": 279253,
+    "delta": -4.3
+   },
+   {
+    "name": "Adventurer's Bandana",
+    "id": 10261,
+    "delta": -5.7
+   },
+   {
+    "name": "Supreme Crown",
+    "id": 15439,
+    "delta": -5.7
+   }
+  ],
+  "shoulder": [
+   {
+    "name": "Grovekeeper Mantle",
+    "id": 273890,
+    "delta": -5.0
+   },
+   {
+    "name": "Defiler's Leather Shoulders",
+    "id": 20194,
+    "delta": -7.4
+   },
+   {
+    "name": "Dark Warder's Pauldrons",
+    "id": 22241,
+    "delta": -9.1
+   }
+  ],
+  "ranged": [
+   {
+    "name": "Howling Idol",
+    "id": 272427,
+    "delta": -11.5
+   },
+   {
+    "name": "Idol of Ferocity",
+    "id": 22397,
+    "delta": -14.3
+   },
+   {
+    "name": "Idol of Rejuvenation",
+    "id": 22398,
+    "delta": -18.5
+   }
+  ],
+  "main_hand": [
+   {
+    "name": "Bonecrusher",
+    "id": 18420,
+    "delta": -11.7
+   },
+   {
+    "name": "Malown's Slam",
+    "id": 13393,
+    "delta": -21.1
+   },
+   {
+    "name": "Brutehammer",
+    "id": 15267,
+    "delta": -22.1
+   }
+  ]
+ }
+}

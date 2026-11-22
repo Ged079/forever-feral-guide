@@ -23,9 +23,17 @@ LENGTHS = [90, 180, 300]
 NSTATS = 39
 
 
-def setup(talents='cat', duration=180):
+FACTION_RACE = {'alliance': 'RaceNightElf', 'horde': 'RaceTauren'}
+GEAR_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../setup/gear')
+
+
+def setup(talents='cat', duration=180, faction='alliance'):
     b = sim.base()
     p = b['player']
+    gp = os.path.join(GEAR_DIR, f'cat_{faction}.items.json')
+    if faction and os.path.exists(gp):
+        p['equipment']['items'] = json.load(open(gp))
+        p['race'] = FACTION_RACE[faction]
     p['buffs'] = {'greaterBlessingOfKings': True}  # one blessing per player, as on Forever
     p['talentsString'] = TALENTS.get(talents, talents)
     b['encounter']['duration'] = duration
@@ -86,8 +94,8 @@ def talent_values(build):
 SLOTS = ['flaskId', 'foodId', 'conjuredId', 'explosiveId', 'mhImbueId', 'resourcePotId', 'offensivePotId']
 
 
-def consumable_values():
-    s = setup()
+def consumable_values(build='cat'):
+    s = setup(build)
     base = dps(s)
     c = s['player']['consumables']
     out = []
@@ -113,6 +121,8 @@ def consumable_values():
         ('elixirIds', 250351, 13453), ('elixirIds', 250351, 9206),
         ('extraIds', 12460, 12820),
         ('explosiveId', 260817, 18641),
+        ('offensivePotId', 13442, 250942),
+        ('foodId', 250072, 250070),
     ]
     alts = []
     for slot, cur, new in swaps:
@@ -125,7 +135,14 @@ def consumable_values():
             tc[slot] = new
         alts.append({'slot': slot, 'from': CONS[cur]['name'], 'to': CONS[new]['name'], 'toId': new,
                      'v': round(dps(t) - base, 1)})
-    return base, out, alts
+    # adds: does it stack with the full set, and what is it worth on top?
+    adds = []
+    for lst, new in [('extraIds', 12451), ('extraIds', 12820), ('extraIds', 246948), ('elixirIds', 13452),
+                     ('elixirIds', 250350), ('elixirIds', 9206), ('extraIds', 10309), ('extraIds', 10310)]:
+        t = copy.deepcopy(s); t['player']['consumables'].setdefault(lst, []).append(new)
+        v = dps(t) - base
+        adds.append({'name': CONS[new]['name'], 'id': new, 'v': round(v, 1), 'stacks': v != 0.0})
+    return base, out, alts, adds
 
 
 # ---------- buffs ----------
@@ -168,7 +185,7 @@ def race_values():
     out = {}
     for build in TALENTS:
         for r in RACES:
-            s = setup(build); s['player']['race'] = r
+            s = setup(build, faction='horde' if r in ('RaceTauren', 'RaceWindshaperSkyborne') else 'alliance'); s['player']['race'] = r
             out.setdefault(r, {})[build] = round(dps(s), 1)
     return out
 
@@ -240,8 +257,10 @@ def main():
             R['talents'][b] = vals
             print('talents', b, base, flush=True)
     if 'cons' in which:
-        base, out, alts = consumable_values()
-        R['consumables'] = {'base': base, 'list': out, 'alts': alts}
+        R['consumables'] = {}
+        for b in TALENTS:
+            base, out, alts, adds = consumable_values(b)
+            R['consumables'][b] = {'base': base, 'list': out, 'alts': alts, 'adds': adds}
         print('cons done', flush=True)
     if 'buffs' in which:
         base, out, totals = buff_values()

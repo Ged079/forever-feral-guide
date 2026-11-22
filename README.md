@@ -7,9 +7,9 @@ Open `docs/index.html` in a browser. It is one self-contained page.
 
 ## Where the numbers come from
 
-WoWSims Forever master `a73af71` (2026-11-22), the sim's Adaptive Cat APL and its pre-raid preset gear: a Tauren,
+WoWSims Forever master `a73af71` (2026-11-22), the sim's Adaptive Cat APL:
 full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss,
-150–350 ms reaction time, a 180 s fight, 3000 iterations on seed 1. A talent's, consumable's or buff's worth is the
+150–350 ms reaction time, a 180 s fight, 3000 iterations on seed 1. Gear is the searched pre-raid set (`setup/gear/cat_alliance.json`, Night Elf). A talent's, consumable's or buff's worth is the
 build's DPS minus the same build without it. Stat weights use ±steps at 20,000 iterations.
 
 ## How the builds and rotation were found
@@ -20,7 +20,11 @@ build's DPS minus the same build without it. Stat weights use ±steps at 20,000 
   `tools/restart.py` scrambles a build first and climbs back. Logs in `setup/search/`.
 - `tools/tune.py` sweeps the Adaptive Cat APL's numeric variables and tries reorderings. The sim's values were
   already the best; skipping Innervate helps only on fights of 3 minutes or less. Logs in `setup/tune/`.
-- `setup/results_presets.json` holds the first run, on the sim's preset builds.
+- `tools/gear.py` searches pre-raid gear per faction: Phase 1 cloth/leather, druid weapons and idols, no raid loot,
+  raid reputation, Onyxia-head quests or PvP rank gear; one-slot swaps until nothing helps, then every pair of slots,
+  then the weapon enchant. Results in `setup/gear/`. Both builds were searched again on the new gear and held.
+- `tools/alternatives.py` sims the other builds shown on the page.
+- `setup/results_presets.json` and `setup/results_presetgear.json` hold the earlier runs (preset builds; found builds on preset gear).
 
 ## Rebuilding
 

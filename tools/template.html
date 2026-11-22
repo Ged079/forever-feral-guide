@@ -53,7 +53,9 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .val{display:grid;gap:4px;justify-items:end;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .val b{font-size:15px}.meter{width:100%;height:8px;border-radius:4px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}
 .meter span{display:block;height:100%;background:var(--bar);border-radius:4px}
-.neg b{color:var(--red)}.zero b{color:var(--mute);font-weight:400}
+.neg .val b{color:var(--red)}.zero .val b{color:var(--mute);font-weight:400}
+pre code{display:block;white-space:pre;padding:10px 12px;overflow-x:auto}
+code.ts{display:inline-block;font-size:13px;padding:4px 8px;white-space:nowrap}
 .copy{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
 code{font:15px/1.4 ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
 .btn{font:inherit;font-weight:700;border:0;border-radius:10px;background:var(--moss);color:var(--bg);padding:10px 16px;min-height:44px;cursor:pointer}
@@ -67,13 +69,13 @@ ol.loop.open li::before{background:var(--tan)}
 table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
 th{font-weight:700;color:var(--mute);border-top:0}td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 footer{padding:28px 0 48px}
-@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-top:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.stack td:empty{display:none}.pelt{height:44px}.pelt span{font-size:12px}}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-top:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.stack td:empty{display:none}.pelt{height:44px}.pelt span{font-size:12px}.stack td.n{text-align:start}code.ts{white-space:normal;overflow-wrap:anywhere}}
 @media(prefers-reduced-motion:no-preference){.meter span,.pelt span{transition:width .35s ease}}
 </style>
 </head>
 <body>
 <nav aria-label="Steps"><div class="wrap">
-<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#method">How we tested</a>
+<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#macros">Macros</a><a href="#method">How we tested</a>
 </div></nav>
 
 <main class="wrap">
@@ -91,6 +93,8 @@ footer{padding:28px 0 48px}
   <div class="copy"><code id="tstr"></code><button class="btn" id="copyt" type="button">Copy talent string</button></div>
   <div class="card" id="found" style="margin:6px 0 14px"></div>
   <ul class="rows" id="tlist"></ul>
+  <div class="card" style="margin-top:16px"><h3>Other builds we simmed</h3><p class="small">Same gear, 10,000 iterations each. Gaps under 1 DPS are ties.</p>
+    <table class="stack"><thead><tr><th>Build</th><th>DPS</th><th>vs Cat</th><th>Talents</th></tr></thead><tbody id="altrows"></tbody></table></div>
 </section>
 
 <section id="play">
@@ -107,11 +111,11 @@ footer{padding:28px 0 48px}
   <h2>Before the pull</h2>
   <p class="mute" id="preptotal"></p>
   <div class="grid2">
-    <div class="card"><h3>Consumables</h3><p class="small">What you lose without each one, with everything else on.</p><ul class="rows" id="cons"></ul></div>
+    <div class="card"><h3>Consumables</h3><p class="small" id="consnote"></p><ul class="rows" id="cons"></ul></div>
     <div class="card"><h3>Raid buffs &amp; debuffs</h3><p class="small">Same idea: the DPS each one brings you.</p><ul class="rows" id="buffs"></ul><p class="note" id="armor"></p></div>
   </div>
   <div class="grid2">
-    <div class="card"><h3>Swaps</h3><p class="small">Swap the first for the second: change in DPS.</p><ul class="rows" id="swaps"></ul></div>
+    <div class="card"><h3>Swaps and extras</h3><p class="small">Swap the first for the second, or add one on top of the full set. "Doesn't stack": the sim drops it next to what you already use, as the game does.</p><ul class="rows" id="swaps"></ul><ul class="rows" id="adds"></ul></div>
     <div class="card"><h3>Race</h3><p class="small" id="racenote"></p><ul class="rows" id="races"></ul></div>
   </div>
 </section>
@@ -122,23 +126,31 @@ footer{padding:28px 0 48px}
     <div class="card"><h3>Stat weights</h3><p class="small">DPS per point, with Agility = 1. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste.</p><ul class="rows" id="ep"></ul></div>
     <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the pre-raid set.</p></div>
   </div>
-  <div class="card" style="margin-top:16px"><h3>The pre-raid set these numbers use</h3>
-    <p class="small">The sim's preset, the same for both builds. Its two trinkets are the Horde and Alliance versions of the same item; in game you get one, so fill the other slot with your best trinket.</p>
-    <table class="stack"><thead><tr><th>Slot</th><th>Item</th><th>Enchant</th></tr></thead><tbody id="gearrows"></tbody></table>
+  <div class="card" style="margin-top:16px"><h3>Pre-raid best in slot</h3>
+    <div class="pick" id="facpick" style="margin:10px 0;grid-template-columns:repeat(2,minmax(0,1fr))"></div>
+    <p class="small" id="gearnote"></p>
+    <table class="stack"><thead><tr><th>Slot</th><th>Item</th><th>Where from</th><th>Next best</th></tr></thead><tbody id="gearrows"></tbody></table>
+    <p class="small" id="ench"></p>
   </div>
+</section>
+
+<section id="macros">
+  <h2>Macros</h2>
+  <p class="mute" id="macronote"></p>
+  <div class="grid2" id="macrolist"></div>
 </section>
 
 <section id="method">
   <h2>How we tested</h2>
   <div class="card">
     <p id="methodp"></p>
-    <p><b>How the builds were found.</b> Starting from each of the sim's presets, every legal way to move 1, 2, 3 or 5 points from one talent to another (row requirements, prerequisites, 51 points) was simmed at 1,000 iterations; the best move was kept only if it still won at 6,000 iterations on fresh random runs, and the climb repeated until no move helped. Hybrid had to keep Thick Hide, Lacerate and Primal Bite. A second Cat search from a scrambled build (<span id="rs"></span>) climbed back to the exact same build.</p>
+    <p><b>How the builds were found.</b> Starting from each of the sim's presets, every legal way to move 1, 2, 3 or 5 points from one talent to another (row requirements, prerequisites, 51 points) was simmed at 1,000 iterations; the best move was kept only if it still won at 6,000 iterations on fresh random runs, and the climb repeated until no move helped. Hybrid had to keep Thick Hide, Lacerate and Primal Bite. Two more Cat searches started from scrambled builds: <span id="rs"></span> The gear search then ran on the found Cat build, and both builds were searched again on the new gear; neither moved.</p>
     <p><b>Rotation.</b> Every number in the sim's Adaptive Cat rotation (Shifting Power threshold, Rip and Bite combo points, Bite energy targets and timings) was swept for both builds, along with reorderings (Rip before Bite, Rake before Rip, Shifting Power earlier or later, no Bite, no Rake). The sim's values were already the best; the one gain, skipping Innervate, only holds on fights of 3 minutes or less.</p>
     <p>A talent's, consumable's or buff's worth is the build's DPS minus the same build without it, on the same seed. Races are one sim each in the same gear. Stat weights add and remove a small amount of each stat (20,000 iterations each) and divide the gap.</p>
     <p>Rerun on seeds with no iterations in common, every figure here moved by about 0.5 DPS or less, so treat gaps under 1 DPS as ties.</p>
     <h3 style="margin-top:14px">Least certain</h3>
     <ul>
-      <li><b>Gear is the sim's preset</b>, not a full slot-by-slot search like the hunter guide's. The ranking of builds and talents should hold; your own gear will move the exact numbers.</li>
+      <li><b>Gear</b> was searched for the Cat build only; Hybrid wears the same set. Items that need a reputation or profession you don't have are in the list as found; check the runner-up column.</li>
       <li><b>Bonuses that need a zone or creature type</b> (like the Rune of the Guard Captain's) don't count on the test boss.</li>
       <li><b>Rend and Tear</b> assumes the boss is bleeding. Your own Rake and Rip cover that: with no other bleeder you lose <span id="bleed"></span> DPS.</li>
     </ul>
@@ -210,8 +222,14 @@ function render() {
 
   const emax = Math.max(...b.ep.map(e => e[1]));
   $('ep').innerHTML = b.ep.map(([n, e]) => row(esc(n), n === 'Hit Rating' ? `Only until the cap (${b.hitCap} rating from gear).` : '', e, emax, {label: e.toFixed(2)})).join('');
-  $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The pre-raid set has ${D.gearHit}. Nature’s Reach 2/2 covers 4% of the 8%, so a few more hit pieces cap you.`;
+  $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The best-in-slot set has only ${D.gearHit}: the gear search found the Agility and Strength on the other pieces worth more than reaching the cap. Nature’s Reach 2/2 covers 4% of the 8%.`;
   drawHit();
+  const C = D.consumables[build];
+  const cmax = Math.max(...C.list.map(c => c.v));
+  $('consnote').textContent = build === 'cat' ? 'What you lose without each one, with everything else on.' : 'What you lose without each one, measured on Hybrid.';
+  $('cons').innerHTML = C.list.map(c => row(wh('item', c.id, c.name), '', c.v, cmax)).join('');
+  $('swaps').innerHTML = C.swaps.map(s => row(`${esc(s.from)} → ${wh('item', s.toId, s.to)}`, '', s.v, 0, {nobar: true})).join('');
+  $('adds').innerHTML = C.adds.map(x => row(`+ ${wh('item', x.id, x.name)}`, '', x.v, 0, {nobar: true, label: x.stacks ? fmt(x.v) + ' DPS' : 'doesn\u2019t stack'})).join('');
   try { localStorage.setItem('ff-build', build); } catch (e) {}
 }
 
@@ -239,23 +257,47 @@ function drawHit() {
 const ro = new ResizeObserver(drawHit); ro.observe(svg);
 
 // Build-independent parts
-const cmax = Math.max(...D.consumables.map(c => c.v));
-$('cons').innerHTML = D.consumables.map(c => row(wh('item', c.id, c.name), '', c.v, cmax)).join('');
+
 const bmax = Math.max(...D.buffs.map(c => c.v));
 $('buffs').innerHTML = D.buffs.map(c => row(esc(c.name), '', c.v, bmax)).join('');
 const A = D.armor;
 $('armor').innerHTML = `<b>Armor debuffs:</b> Sunder Armor (${fmt(A.sunderArmor)}) or Expose Armor (${fmt(A.exposeArmor)}) alone gets nearly all of it; both together give ${fmt(D.armorAll)}. You cast your own Faerie Fire, so the raid's Faerie Fire or Curse of Recklessness adds only ${fmt(A.faerieFire)}.`;
-$('swaps').innerHTML = D.swaps.map(s => row(`${esc(s.from)} → ${wh('item', s.toId, s.to)}`, '', s.v, 0, {nobar: true})).join('');
-$('preptotal').innerHTML = `On the Cat build, consumables are worth <b>${Math.round(D.totals.consumables)} DPS</b> together and raid buffs and debuffs <b>${Math.round(D.totals.buffs)}</b>, out of ${Math.round(D.totals.base)}. The numbers below are for Cat; Hybrid's follow the same order.`;
-$('gearrows').innerHTML = D.gear.map(g => `<tr><td data-l="Slot">${esc(g.slot)}</td><td data-l="Item">${wh('item', g.id, g.name)}</td><td data-l="Enchant">${esc(g.enchant || '')}</td></tr>`).join('');
+
+$('preptotal').innerHTML = `On the Cat build, consumables are worth <b>${Math.round(D.totals.consumables)} DPS</b> together and raid buffs and debuffs <b>${Math.round(D.totals.buffs)}</b>, out of ${Math.round(D.totals.base)}. Buffs below are for Cat; consumables follow the build you picked.`;
+let fac = 'alliance';
+try { const f = localStorage.getItem('ff-fac'); if (f && D.gear[f]) fac = f; } catch (e) {}
+function renderGear() {
+  const G = D.gear[fac];
+  $('facpick').innerHTML = [['alliance', 'Alliance'], ['horde', 'Horde']].map(([id, n]) => `<button class="bcard" type="button" data-f="${id}" aria-pressed="${id === fac}"><b>${n}</b> <span class="small">${Math.round(D.gear[id].dps)} DPS · ${id === 'alliance' ? 'Night Elf' : 'Tauren'}</span></button>`).join('');
+  const gain = G.log.slice(1).reduce((t, x) => t + (x.gain || 0), 0);
+  $('gearnote').textContent = `Found by swapping one slot at a time from the sim's preset set until nothing helped (${G.log.length - 1} swaps, about ${Math.round(gain)} DPS), then every pair of slots, then the weapon enchant. Cat build, ${G.race === 'RaceNightElf' ? 'Night Elf' : 'Tauren'}, 3 minute boss. Raid loot, raid reputation and PvP rank gear were left out; Alterac Valley vendor pieces need AV reputation, so check the next best beside them.`;
+  $('gearrows').innerHTML = G.rows.map(g => `<tr><td data-l="Slot">${esc(g.slot)}</td><td data-l="Item">${wh('item', g.id, g.name)}${g.enchant ? `<div class="small">${esc(g.enchant)}</div>` : ''}</td><td data-l="Where from" class="small">${g.src.map(esc).join('<br>')}</td><td data-l="Next best" class="small">${g.alts.filter(x => x.name !== g.name).map(x => `${wh('item', x.id, x.name)} <span class="mute">${fmt(x.delta)}</span>`).join('<br>')}</td></tr>`).join('');
+  const E = Object.entries(G.enchants).sort((x, y) => y[1] - x[1]);
+  $('ench').textContent = 'Weapon enchant: ' + E.map(([n, v], i) => `${n.replace('Enchant ', '')}${i ? ' ' + fmt(v - E[0][1]) : ' (best)'}`).join(' · ');
+  try { localStorage.setItem('ff-fac', fac); } catch (e) {}
+}
+renderGear();
+$('macronote').textContent = D.macroNote;
+$('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><h3>${esc(t)}</h3><p class="small">${esc(x)}</p><pre style="margin:8px 0"><code id="m${i}">${esc(m)}</code></pre><button class="btn" type="button" data-copy="m${i}">Copy</button></div>`).join('');
+const alts = D.alternatives || [];
+$('altrows').innerHTML = alts.map(x => `<tr><td data-l="Build"><b>${esc(x.name)}</b><div class="small">${esc(x.note)}</div></td><td data-l="DPS" class="n">${Math.round(x.dps)}</td><td data-l="vs Cat" class="n">${x.delta === 0 ? '—' : Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)}</td><td data-l="Talents"><code class="ts">${esc(x.talents)}</code></td></tr>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);
-$('rs').textContent = `started at ${Math.round(D.restart.start)} DPS, ${D.restart.steps} moves back${D.restart.same ? '' : ', ending elsewhere'}`;
+$('rs').textContent = D.restart.map(r => `one from ${Math.round(r.start)} DPS took ${r.steps} moves and ended ${r.final === D.builds.cat.talentsString ? 'on the exact same build' : 'on the bear-ready Cat build below, a tie'}.`).join(' The other, ');
 $('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Tauren in the sim's pre-raid set, full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
 $('foot').innerHTML = `Simmed ${D.meta.date} · WoWSims Forever <code>${D.meta.forever}</code> · inspired by the Forever Hunter Guide`;
 
 document.addEventListener('click', e => {
   const c = e.target.closest('[data-b]');
   if (c) { build = c.dataset.b; render(); return; }
+  const f = e.target.closest('[data-f]');
+  if (f) { fac = f.dataset.f; renderGear(); return; }
+  const cp = e.target.closest('[data-copy]');
+  if (cp) {
+    const txt = $(cp.dataset.copy).textContent;
+    const done = ok => { cp.textContent = ok ? 'Copied ✓' : 'Select and copy'; setTimeout(() => cp.textContent = 'Copy', 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => done(true), () => done(false)); else done(false);
+    return;
+  }
   if (e.target.closest('#copyt')) {
     const btn = $('copyt'), s = D.builds[build].talentsString;
     const done = ok => { btn.textContent = ok ? 'Copied ✓' : 'Select and copy'; setTimeout(() => btn.textContent = 'Copy talent string', 1500); };
