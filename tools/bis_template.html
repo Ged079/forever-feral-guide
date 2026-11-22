@@ -86,13 +86,15 @@ input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);backg
 .where{font-size:13.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dv{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.dv b{font-size:16px}.dv .pm{font-size:12px;color:var(--mute);margin-left:4px}
 .trow.best .dv b{color:var(--acc)}
-.dot{position:relative;height:22px}
-.dot .band{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--acc) 10%,transparent);border-left:1px solid color-mix(in srgb,var(--acc) 45%,transparent);border-right:1px solid color-mix(in srgb,var(--acc) 45%,transparent)}
-.dot .zero{position:absolute;top:0;bottom:0;width:1px;background:color-mix(in srgb,var(--acc) 60%,transparent)}
-.dot .wh{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--neg)}
-.dot .wh::before,.dot .wh::after{content:"";position:absolute;top:-4px;width:1px;height:10px;background:var(--neg)}.dot .wh::before{left:0}.dot .wh::after{right:0}
-.dot .pt{position:absolute;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:var(--ink);border:2px solid var(--card)}
-.trow.best .dot .pt{background:var(--acc)}
+.dot{position:relative;align-self:stretch;margin:-9px 0;min-height:40px}
+.dot .band{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.dot .zero{position:absolute;top:0;bottom:0;width:1px;background:color-mix(in srgb,var(--ink) 30%,transparent)}
+.dot .trk{position:absolute;top:50%;height:6px;margin-top:-3px;border-radius:3px;background:color-mix(in srgb,var(--neg) 45%,transparent)}
+.dot .wh{position:absolute;top:50%;height:1.5px;margin-top:-.75px;background:var(--mute)}
+.dot .wh::before,.dot .wh::after{content:"";position:absolute;top:-5px;width:1.5px;height:11px;background:var(--mute)}.dot .wh::before{left:0}.dot .wh::after{right:0}
+.dot .pt{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:color-mix(in srgb,var(--ink) 55%,var(--card));box-shadow:0 0 0 2px var(--bg),0 0 0 3px color-mix(in srgb,var(--ink) 35%,transparent)}
+.trow.best .dot .pt{width:15px;height:15px;margin:-7.5px 0 0 -7.5px;background:var(--acc);box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--acc)}
+.trow.hd .dot{min-height:0;margin:-14px 0 -9px}.hdot .hl{position:relative;display:block;padding:14px 0 9px}
 .bud{font-size:13px;color:var(--mute);text-align:right}.bud.h{color:var(--ink);font-weight:600}
 .tnone{color:var(--mute);font-size:14px;padding:14px 8px}
 @media(max-width:760px){.trow{grid-template-columns:minmax(0,1fr) 86px;gap:4px 10px}.trow.hd{display:none}.where{grid-column:1/-1;order:3;padding-left:40px;white-space:normal}.dot,.bud{display:none}}
@@ -213,11 +215,11 @@ function render() {
       return `<div class="trow${mine ? ' best' : ''}"><span class="it">${icon(id)}<a class="q" style="--qc:${it.q}" href="${wh(id)}" target="_blank" rel="noopener" title="${nm(id, suf)}">${nm(id, suf)}</a></span>
         <span class="where" title="${esc(it.src.join(' + '))}">${esc(it.src.join(' + '))}</span>
         <span class="dv"><b>${val}</b>${err ? `<span class="pm">±${ERR.toFixed(1)}</span>` : ''}</span>
-        <span class="dot" aria-hidden="true"><span class="band" style="left:${X(-ERR)};right:calc(100% - ${X(ERR)})"></span><span class="zero" style="left:${X(0)}"></span>${err ? `<span class="wh" style="left:${X(d - err)};width:calc(${X(d + err)} - ${X(d - err)})"></span>` : ''}<span class="pt" style="left:${X(d)}"></span></span>
+        <span class="dot" aria-hidden="true"><span class="band" style="left:${X(-ERR)};right:calc(100% - ${X(ERR)})"></span><span class="zero" style="left:${X(0)}"></span>${!isBis ? `<span class="trk" style="left:${X(Math.min(d, 0))};width:calc(${X(Math.max(d, 0))} - ${X(Math.min(d, 0))})"></span>` : ''}${err ? `<span class="wh" style="left:${X(d - err)};width:calc(${X(d + err)} - ${X(d - err)})"></span>` : ''}<span class="pt" style="left:${X(d)}"></span></span>
         <span class="bud${it.r ? ' h' : ''}">${it.r ? 'Needs rep' : 'Easy'}</span></div>`;
     }).join('');
     return `<div class="stbl" id="slot-${s}"><div class="shd"><h3>${SL[s]}</h3><span class="small">${S.enchant ? 'Enchant: ' + esc(S.enchant) : ''}</span></div>
-      <div class="trow hd"><span>Item</span><span>Where</span><span style="text-align:right">Δ DPS</span><span>vs best</span><span style="text-align:right">Budget</span></div>${body}</div>`;
+      <div class="trow hd"><span>Item</span><span>Where</span><span style="text-align:right">Δ DPS</span><span class="dot hdot"><span class="band" style="left:${X(-ERR)};right:calc(100% - ${X(ERR)})"></span><span class="zero" style="left:${X(0)}"></span><span class="hl">vs best</span></span><span style="text-align:right">Budget</span></div>${body}</div>`;
   }).join('');
   const shown = document.querySelectorAll('#cards .trow:not(.hd)').length;
   const filt = !allK || q;
