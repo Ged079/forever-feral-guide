@@ -14,6 +14,12 @@ CLI = os.environ.get('WOWSIMCLI', os.path.join(FOREVER, 'bin/wowsimcli'))
 APL = os.path.join(FOREVER, 'ui/specs/druid/feralcat/apls/adaptive.apl.json')
 SETUP = os.path.join(HERE, '..', 'setup')  # sim inputs and results
 DOCS = os.path.join(HERE, '..', 'docs')    # the built pages
+# Links between the two pages: relative for the website (docs/ on GitHub Pages);
+# LINKS=artifact builds the claude.ai copies, which need absolute URLs.
+ARTIFACT = os.environ.get('LINKS') == 'artifact'
+BIS_URL = 'https://claude.ai/artifact/Q7Lj3rf1dCzQSUYfb21RGK' if ARTIFACT else 'bis/'
+GUIDE_URL = 'https://claude.ai/artifact/5gGGbyVEPBERj1fR2FMaqm' if ARTIFACT else '../'
+NEW_TAB = ' target="_blank" rel="noopener"' if ARTIFACT else ''
 CACHE = os.path.join(HERE, 'cache')
 os.makedirs(CACHE, exist_ok=True)
 

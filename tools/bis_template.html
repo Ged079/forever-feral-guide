@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pre-raid best in slot for Feral Cat in WoW Forever: every slot ranked by WoWSims Forever, with faction, budget and source filters.">
+<meta name="theme-color" content="#1b1c20">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ec7a50'/%3E%3Cg fill='%231b1c20'%3E%3Cellipse cx='32' cy='42' rx='13' ry='11'/%3E%3Cellipse cx='16' cy='28' rx='5.5' ry='7'/%3E%3Cellipse cx='26' cy='18' rx='5.5' ry='7.5'/%3E%3Cellipse cx='38' cy='18' rx='5.5' ry='7.5'/%3E%3Cellipse cx='48' cy='28' rx='5.5' ry='7'/%3E%3C/g%3E%3C/svg%3E">
 <title>Feral Pre-raid BiS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -103,7 +106,7 @@ section[hidden]{display:none}
 <div class="top"><div class="wrap">
   <div class="brand">Forever Feral <span>·</span> Pre-raid BiS</div>
   <nav class="tabs" aria-label="Tabs"><a href="#gear" data-tab="gear">Gear by slot</a><a href="#how" data-tab="how">How to gear</a><a href="#method" data-tab="method">Method</a></nav>
-  <a class="back" id="guidelink" href="#" target="_blank" rel="noopener">Class guide ↗</a>
+  <a class="back" id="guidelink" href="#">Class guide ↗</a>
 </div></div>
 
 <main class="wrap">
@@ -228,8 +231,9 @@ function render() {
     `<b>Faction pieces:</b> Alliance and Horde sets differ only where a piece is faction-locked. Switch faction above to see yours.`,
     `<b>Can't get AV or exalted rep yet?</b> Switch Budget to "No AV, PvP or exalted rep": it swaps those pieces for the best you can get without them.`,
   ].map(x => `<li>${x}</li>`).join('');
-  $('foot').innerHTML = `Simmed with WoWSims Forever · companion to the <a href="${esc(D.guideUrl)}" target="_blank" rel="noopener">Forever Feral class guide</a>`;
+  $('foot').innerHTML = `Simmed with WoWSims Forever · companion to the <a href="${esc(D.guideUrl)}">Forever Feral class guide</a>`;
   $('guidelink').href = D.guideUrl;
+  if (/^https?:/.test(D.guideUrl)) document.querySelectorAll('a[href="' + D.guideUrl + '"]').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
   save();
 }
 

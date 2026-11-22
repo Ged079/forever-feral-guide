@@ -155,7 +155,7 @@ data['cooldowns'] = C.COOLDOWNS
 data['restart'] = [{'start': SEARCH[r]['log'][0]['dps'], 'steps': len(SEARCH[r]['log']) - 1, 'final': SEARCH[r]['final']} for r in ('restart1', 'restart4')]
 
 os.makedirs(sim.DOCS, exist_ok=True)
-html = open(os.path.join(sim.HERE, 'template.html')).read().replace('/*DATA*/null', json.dumps(data, separators=(',', ':')))
+html = open(os.path.join(sim.HERE, 'template.html')).read().replace('/*DATA*/null', json.dumps(data, separators=(',', ':'))).replace('__BIS_URL__', sim.BIS_URL).replace('__XT__', sim.NEW_TAB)
 open(os.path.join(sim.DOCS, 'index.html'), 'w').write(html)
 print('ok', len(html), 'bytes; hit caps', {b: v['hitCap'] for b, v in data['builds'].items()})
 print(json.dumps({b: v['casts'] for b, v in data['builds'].items()}))

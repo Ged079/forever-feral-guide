@@ -3,7 +3,9 @@
 A Feral Cat guide for WoW Forever (Phase 1, level 60): builds, talent values, the rotation as plain steps,
 consumables, raid buffs, races, stat weights and the hit cap. Every number is a WoWSims Forever sim.
 
-Open `docs/index.html` in a browser (the guide) and `docs/bis/index.html` (pre-raid BiS, every slot ranked). Both are self-contained pages.
+Website: https://ged079.github.io/forever-feral-guide/ (GitHub Pages from `docs/` on `main`), with the pre-raid BiS
+page at `/bis/`. Both pages are single self-contained HTML files, so `docs/index.html` and `docs/bis/index.html` also open
+straight from disk.
 
 ## Where the numbers come from
 
@@ -47,6 +49,9 @@ python3 rank.py                # per-slot ranking, both factions       -> ../set
 python3 build_page.py          # the guide   -> ../docs/index.html
 python3 build_bis.py           # the BiS page -> ../docs/bis/index.html
 ```
+
+`LINKS=artifact python3 build_page.py` (and the same for `build_bis.py`) builds the copies hosted on claude.ai, whose
+links to each other need absolute URLs; the default build links them relatively, for the website.
 
 Sim results are cached in `tools/cache/` by request, so rebuilding the pages without changing a setup runs no sims.
 All paths are relative to the scripts (`sim.SETUP`, `sim.DOCS`), so they run from any folder.

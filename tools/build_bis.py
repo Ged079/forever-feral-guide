@@ -7,7 +7,6 @@ import build_page_helpers as H
 import sim
 
 TOPN_STORE = 15
-GUIDE_URL = 'https://claude.ai/artifact/5gGGbyVEPBERj1fR2FMaqm'  # options kept per slot
 
 ITEMS = G.ITEMS
 SUFFIX = G.SUFFIX
@@ -61,7 +60,7 @@ def main():
         it = ITEMS[iid]
         data['items'][iid] = {'n': it['name'], 'q': H.quality(iid), 'i': H.item_icon(iid),
                               'src': H.source(iid), 'k': H.kinds(iid), 'r': H.hard_to_get(iid)}
-    data['guideUrl'] = GUIDE_URL
+    data['guideUrl'] = sim.GUIDE_URL
     data['err'] = 1.7  # 95% margin of a gap, ignoring the shared-seed benefit (sd ~33 DPS, 3000 iterations)
     data['suffixes'] = {s['id']: s['name'] for s in a.DB['randomSuffixes']}
     gw = json.load(open(sim.data('results.json')))['stats']['cat']['perPoint']
