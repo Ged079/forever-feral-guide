@@ -5,7 +5,6 @@ import analyze as a
 import gear as G
 import build_page_helpers as H
 
-ICON_REPO = '/home/claude/icons_src/repo'
 TOPN_STORE = 15
 RANK_DIR = os.environ.get('RANK_DIR', '../setup/rank')
 GUIDE_URL = 'https://claude.ai/artifact/5gGGbyVEPBERj1fR2FMaqm'  # options kept per slot
