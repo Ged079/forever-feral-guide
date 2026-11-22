@@ -157,7 +157,26 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .ep li::before{content:counter(e);color:var(--mute);font:600 17px/1 var(--head)}
 .ep b{font-weight:600}.ep .meter{height:9px}.ep .meter span{background:color-mix(in srgb,var(--mute) 80%,transparent)}.ep li.hi .meter span{background:var(--tan)}
 .ep .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute)}
-.wl{margin:8px 0 0;padding-left:18px}.wl li{margin:0 0 10px}
+.wkey{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--acc) 9%,transparent);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);margin:6px 0 4px}
+.wkey b{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--acc);letter-spacing:.01em}
+.wsub{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:16px 0 4px}
+.wrow{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.wrow:first-of-type{border-top:0}
+.wrow img{width:36px;height:36px;border-radius:7px;border:1px solid #4a4d55;display:block}
+.wrow .nm{display:block;font-weight:600;line-height:1.25;color:light-dark(color-mix(in srgb,var(--qc) 58%,#000),var(--qc))}
+.wrow .sr{display:block;font-size:12.5px;color:var(--mute);line-height:1.3}
+.wrow .dv{font-variant-numeric:tabular-nums;font-size:14px;color:var(--mute);white-space:nowrap}
+.wrow .best{font-size:12px;font-weight:700;color:var(--on-acc);background:var(--acc);border-radius:999px;padding:3px 9px}
+.wrow.noi{grid-template-columns:minmax(0,1fr) auto}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:6px 0 4px}
+.tile{border:1px solid var(--line);border-radius:12px;padding:10px 10px 9px}
+.tile b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.tile span{display:block;font-size:12.5px;color:var(--mute);margin-top:5px;line-height:1.25}
+.tile.hl{border-color:color-mix(in srgb,var(--acc) 45%,transparent)}.tile.hl b{color:var(--acc)}
+.hitcard{grid-column:1/-1}.hitwrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:20px;align-items:center}
+.hitcard .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.hitcard .fig{height:240px;margin:0}
+@media (max-width:760px){.hitwrap{grid-template-columns:1fr;gap:6px}}
+@media (max-width:560px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .note{border-left:3px solid var(--tan);padding:6px 0 6px 12px;margin:12px 0;color:var(--ink)}
 .fig{position:relative;height:220px;margin-top:8px}.fig svg{position:absolute;inset:0;width:100%;height:100%}
 table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
@@ -227,8 +246,16 @@ footer{padding:28px 0 48px}
   <h2>Gear &amp; stats</h2>
   <div class="grid2">
     <div class="card"><h3>What to look for on gear</h3><p id="eplead"></p><ol class="ep" id="ep"></ol><p class="small" id="epnote"></p></div>
-    <div class="card"><h3>Weapons and idol</h3><ul class="wl" id="weap"></ul></div>
-    <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the best-in-slot set.</p></div>
+    <div class="card"><h3>Weapons and idol</h3>
+      <div class="wkey"><b id="wdagi"></b><span class="small">Cat claws scale with weapon DPS in Forever, so a slow, hard-hitting two-hander beats a stat stick.</span></div>
+      <div class="wsub">Two-hander</div><div id="wweap"></div>
+      <div class="wsub">Weapon enchant</div><div id="wench"></div>
+      <div class="wsub">Idol</div><div id="widol"></div>
+    </div>
+    <div class="card hitcard"><h3>Hit cap</h3>
+      <div class="hitwrap"><div><div class="tiles" id="hittiles"></div><p class="small" id="hitnote"></p></div>
+      <div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div></div>
+    </div>
   </div>
   <div class="card bisprev" style="margin-top:16px">
     <div class="bph"><div><h3>Pre-raid best in slot</h3><p class="small" id="gearnote" style="margin:4px 0 0"></p></div><div class="seg2" id="facpick"></div></div>
@@ -349,8 +376,9 @@ function render() {
   $('eplead').innerHTML = `Hit is worth about as much as Crit until <b>${b.hitCap / 10}% from gear</b> (${b.hitCap} rating; Nature's Reach covers the other 4%, and no druid race gives hit), then nothing. Otherwise compare items with this order: longer bar, better stat.`;
   $('ep').innerHTML = eps.map(([n, e]) => `<li class="${n === 'Hit Rating' ? 'hi' : ''}"><b>${esc(LBL[n] || n)}</b><span class="meter"><span style="width:${(e / emax * 100).toFixed(0)}%"></span></span><span class="v">${e.toFixed(2)}</span></li>`).join('');
   $('epnote').textContent = `What one point of each stat is worth in Agility, for ${b.name}, simmed on the best-in-slot set. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste. Weights move with gear, so treat close ones (within about 0.05) as equal.`;
-  $('weap').innerHTML = D.weaponNotes.map(x => `<li>${x}</li>`).join('');
-  $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The best-in-slot set has only ${D.gearHit}: the gear search found the Agility and Strength on the other pieces worth more than reaching the cap. Nature’s Reach 2/2 covers 4% of the 8%.`;
+  $('hittiles').innerHTML = [['8%', 'hit needed against a raid boss'], ['4%', 'from Nature’s Reach 2/2'], ['≈' + b.hitCap, 'hit rating from gear for the rest', 1], [D.gearHit, 'hit rating on the best-in-slot set']]
+    .map(([v, t, h]) => `<div class="tile${h ? ' hl' : ''}"><b>${v}</b><span>${t}</span></div>`).join('');
+  $('hitnote').innerHTML = `Past the cap, hit is worth nothing. The best-in-slot set stops at ${D.gearHit}: the gear search found the Agility and Strength on the other pieces worth more than the last few percent of hit.`;
   drawHit();
   const C = D.consumables[build];
   const cmax = Math.max(...C.list.map(c => c.v));
@@ -436,7 +464,9 @@ function drawHit() {
     <line x1="${X(b.hitCap)}" x2="${X(b.hitCap)}" y1="${pad.t}" y2="${H - pad.b}" stroke="${tan}" stroke-dasharray="4 4"/>
     <text x="${X(b.hitCap) - 6}" y="${H - pad.b - 10}" text-anchor="end" fill="${tan}" font-size="12">cap ≈ ${b.hitCap}</text>
     <path d="${path}" fill="none" stroke="${moss}" stroke-width="3"/>
-    ${cur ? `<circle cx="${X(cur[0])}" cy="${Y(cur[1])}" r="6" fill="${tan}"/>` : ''}`;
+    ${cur ? `<circle cx="${X(cur[0])}" cy="${Y(cur[1])}" r="6" fill="${tan}"/><text x="${X(cur[0]) + 10}" y="${Y(cur[1]) + 18}" fill="${tan}" font-size="12" font-weight="700">BiS · ${cur[0]}</text>` : ''}
+    <text x="${W - pad.r}" y="${H - pad.b - 8}" fill="${ink}" font-size="11" text-anchor="end" opacity=".8">hit rating from gear →</text>
+    <text x="${pad.l}" y="${pad.t + 2}" fill="${ink}" font-size="11" opacity=".8">DPS</text>`;
 }
 const ro = new ResizeObserver(drawHit); ro.observe(svg);
 
@@ -461,6 +491,12 @@ function renderGear() {
   try { localStorage.setItem('ff-fac', fac); } catch (e) {}
 }
 renderGear();
+const W = D.weaponCard;
+$('wdagi').textContent = `1 weapon DPS ≈ ${W.wdAgi} Agility`;
+const wrow = (x, i) => `<a class="wrow" href="https://www.wowhead.com/forever/item=${x.id}" target="_blank" rel="noopener"><img alt="" src="${D.gearIcons[x.icon] || ''}"><span><span class="nm" style="--qc:${x.q}">${esc(x.name)}</span><span class="sr">${esc(x.src.filter((t, i, A) => A.findIndex(u => u.split(':')[0] === t.split(':')[0]) === i).slice(0, 2).join(' · '))}${x.hard ? ' · needs rep' : ''}</span></span>${i ? `<span class="dv">${x.delta.toFixed(1)} DPS</span>` : '<span class="best">Best</span>'}</a>`;
+$('wweap').innerHTML = W.weapons.map(wrow).join('');
+$('widol').innerHTML = W.idols.map(wrow).join('');
+$('wench').innerHTML = W.enchants.map((e, i) => `<div class="wrow noi"><span><span class="nm" style="--qc:var(--ink);color:var(--ink)">${esc(e.name)}</span><span class="sr">${esc(e.what)}${i ? '' : ' · the paw uses weapon damage'}</span></span>${i ? `<span class="dv">${e.delta.toFixed(1)} DPS</span>` : '<span class="best">Best</span>'}</div>`).join('');
 $('macronote').textContent = D.macroNote;
 $('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><h3>${esc(t)}</h3><p class="small">${esc(x)}</p><pre style="margin:8px 0"><code id="m${i}">${esc(m)}</code></pre><button class="btn" type="button" data-copy="m${i}">Copy</button></div>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);

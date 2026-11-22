@@ -168,12 +168,28 @@ _ir = [o for o in RANK['alliance']['slots']['ranged']['options'] if o['delta'] <
 _idol = (ITEMS[_ir['id']]['name'], _ir['delta'])
 xw = json.load(open('../setup/extra_weights.json'))
 wd = round(xw['Weapon DPS'] / xw['Agility'], 1)
-data['weaponNotes'] = [
-    f"<b>Weapon DPS matters.</b> In Forever, Cat Form's claws hit harder with a higher-DPS weapon: each point of weapon DPS is worth about {wd} Agility. A slow, hard-hitting two-hander beats a stat stick.",
-    "<b>Best:</b> The Unstoppable Force (Alterac Valley vendor). Without AV reputation: Bonecrusher, then Brutehammer.",
-    "<b>Enchant:</b> Superior Impact (+9 weapon damage) edges out +25 Agility by about 3 DPS, because the paw uses the weapon's damage.",
-    f"<b>Idol:</b> Idol of the Dream (Enchanting, or a Sunken Temple drop) is about {-_idol[1]:.0f} DPS over the next best, {_idol[0]}.",
-]
+def _itm(o):
+    i = o['id']; ic = _IIc.get(i) or 'inv_misc_questionmark'
+    return {'id': i, 'name': ITEMS[i]['name'] + (' ' + _SFX[o['suffix']] if o.get('suffix') in _SFX else ''), 'icon': ic,
+            'q': _Q.get(ITEMS[i].get('quality', 1), '#e6e6e6'), 'src': source(i), 'delta': round(o['delta'], 1), 'hard': _H.hard_to_get(i)}
+_mh = RANK['alliance']['slots']['main_hand']['options']
+_seen, _ws = set(), []
+for o in _mh:
+    if ITEMS[o['id']]['name'] in _seen: continue
+    _seen.add(ITEMS[o['id']]['name']); _ws.append(_itm(o))
+    if len(_ws) == 3: break
+_rg = RANK['alliance']['slots']['ranged']['options']
+_en = json.load(open('../setup/gear/cat_alliance.json'))['enchants']
+_eb = max(_en.values())
+_EN = {'Enchant 2H Weapon - Superior Impact': ('Superior Impact', '+9 weapon damage'), 'Enchant 2H Weapon - Agility': ('Agility', '+25 Agility'),
+       'Enchant 2H Weapon - Strength': ('Strength', '+9 Strength'), 'Enchant Weapon - Grand Crusader': ('Grand Crusader', 'proc')}
+data['weaponCard'] = {
+    'wdAgi': wd,
+    'weapons': _ws,
+    'idols': [_itm(o) for o in _rg[:2]],
+    'enchants': [{'name': _EN.get(k, (k, ''))[0], 'what': _EN.get(k, ('', ''))[1], 'delta': round(v - _eb, 1)} for k, v in sorted(_en.items(), key=lambda x: -x[1])][:3],
+}
+data['gearIcons'].update(_H.load_icons({x['icon'] for x in _ws + data['weaponCard']['idols']} - set(data['gearIcons'])))
 data['buffIcon'] = json.load(open('../setup/buff_icons.json'))
 data['macros'] = C.MACROS
 data['macroNote'] = C.MACRO_NOTE
