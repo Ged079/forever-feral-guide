@@ -37,7 +37,19 @@ header.hero{padding:clamp(24px,4vw,44px) 0 18px}.kicker{color:var(--acc);font-we
 .ctrl label,.ctrl .lb{display:block;font-size:13px;font-weight:600;color:var(--mute);margin-bottom:6px}
 .seg{display:flex;flex-wrap:wrap;gap:6px}.seg button{font-size:14px;padding:6px 12px;min-height:36px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;grid-column:1/-1}
-.chipf{font-size:13px;padding:5px 11px;min-height:34px;gap:6px}.chipf[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}.fnote{width:100%;font-size:13px;color:var(--mute);margin-top:2px}
+.chipf{font-size:13px;padding:5px 11px;min-height:34px;gap:6px}.fnote{grid-column:1/-1;font-size:13px;color:var(--mute);margin-top:-4px}
+.fcol{grid-column:span 2}.frow{display:flex;gap:8px}.frow input{flex:1}
+.dd{position:relative;flex:none}
+.ddbtn{font:inherit;font-weight:700;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:0 14px;min-height:40px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;white-space:nowrap}
+.ddbtn[aria-expanded=true],.ddbtn.on{border-color:var(--acc);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 30%,transparent)}
+.ddbtn .car{font-size:11px;color:var(--mute)}
+.ddmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:20;min-width:220px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.ddmenu button{display:flex;align-items:center;gap:10px;width:100%;font:inherit;font-size:15px;color:var(--ink);background:transparent;border:0;border-radius:8px;padding:9px 10px;cursor:pointer;text-align:left}
+.ddmenu button:hover,.ddmenu button:focus-visible{background:var(--card2);outline:none}
+.ddmenu .bx{width:18px;height:18px;border-radius:5px;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--on-acc);flex:none}
+.ddmenu [aria-checked=true] .bx{background:var(--acc);border-color:var(--acc)}
+.ddmenu .sep{height:1px;background:var(--line);margin:4px 6px}
+@media(max-width:640px){.fcol{grid-column:auto}.ddmenu{right:auto;left:auto;right:0}}
 input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-height:40px}
 .sum{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;margin:2px 0 14px}.sum .big{font:700 46px/1 var(--head)}
 .doll{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
@@ -48,8 +60,8 @@ input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);backg
 .slot .lb{font-size:12px;color:var(--mute);display:block}.slot .nm{font-weight:600;display:block;line-height:1.25}
 .slot .en{font-size:12.5px;color:var(--mute);display:block}.slot.sw .nm::after{content:" swapped";font-size:11px;font-weight:700;color:var(--acc);margin-left:6px}
 .q{text-shadow:none}
-:root .q{filter:light-dark(brightness(.62) saturate(1.4),none)}
-.cards{display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:14px;margin-top:18px}
+.q{color:light-dark(color-mix(in srgb,var(--qc) 58%,#000),var(--qc))!important}
+.cards{margin-top:8px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;scroll-margin-top:130px}
 .card h3{display:flex;justify-content:space-between;align-items:baseline}
 .opt{list-style:none;margin:8px 0 0;padding:0}
@@ -63,6 +75,27 @@ input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);backg
 .tag{white-space:nowrap;font-size:11px;font-weight:700;border-radius:5px;padding:1px 6px;margin-left:6px;background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc);vertical-align:2px}
 .tag.h{background:color-mix(in srgb,var(--mute) 20%,transparent);color:var(--mute)}
 .card.none{grid-column:1/-1;display:flex;flex-direction:column;gap:4px;align-items:flex-start;padding:22px}
+.stbl{margin-top:22px}
+.shd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:0 2px 8px;border-bottom:1px solid var(--line);scroll-margin-top:130px}
+.shd h3{font-size:24px}.shd .small{font-size:14px}
+.trow{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1.9fr) 104px minmax(120px,1.3fr) 82px;gap:14px;align-items:center;padding:9px 8px;border-bottom:1px solid var(--line)}
+.trow.hd{font-size:12.5px;color:var(--mute);font-weight:600;padding-top:14px;border-bottom:1px solid var(--line)}
+.trow.best{background:color-mix(in srgb,var(--acc) 6%,transparent)}
+.it{display:flex;align-items:center;gap:10px;min-width:0}.it .ic{width:30px;height:30px;border-radius:6px;flex:none}
+.it a{font-weight:600;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.it a:hover{text-decoration:underline}
+.where{font-size:13.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dv{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.dv b{font-size:16px}.dv .pm{font-size:12px;color:var(--mute);margin-left:4px}
+.trow.best .dv b{color:var(--acc)}
+.dot{position:relative;height:22px}
+.dot .band{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--acc) 10%,transparent);border-left:1px solid color-mix(in srgb,var(--acc) 45%,transparent);border-right:1px solid color-mix(in srgb,var(--acc) 45%,transparent)}
+.dot .zero{position:absolute;top:0;bottom:0;width:1px;background:color-mix(in srgb,var(--acc) 60%,transparent)}
+.dot .wh{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--neg)}
+.dot .wh::before,.dot .wh::after{content:"";position:absolute;top:-4px;width:1px;height:10px;background:var(--neg)}.dot .wh::before{left:0}.dot .wh::after{right:0}
+.dot .pt{position:absolute;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:var(--ink);border:2px solid var(--card)}
+.trow.best .dot .pt{background:var(--acc)}
+.bud{font-size:13px;color:var(--mute);text-align:right}.bud.h{color:var(--ink);font-weight:600}
+.tnone{color:var(--mute);font-size:14px;padding:14px 8px}
+@media(max-width:760px){.trow{grid-template-columns:minmax(0,1fr) 86px;gap:4px 10px}.trow.hd{display:none}.where{grid-column:1/-1;order:3;padding-left:40px;white-space:normal}.dot,.bud{display:none}}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
 .ep li{display:grid;grid-template-columns:minmax(0,1fr) minmax(80px,1.4fr) 44px;gap:12px;align-items:center;padding:5px 0}
 .ep{list-style:none;padding:0;margin:8px 0}.ep .bar{margin:0;height:9px}.ep .bar span{background:var(--neg)}.ep .val{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
@@ -83,15 +116,17 @@ section[hidden]{display:none}
 <header class="hero">
   <div class="kicker">WoW Forever · Phase 1 · Feral Cat</div>
   <h1>Pre-raid best in slot</h1>
-  <p class="small">Every slot ranked by WoWSims Forever: each option is the best-in-slot set with only that piece swapped, so the numbers show what you lose by wearing it instead. No raid loot, raid reputation or PvP rank gear.</p>
+  <p class="small">Every slot ranked by WoWSims Forever: each option is the best-in-slot set with only that piece swapped, so Δ DPS is what you lose by wearing it instead. The shaded band around "Best" is the sim's margin (±1.7 DPS, 95%): anything whose dot sits inside it is a tie. No raid loot, raid reputation or PvP rank gear.</p>
 </header>
 
 <div class="ctrl">
   <div><span class="lb">Faction</span><div class="seg" id="fac"></div></div>
   <div><span class="lb">Budget</span><div class="seg" id="bud"></div></div>
   <div><span class="lb">Options per slot</span><div class="seg" id="topn"></div></div>
-  <div><label for="q">Filter</label><input type="search" id="q" placeholder="Item name or place" autocomplete="off"></div>
-  <div class="chips" id="kinds"></div>
+  <div class="fcol"><label for="q">Filter</label><div class="frow"><input type="search" id="q" placeholder="Item, boss, zone, quest" autocomplete="off">
+    <div class="dd"><button type="button" class="ddbtn" id="ddbtn" aria-haspopup="true" aria-expanded="false"><span id="ddlbl">All sources</span><span class="car">▾</span></button>
+      <div class="ddmenu" id="kinds" role="menu" hidden></div></div></div></div>
+  <div class="fnote" id="fnote"></div>
 </div>
 
 <section id="tab-gear">
@@ -143,19 +178,22 @@ function render() {
   seg('bud', [['max', 'Max'], ['easy', 'No AV, PvP or exalted rep']], st.bud, 'bud');
   seg('topn', [[3, '3'], [5, '5'], [10, '10']], st.topn, 'topn');
   const allK = !st.kinds.size;
-  $('kinds').innerHTML = '<span class="lb" style="width:100%;margin:0">Show options from</span>' + `<button type="button" class="chipf" data-kind="all" aria-pressed="${allK}">All sources</button>` + KINDS.map(([k, l]) => `<button type="button" class="chipf" data-kind="${k}" aria-pressed="${st.kinds.has(k)}">${l}</button>`).join('') + '<span class="fnote" id="fnote"></span>';
+  $('kinds').innerHTML = `<button type="button" role="menuitemcheckbox" data-kind="all" aria-checked="${allK}"><span class="bx">${allK ? '✓' : ''}</span>All sources</button><div class="sep"></div>` + KINDS.map(([k, l]) => `<button type="button" role="menuitemcheckbox" data-kind="${k}" aria-checked="${st.kinds.has(k)}"><span class="bx">${st.kinds.has(k) ? '✓' : ''}</span>${l}</button>`).join('');
+  $('ddlbl').textContent = allK ? 'All sources' : st.kinds.size === 1 ? KINDS.find(x => st.kinds.has(x[0]))[1] : st.kinds.size + ' sources';
+  $('ddbtn').classList.toggle('on', !allK);
   const race = F.race === 'RaceNightElf' ? 'Night Elf' : 'Tauren';
   const easy = st.bud === 'easy';
   $('sum').innerHTML = `<span class="big">${easy ? '≈ ' + Math.round(F.dps + F.easyDelta) : Math.round(F.dps)}</span><span class="small">DPS · ${race} · Cat build · 3 minute boss${easy ? ` · ${F.easySwaps.length} pieces swapped, ${fmt(F.easyDelta)} DPS` : ''}</span>`;
   const slotBtn = s => {
     const id = pickFor(F, s); if (!id) return '';
     const sw = easy && id !== F.slots[s].bis;
-    return `<button type="button" class="slot${sw ? ' sw' : ''}" data-go="${s}">${icon(id)}<span><span class="lb">${SL[s]}</span><span class="nm q" style="color:${IT(id).q}">${nm(id, sw ? 0 : F.slots[s].bisSuffix)}</span><span class="en">${esc(sw ? IT(id).src[0] || '' : F.slots[s].enchant || IT(id).src[0] || '')}</span></span></button>`;
+    return `<button type="button" class="slot${sw ? ' sw' : ''}" data-go="${s}">${icon(id)}<span><span class="lb">${SL[s]}</span><span class="nm q" style="--qc:${IT(id).q}">${nm(id, sw ? 0 : F.slots[s].bisSuffix)}</span><span class="en">${esc(sw ? IT(id).src[0] || '' : F.slots[s].enchant || IT(id).src[0] || '')}</span></span></button>`;
   };
   $('doll').innerHTML = `<div class="dcol">${LEFT.map(slotBtn).join('')}</div><div class="dcol">${RIGHT.map(slotBtn).join('')}</div><div class="dbot">${BOT.map(slotBtn).join('')}</div>`;
   const q = st.q.trim().toLowerCase();
   const order = [...LEFT, ...RIGHT, ...BOT];
   const emptySlots = [];
+  const ERR = D.err || 1.7;
   $('cards').innerHTML = order.filter(s => F.slots[s] && F.slots[s].bis).map(s => {
     const S = F.slots[s], pick = pickFor(F, s);
     const rows = S.options.filter(([id]) => {
@@ -165,19 +203,26 @@ function render() {
       if (q && !(it.n.toLowerCase().includes(q) || it.src.join(' ').toLowerCase().includes(q))) return false;
       return true;
     }).slice(0, st.topn);
-    const lo = Math.min(-1, ...S.options.slice(0, 10).map(o => o[2]));
-    const body = rows.length ? rows.map(([id, suf, d], i) => {
-      const it = IT(id), best = id === pick;
-      const w = Math.max(4, 100 * (1 - d / lo));
-      return `<li class="${best ? 'best' : ''}"><span class="r">${i + 1}</span>${icon(id)}<span class="nm"><a class="q" style="color:${it.q}" href="${wh(id)}" target="_blank" rel="noopener">${nm(id, suf)}</a>${best ? '<span class="tag">Your pick</span>' : ''}${it.r ? '<span class="tag h" title="Needs Alterac Valley, PvP or exalted reputation">Needs rep</span>' : ''}<span class="src">${esc(it.src.join(' · '))}</span></span><span class="v">${id === S.bis ? 'BiS' : fmt(d)}<div class="bar"><span style="width:${(id === S.bis ? 100 : w).toFixed(0)}%"></span></div></span></li>`;
-    }).join('') : '';
     if (!rows.length) { emptySlots.push(SL[s]); return ''; }
-    return `<div class="card" id="slot-${s}"><h3>${SL[s]}<span class="small">DPS vs best</span></h3><ol class="opt">${body}</ol></div>`;
+    const lo = Math.min(-4, ...rows.map(r => r[2])) - ERR, hi = ERR + 0.5;
+    const X = v => ((v - lo) / (hi - lo) * 100).toFixed(1) + '%';
+    const body = rows.map(([id, suf, d]) => {
+      const it = IT(id), isBis = id === S.bis, mine = id === pick;
+      const err = isBis ? 0 : ERR;
+      const val = isBis ? 'Best' : fmt(d);
+      return `<div class="trow${mine ? ' best' : ''}"><span class="it">${icon(id)}<a class="q" style="--qc:${it.q}" href="${wh(id)}" target="_blank" rel="noopener" title="${nm(id, suf)}">${nm(id, suf)}</a></span>
+        <span class="where" title="${esc(it.src.join(' + '))}">${esc(it.src.join(' + '))}</span>
+        <span class="dv"><b>${val}</b>${err ? `<span class="pm">±${ERR.toFixed(1)}</span>` : ''}</span>
+        <span class="dot" aria-hidden="true"><span class="band" style="left:${X(-ERR)};right:calc(100% - ${X(ERR)})"></span><span class="zero" style="left:${X(0)}"></span>${err ? `<span class="wh" style="left:${X(d - err)};width:calc(${X(d + err)} - ${X(d - err)})"></span>` : ''}<span class="pt" style="left:${X(d)}"></span></span>
+        <span class="bud${it.r ? ' h' : ''}">${it.r ? 'Needs rep' : 'Easy'}</span></div>`;
+    }).join('');
+    return `<div class="stbl" id="slot-${s}"><div class="shd"><h3>${SL[s]}</h3><span class="small">${S.enchant ? 'Enchant: ' + esc(S.enchant) : ''}</span></div>
+      <div class="trow hd"><span>Item</span><span>Where</span><span style="text-align:right">Δ DPS</span><span>vs best</span><span style="text-align:right">Budget</span></div>${body}</div>`;
   }).join('');
-  const shown = document.querySelectorAll('#cards .opt li').length;
+  const shown = document.querySelectorAll('#cards .trow:not(.hd)').length;
   const filt = !allK || q;
   if (!shown) $('cards').innerHTML = '<div class="card none"><b>Nothing matches these filters.</b><span class="small">Try another source, or clear the search.</span></div>';
-  $('fnote').textContent = filt && !shown ? 'Nothing matches these filters.' : filt ? `Showing ${shown} options in ${order.length - emptySlots.length - 1 < 0 ? 0 : document.querySelectorAll('#cards .opt').length} slots.${emptySlots.length && shown ? ' No matches for ' + emptySlots.join(', ') + '.' : ''} The set at the top stays the best overall.` : 'Pick one or more to narrow the ranked lists below, e.g. only Crafted. The set at the top stays the best overall.';
+  $('fnote').textContent = filt && !shown ? 'Nothing matches these filters.' : filt ? `Showing ${shown} options in ${order.length - emptySlots.length - 1 < 0 ? 0 : document.querySelectorAll('#cards .stbl').length} slots.${emptySlots.length && shown ? ' No matches for ' + emptySlots.join(', ') + '.' : ''} The set at the top stays the best overall.` : 'Search or pick sources to narrow the ranked lists below. The set at the top stays the best overall.';
   // how to gear
   const emax = Math.max(...D.ep.map(e => e[1]));
   const LB = {'Hit Rating': 'Hit (to 4%)', 'Crit Rating': 'Crit', 'Haste Rating': 'Haste', 'Expertise Rating': 'Expertise', 'Armor Penetration': 'Armor penetration'};
@@ -204,11 +249,14 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-k]');
   if (b) { st[b.dataset.k] = b.dataset.k === 'topn' ? +b.dataset.v : b.dataset.v; render(); return; }
   const k = e.target.closest('[data-kind]');
-  if (k) { const v = k.dataset.kind; if (v === 'all') st.kinds.clear(); else st.kinds.has(v) ? st.kinds.delete(v) : st.kinds.add(v); render(); return; }
+  if (k) { const v = k.dataset.kind; if (v === 'all') st.kinds.clear(); else st.kinds.has(v) ? st.kinds.delete(v) : st.kinds.add(v); render(); $('kinds').hidden = false; $('ddbtn').setAttribute('aria-expanded', 'true'); const f = $('kinds').querySelector(`[data-kind="${v}"]`); if (f) f.focus(); return; }
+  if (e.target.closest('#ddbtn')) { const m = $('kinds'); m.hidden = !m.hidden; $('ddbtn').setAttribute('aria-expanded', String(!m.hidden)); if (!m.hidden) m.querySelector('button').focus(); return; }
+  if (!e.target.closest('.dd')) { $('kinds').hidden = true; $('ddbtn').setAttribute('aria-expanded', 'false'); }
   const g = e.target.closest('[data-go]');
   if (g) { const el = $('slot-' + g.dataset.go); if (el) el.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); return; }
 });
 let qt; $('q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { st.q = e.target.value; render(); }, 120); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !$('kinds').hidden) { $('kinds').hidden = true; $('ddbtn').setAttribute('aria-expanded', 'false'); $('ddbtn').focus(); } });
 addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 showTab(location.hash.slice(1));
 render();

@@ -72,6 +72,7 @@ def main():
         data['items'][iid] = {'n': it['name'], 'q': QUALITY.get(it.get('quality', 1), '#e6e6e6'), 'i': (II.get(iid) or '').lower(),
                               'src': H.source(iid), 'k': H.kinds(iid), 'r': H.hard_to_get(iid)}
     data['guideUrl'] = GUIDE_URL
+    data['err'] = 1.7  # 95% margin of a gap, ignoring the shared-seed benefit (sd ~33 DPS, 3000 iterations)
     data['suffixes'] = {s['id']: s['name'] for s in a.DB['randomSuffixes']}
     gw = json.load(open('../setup/results.json'))['stats']['cat']['perPoint']
     data['ep'] = sorted([[n, round(v / gw['Agility'], 2)] for n, v in gw.items()], key=lambda x: -x[1])
