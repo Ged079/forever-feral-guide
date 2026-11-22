@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feral Pre-raid BiS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE  the gear half of the Forever Feral guide: every slot ranked by the sim, nothing guessed.
+   IDEA   the character pane: a paper doll of the set, then each slot's shortlist below it.
+   PICTURE the paper doll with real item icons and the set's DPS, then ranked bars per slot.
+   COLOUR same as the guide: graphite ground, one Rip-red accent, item names in their quality colours.
+   TYPE   Barlow Condensed display, Barlow body. LAYOUT sticky tabs + controls, doll, two-column slot cards. */
+:root{color-scheme:light dark;
+--bg:light-dark(#f4f2ee,#121316);--card:light-dark(#ffffff,#1b1d21);--card2:light-dark(#f7f5f1,#16181b);--line:light-dark(#e1ddd5,#2b2e34);
+--ink:light-dark(#1b1c1f,#eceae5);--mute:light-dark(#6b6861,#9c9a93);--acc:light-dark(#bf4a2a,#ec7a50);--on-acc:light-dark(#ffffff,#1d0f09);
+--neg:light-dark(#8f8a80,#6e7179);--head:"Barlow Condensed","Arial Narrow",sans-serif}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.02;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,6vw,58px)}h2{font-size:clamp(28px,4vw,36px)}h3{font-size:21px;font-weight:600}
+a{color:var(--acc)}p{margin:.4em 0;max-width:70ch}.small{font-size:14px;color:var(--mute)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 max(4vw,16px)}
+.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap;padding-block:10px}
+.brand{font:700 20px/1 var(--head);margin-right:auto}.brand span{color:var(--acc)}
+.tabs{display:flex;gap:6px;overflow-x:auto}
+.tabs a,.seg button,.chipf{flex:none;font:inherit;font-size:15px;font-weight:500;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;min-height:40px;display:inline-flex;align-items:center;cursor:pointer}
+.tabs a.on,.seg button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}
+.tabs a:focus-visible,.seg button:focus-visible,.chipf:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.back{font-size:14px;color:var(--mute);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.back:hover{color:var(--ink);border-color:var(--acc)}
+header.hero{padding:clamp(24px,4vw,44px) 0 18px}.kicker{color:var(--acc);font-weight:700;font-size:15px;margin-bottom:6px}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:18px}
+.ctrl label,.ctrl .lb{display:block;font-size:13px;font-weight:600;color:var(--mute);margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}.seg button{font-size:14px;padding:6px 12px;min-height:36px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;grid-column:1/-1}
+.chipf{font-size:13px;padding:5px 11px;min-height:34px;gap:6px}.chipf[aria-pressed=false]{opacity:.45;text-decoration:line-through}
+input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-height:40px}
+.sum{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;margin:2px 0 14px}.sum .big{font:700 46px/1 var(--head)}
+.doll{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.dcol{display:grid;gap:8px;align-content:start}.dbot{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
+.slot{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:center;padding:6px;border-radius:10px;cursor:pointer;border:1px solid transparent;text-align:left;font:inherit;color:inherit;background:transparent;width:100%}
+.slot:hover,.slot:focus-visible{border-color:var(--line);background:var(--card2);outline:none}
+.slot img,.ic{width:44px;height:44px;border-radius:8px;border:1px solid #4a4d55;display:block;background:#000}
+.slot .lb{font-size:12px;color:var(--mute);display:block}.slot .nm{font-weight:600;display:block;line-height:1.25}
+.slot .en{font-size:12.5px;color:var(--mute);display:block}.slot.sw .nm::after{content:" swapped";font-size:11px;font-weight:700;color:var(--acc);margin-left:6px}
+.q{text-shadow:none}
+:root .q{filter:light-dark(brightness(.62) saturate(1.4),none)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;scroll-margin-top:130px}
+.card h3{display:flex;justify-content:space-between;align-items:baseline}
+.opt{list-style:none;margin:8px 0 0;padding:0}
+.opt li{display:grid;grid-template-columns:22px 34px minmax(0,1fr) minmax(70px,24%);gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)}
+.opt li:first-child{border-top:0}.opt .r{font:700 15px/1 var(--head);color:var(--mute);text-align:center}
+.opt .ic{width:34px;height:34px;border-radius:6px}
+.opt .nm a{font-weight:600;text-decoration:none}.opt .nm a:hover{text-decoration:underline}.opt .src{display:block;font-size:12.5px;color:var(--mute);line-height:1.35}
+.opt .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;white-space:nowrap}
+.bar{height:7px;border-radius:4px;background:color-mix(in srgb,var(--line) 80%,transparent);overflow:hidden;margin-top:5px}.bar span{display:block;height:100%;background:var(--neg);border-radius:4px}
+.opt li.best .bar span{background:var(--acc)}.opt li.best .v{color:var(--acc)}
+.tag{white-space:nowrap;font-size:11px;font-weight:700;border-radius:5px;padding:1px 6px;margin-left:6px;background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc);vertical-align:2px}
+.tag.h{background:color-mix(in srgb,var(--mute) 20%,transparent);color:var(--mute)}
+.empty{color:var(--mute);font-size:14px;padding:8px 0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.ep li{display:grid;grid-template-columns:minmax(0,1fr) minmax(80px,1.4fr) 44px;gap:12px;align-items:center;padding:5px 0}
+.ep{list-style:none;padding:0;margin:8px 0}.ep .bar{margin:0;height:9px}.ep .bar span{background:var(--neg)}.ep .val{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
+footer{padding:28px 0 48px}
+section[hidden]{display:none}
+@media(max-width:640px){.doll,.dbot{grid-template-columns:minmax(0,1fr)}.opt li{grid-template-columns:18px 30px minmax(0,1fr) 64px;gap:8px}.opt .ic{width:30px;height:30px}.sum .big{font-size:38px}}
+@media(prefers-reduced-motion:no-preference){.bar span{transition:width .3s ease}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <div class="brand">Forever Feral <span>·</span> Pre-raid BiS</div>
+  <nav class="tabs" aria-label="Tabs"><a href="#gear" data-tab="gear">Gear by slot</a><a href="#how" data-tab="how">How to gear</a><a href="#method" data-tab="method">Method</a></nav>
+  <a class="back" id="guidelink" href="#" target="_blank" rel="noopener">Class guide ↗</a>
+</div></div>
+
+<main class="wrap">
+<header class="hero">
+  <div class="kicker">WoW Forever · Phase 1 · Feral Cat</div>
+  <h1>Pre-raid best in slot</h1>
+  <p class="small">Every slot ranked by WoWSims Forever: each option is the best-in-slot set with only that piece swapped, so the numbers show what you lose by wearing it instead. No raid loot, raid reputation or PvP rank gear.</p>
+</header>
+
+<div class="ctrl">
+  <div><span class="lb">Faction</span><div class="seg" id="fac"></div></div>
+  <div><span class="lb">Budget</span><div class="seg" id="bud"></div></div>
+  <div><span class="lb">Options per slot</span><div class="seg" id="topn"></div></div>
+  <div><label for="q">Filter</label><input type="search" id="q" placeholder="Item name or place" autocomplete="off"></div>
+  <div class="chips" id="kinds"></div>
+</div>
+
+<section id="tab-gear">
+  <div class="sum" id="sum"></div>
+  <div class="doll" id="doll"></div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section id="tab-how" hidden>
+  <div class="panel"><h2>How to gear</h2><p id="howlead"></p><ol class="ep" id="ep"></ol><p class="small">What one point of each stat is worth in Agility, simmed on this set. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste.</p></div>
+  <div class="panel"><h3>Rules of thumb</h3><ul id="rules"></ul></div>
+</section>
+
+<section id="tab-method" hidden>
+  <div class="panel"><h2>Method</h2>
+    <p>The set was found by a search in WoWSims Forever: from the sim's preset gear, every shortlisted item in every slot was swapped in one at a time and the best swap kept, as long as it still won on fresh random runs, until no swap helped. Then every pair of slots was tried, then the weapon enchant.</p>
+    <p>The ranking on this page then simmed each slot's options against that set, 3,000 iterations each on the same seed, so the gaps inside a slot are measured precisely. Cat build, 3 minute boss, full raid buffs and consumables.</p>
+    <p><b>Shortlist.</b> Phase 1 cloth and leather, druid weapons and idols, level 60 or lower. Left out: raid drops (Molten Core, Onyxia, ZG, BWL, AQ, Naxx), raid reputation (The Watchers), the Onyxia head quests and PvP rank gear. Each slot's shortlist is the top 30 by stat weights plus up to 10 items with use effects or set bonuses (45 weapons), so a weak-looking item with a strong proc still gets simmed.</p>
+    <p><b>"No AV, PvP or exalted rep"</b> swaps every piece that needs Alterac Valley, PvP or exalted reputation for the best item in that slot that doesn't, and estimates the set's DPS by adding the gaps. Gaps between slots aren't always independent, so treat that number as close, not exact.</p>
+    <p><b>Not counted:</b> bonuses that need a zone or creature type, and gaps under about 1 DPS, which are ties.</p>
+  </div>
+</section>
+</main>
+<footer class="wrap small" id="foot"></footer>
+
+<script>
+{
+const D = /*DATA*/null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SL = {head:'Head',neck:'Neck',shoulder:'Shoulder',back:'Back',chest:'Chest',wrist:'Wrist',hands:'Hands',waist:'Waist',legs:'Legs',feet:'Feet',finger1:'Ring 1',finger2:'Ring 2',trinket1:'Trinket 1',trinket2:'Trinket 2',main_hand:'Weapon',off_hand:'Off hand',ranged:'Idol'};
+const LEFT = ['head','neck','shoulder','back','chest','wrist','hands'], RIGHT = ['waist','legs','feet','finger1','finger2','trinket1','trinket2'], BOT = ['main_hand','ranged'];
+const KINDS = [['dungeon','Dungeon'],['quest','Quest'],['crafted','Crafted'],['vendor','Vendor'],['rep','Reputation'],['av','Alterac Valley'],['world','World drop']];
+const st = {fac: 'alliance', bud: 'max', topn: 5, q: '', kinds: new Set(KINDS.map(k => k[0])), tab: 'gear'};
+try { const s = JSON.parse(localStorage.getItem('ffbis') || '{}'); if (D.factions[s.fac]) st.fac = s.fac; if (['max','easy'].includes(s.bud)) st.bud = s.bud; if ([3,5,10].includes(s.topn)) st.topn = s.topn; } catch (e) {}
+const save = () => { try { localStorage.setItem('ffbis', JSON.stringify({fac: st.fac, bud: st.bud, topn: st.topn})); } catch (e) {} };
+const IT = id => D.items[id] || {n: 'Unknown', q: '#ccc', i: '', src: [], k: []};
+const icon = (id, cls = 'ic') => { const u = D.icons[IT(id).i]; return u ? `<img class="${cls}" alt="" src="${u}">` : `<span class="${cls}"></span>`; };
+const nm = (id, suf) => esc(IT(id).n + (suf && D.suffixes[suf] ? ' ' + D.suffixes[suf] : ''));
+const wh = id => `https://www.wowhead.com/forever/item=${id}`;
+const fmt = v => Math.abs(v) < 0.05 ? '0' : (v > 0 ? '+' : '−') + Math.abs(v).toFixed(1);
+const seg = (el, opts, cur, key) => { $(el).innerHTML = opts.map(([v, l]) => `<button type="button" data-k="${key}" data-v="${v}" aria-pressed="${String(v) === String(cur)}">${l}</button>`).join(''); };
+
+function pickFor(F, slot) { const s = F.slots[slot]; if (!s || !s.bis) return null; return st.bud === 'easy' ? F.easy[slot] : s.bis; }
+
+function render() {
+  const F = D.factions[st.fac];
+  seg('fac', [['alliance', 'Alliance'], ['horde', 'Horde']], st.fac, 'fac');
+  seg('bud', [['max', 'Max'], ['easy', 'No AV, PvP or exalted rep']], st.bud, 'bud');
+  seg('topn', [[3, '3'], [5, '5'], [10, '10']], st.topn, 'topn');
+  $('kinds').innerHTML = '<span class="lb" style="width:100%;margin:0">Sources</span>' + KINDS.map(([k, l]) => `<button type="button" class="chipf" data-kind="${k}" aria-pressed="${st.kinds.has(k)}">${l}</button>`).join('');
+  const race = F.race === 'RaceNightElf' ? 'Night Elf' : 'Tauren';
+  const easy = st.bud === 'easy';
+  $('sum').innerHTML = `<span class="big">${easy ? '≈ ' + Math.round(F.dps + F.easyDelta) : Math.round(F.dps)}</span><span class="small">DPS · ${race} · Cat build · 3 minute boss${easy ? ` · ${F.easySwaps.length} pieces swapped, ${fmt(F.easyDelta)} DPS` : ''}</span>`;
+  const slotBtn = s => {
+    const id = pickFor(F, s); if (!id) return '';
+    const sw = easy && id !== F.slots[s].bis;
+    return `<button type="button" class="slot${sw ? ' sw' : ''}" data-go="${s}">${icon(id)}<span><span class="lb">${SL[s]}</span><span class="nm q" style="color:${IT(id).q}">${nm(id, sw ? 0 : F.slots[s].bisSuffix)}</span><span class="en">${esc(sw ? IT(id).src[0] || '' : F.slots[s].enchant || IT(id).src[0] || '')}</span></span></button>`;
+  };
+  $('doll').innerHTML = `<div class="dcol">${LEFT.map(slotBtn).join('')}</div><div class="dcol">${RIGHT.map(slotBtn).join('')}</div><div class="dbot">${BOT.map(slotBtn).join('')}</div>`;
+  const q = st.q.trim().toLowerCase();
+  const order = [...LEFT, ...RIGHT, ...BOT];
+  $('cards').innerHTML = order.filter(s => F.slots[s] && F.slots[s].bis).map(s => {
+    const S = F.slots[s], pick = pickFor(F, s);
+    const rows = S.options.filter(([id]) => {
+      const it = IT(id);
+      if (easy && it.r) return false;
+      if (!it.k.some(k => st.kinds.has(k))) return false;
+      if (q && !(it.n.toLowerCase().includes(q) || it.src.join(' ').toLowerCase().includes(q))) return false;
+      return true;
+    }).slice(0, st.topn);
+    const lo = Math.min(-1, ...S.options.slice(0, 10).map(o => o[2]));
+    const body = rows.length ? rows.map(([id, suf, d], i) => {
+      const it = IT(id), best = id === pick;
+      const w = Math.max(4, 100 * (1 - d / lo));
+      return `<li class="${best ? 'best' : ''}"><span class="r">${i + 1}</span>${icon(id)}<span class="nm"><a class="q" style="color:${it.q}" href="${wh(id)}" target="_blank" rel="noopener">${nm(id, suf)}</a>${best ? '<span class="tag">Your pick</span>' : ''}${it.r ? '<span class="tag h" title="Needs Alterac Valley, PvP or exalted reputation">Needs rep</span>' : ''}<span class="src">${esc(it.src.join(' · '))}</span></span><span class="v">${id === S.bis ? 'BiS' : fmt(d)}<div class="bar"><span style="width:${(id === S.bis ? 100 : w).toFixed(0)}%"></span></div></span></li>`;
+    }).join('') : '<li class="empty">Nothing in this slot matches the filters.</li>';
+    return `<div class="card" id="slot-${s}"><h3>${SL[s]}<span class="small">DPS vs best</span></h3><ol class="opt">${body}</ol></div>`;
+  }).join('');
+  // how to gear
+  const emax = Math.max(...D.ep.map(e => e[1]));
+  const LB = {'Hit Rating': 'Hit (to 4%)', 'Crit Rating': 'Crit', 'Haste Rating': 'Haste', 'Expertise Rating': 'Expertise', 'Armor Penetration': 'Armor penetration'};
+  $('ep').innerHTML = D.ep.map(([n, e]) => `<li><b>${esc(LB[n] || n)}</b><span class="bar"><span style="width:${(e / emax * 100).toFixed(0)}%"></span></span><span class="val">${e.toFixed(2)}</span></li>`).join('');
+  $('howlead').innerHTML = `Agility first, Strength close behind, then Crit, Hit and Expertise about equal. Hit stops counting at <b>4% from gear</b> (40 rating), because Nature's Reach gives the other 4%; this set has only 10 and is still best, so don't trade Agility away for it.`;
+  $('rules').innerHTML = [
+    `<b>Weapon DPS is a stat.</b> In Forever, Cat Form's claws scale with the weapon's DPS: one point of weapon DPS is worth about 3 Agility. Slow two-handers win.`,
+    `<b>Enchant the weapon with Superior Impact.</b> It beats +25 Agility by about 3 DPS, because the paw uses the weapon's damage.`,
+    `<b>Faction pieces:</b> Alliance and Horde sets differ only where a piece is faction-locked. Switch faction above to see yours.`,
+    `<b>Can't get AV or exalted rep yet?</b> Switch Budget to "No AV, PvP or exalted rep": it swaps those pieces for the best you can get without them.`,
+  ].map(x => `<li>${x}</li>`).join('');
+  $('foot').innerHTML = `Simmed with WoWSims Forever · companion to the <a href="${esc(D.guideUrl)}" target="_blank" rel="noopener">Forever Feral class guide</a>`;
+  $('guidelink').href = D.guideUrl;
+  save();
+}
+
+function showTab(t) {
+  st.tab = ['gear', 'how', 'method'].includes(t) ? t : 'gear';
+  document.querySelectorAll('[data-tab]').forEach(a => a.classList.toggle('on', a.dataset.tab === st.tab));
+  ['gear', 'how', 'method'].forEach(x => $('tab-' + x).hidden = x !== st.tab);
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-k]');
+  if (b) { st[b.dataset.k] = b.dataset.k === 'topn' ? +b.dataset.v : b.dataset.v; render(); return; }
+  const k = e.target.closest('[data-kind]');
+  if (k) { const v = k.dataset.kind; st.kinds.has(v) ? st.kinds.delete(v) : st.kinds.add(v); if (!st.kinds.size) KINDS.forEach(x => st.kinds.add(x[0])); render(); return; }
+  const g = e.target.closest('[data-go]');
+  if (g) { const el = $('slot-' + g.dataset.go); if (el) el.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); return; }
+});
+let qt; $('q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { st.q = e.target.value; render(); }, 120); });
+addEventListener('hashchange', () => showTab(location.hash.slice(1)));
+showTab(location.hash.slice(1));
+render();
+}
+</script>
+</body>
+</html>

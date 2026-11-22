@@ -138,6 +138,8 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .acard.main{border-color:var(--acc)}.ahd{display:flex;justify-content:space-between;gap:8px;align-items:center}
 .adps{font:700 30px/1 var(--head)}.acard p{flex:1;margin:2px 0 8px}.acard .btn{align-self:flex-start;min-height:38px;padding:6px 14px}
 #altgrid{scroll-margin-top:76px}
+.bislink{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;padding:16px 18px;border:1px solid var(--acc);border-radius:14px;background:color-mix(in srgb,var(--acc) 7%,var(--card));color:var(--ink);text-decoration:none}
+.bislink b{display:block;font:700 22px/1.1 var(--head)}.bislink .go{font-weight:700;color:var(--acc);white-space:nowrap}.bislink:hover{background:color-mix(in srgb,var(--acc) 12%,var(--card))}
 .ep{list-style:none;counter-reset:e;margin:10px 0;padding:0}
 .ep li{counter-increment:e;display:grid;grid-template-columns:26px minmax(0,1.1fr) minmax(70px,1.3fr) 44px;gap:12px;align-items:center;padding:7px 0}
 .ep li::before{content:counter(e);color:var(--mute);font:600 17px/1 var(--head)}
@@ -216,6 +218,7 @@ footer{padding:28px 0 48px}
     <div class="card"><h3>Weapons and idol</h3><ul class="wl" id="weap"></ul></div>
     <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the best-in-slot set.</p></div>
   </div>
+  <a class="bislink" href="https://claude.ai/artifact/Q7Lj3rf1dCzQSUYfb21RGK" target="_blank" rel="noopener"><span><b>Full pre-raid BiS list</b><span class="small">Every slot ranked, with filters for faction, budget and source</span></span><span class="go">Open ↗</span></a>
   <div class="card" style="margin-top:16px"><h3>Pre-raid best in slot</h3>
     <div class="pick" id="facpick" style="margin:10px 0;grid-template-columns:repeat(2,minmax(0,1fr))"></div>
     <p class="small" id="gearnote"></p>

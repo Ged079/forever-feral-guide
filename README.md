@@ -3,7 +3,7 @@
 A Feral Cat guide for WoW Forever (Phase 1, level 60): builds, talent values, the rotation as plain steps,
 consumables, raid buffs, races, stat weights and the hit cap. Every number is a WoWSims Forever sim.
 
-Open `docs/index.html` in a browser. It is one self-contained page.
+Open `docs/index.html` in a browser (the guide) and `docs/bis/index.html` (pre-raid BiS, every slot ranked). Both are self-contained pages.
 
 ## Where the numbers come from
 
@@ -24,6 +24,7 @@ build's DPS minus the same build without it. Stat weights use ±steps at 20,000 
   raid reputation, Onyxia-head quests or PvP rank gear; one-slot swaps until nothing helps, then every pair of slots,
   then the weapon enchant. Results in `setup/gear/`. Both builds were searched again on the new gear and held.
 - `tools/alternatives.py` sims the other builds shown on the page.
+- `tools/rank.py` ranks every shortlisted item per slot against the BiS set (3,000 iterations, same seed); `tools/build_bis.py` turns that into the BiS page. Icons come from a sparse clone of github.com/Gethe/wow-ui-textures (`ICON_REPO`).
 - `setup/results_presets.json` and `setup/results_presetgear.json` hold the earlier runs (preset builds; found builds on preset gear).
 
 ## Rebuilding
