@@ -281,7 +281,7 @@ function render() {
   const LBL = {'Hit Rating': `Hit (to ${b.hitCap / 10}%)`, 'Crit Rating': 'Crit', 'Haste Rating': 'Haste', 'Expertise Rating': 'Expertise', 'Armor Penetration': 'Armor penetration', 'Attack Power': 'Attack Power', 'Feral Attack Power': 'Feral Attack Power'};
   const eps = b.ep.filter(([n]) => n !== 'Agility' || true);
   const emax = Math.max(...eps.map(e => e[1]));
-  $('eplead').innerHTML = `Hit is worth about as much as Crit until <b>${b.hitCap / 10}% from gear</b> (${b.hitCap} rating; Nature's Reach covers the other 4%), then nothing. Otherwise compare items with this order: longer bar, better stat.`;
+  $('eplead').innerHTML = `Hit is worth about as much as Crit until <b>${b.hitCap / 10}% from gear</b> (${b.hitCap} rating; Nature's Reach covers the other 4%, and no druid race gives hit), then nothing. Otherwise compare items with this order: longer bar, better stat.`;
   $('ep').innerHTML = eps.map(([n, e]) => `<li class="${n === 'Hit Rating' ? 'hi' : ''}"><b>${esc(LBL[n] || n)}</b><span class="meter"><span style="width:${(e / emax * 100).toFixed(0)}%"></span></span><span class="v">${e.toFixed(2)}</span></li>`).join('');
   $('epnote').textContent = `What one point of each stat is worth in Agility, for ${b.name}, simmed on the best-in-slot set. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste. Weights move with gear, so treat close ones (within about 0.05) as equal.`;
   $('weap').innerHTML = D.weaponNotes.map(x => `<li>${x}</li>`).join('');

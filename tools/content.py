@@ -72,10 +72,10 @@ BUFF_NAMES = {
 }
 
 RACES = {
-    'RaceNightElf': ('Night Elf', 'Alliance', "Elune's Light: +10% crit for 15 s"),
-    'RaceTauren': ('Tauren', 'Horde', 'War Stomp, +5% health'),
-    'RaceHighOrderSkyborne': ('High Order Skyborne', 'Alliance', '+2% haste'),
-    'RaceWindshaperSkyborne': ('Windshaper Skyborne', 'Horde', '+2% haste'),
+    'RaceNightElf': ('Night Elf', 'Alliance', "+5 Agility. Elune's Light: +10% crit for 15 s every 3 min. +1% dodge"),
+    'RaceTauren': ('Tauren', 'Horde', '+5 Strength, \u22125 Agility. +5% health'),
+    'RaceHighOrderSkyborne': ('High Order Skyborne', 'Alliance', '+4 Agility. +2% attack speed, +5% damage to Elementals, a mana-regen cast'),
+    'RaceWindshaperSkyborne': ('Windshaper Skyborne', 'Horde', '+3 Agility. +2% attack speed, +5% damage to Elementals, a run-speed cast'),
 }
 
 ENCHANTS = {
