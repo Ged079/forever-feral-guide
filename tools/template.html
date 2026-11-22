@@ -46,15 +46,30 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
-.trees{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:12px}
-.tree{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
-.tree h3{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
-.tgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(64px,auto);gap:6px}
-.tal{border:1px solid var(--line);border-radius:8px;padding:5px 6px;font-size:13px;line-height:1.2;display:flex;flex-direction:column;justify-content:space-between;opacity:.5;text-decoration:none;color:var(--ink)}
-.tal.on{opacity:1;border-color:var(--moss);background:color-mix(in srgb,var(--moss) 14%,transparent)}
-.tal.full{border-width:2px}
-.tal b{font-weight:700;font-size:14px;color:var(--tan)}.tal small{color:var(--mute);font-size:12px}
-.tal:focus-visible,.tal:hover{opacity:1;outline:2px solid var(--moss)}
+.tset{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,300px);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px}
+.tcol{position:relative;border:1px solid #2b3530;border-radius:12px;overflow:hidden;background:#111613;color:#e9eee9}
+.tcol .bg{position:absolute;inset:44px 0 0 0;background-size:cover;background-position:top left;opacity:.55}
+.tcol .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(#0c100e55,#0c100ecc)}
+.th{position:relative;display:flex;justify-content:space-between;align-items:baseline;padding:10px 12px;background:#0d1210;border-bottom:1px solid #2b3530}
+.th b{font-family:Alegreya,serif;font-size:19px}.th span{color:#b5c2b8;font-size:14px}
+.tg{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,46px));grid-template-rows:repeat(7,auto);gap:12px 8px;justify-content:center;padding:14px 10px 16px}
+.ti{position:relative;width:100%;aspect-ratio:1;padding:0;border:2px solid #3a423d;border-radius:8px;background:#000 center/cover;cursor:pointer;filter:grayscale(1) brightness(.55)}
+.ti.on{filter:none;border-color:#8c968f}
+.ti.t-core{border-color:#e0a84a;box-shadow:0 0 0 1px #e0a84a66}.ti.t-good{border-color:#5aa3d6;box-shadow:0 0 0 1px #5aa3d666}
+.ti.sel{outline:3px solid #fff;outline-offset:1px}
+.ti:focus-visible{outline:3px solid var(--moss);outline-offset:2px}
+.ti .rk{position:absolute;right:-6px;bottom:-8px;font:700 11px/1 "Alegreya Sans",sans-serif;background:#0b0f0d;color:#cfd8d1;border:1px solid #4a534d;border-radius:5px;padding:2px 4px}
+.ti.on .rk{color:#f1c36b;border-color:#8a6a2e}
+.ti .in{position:absolute;right:-7px;top:-7px;width:16px;height:16px;border-radius:50%;background:#fff;color:#111;font:700 11px/16px Georgia,serif;text-align:center}
+.tpanel{position:relative;background:color-mix(in srgb,var(--line) 35%,var(--card));border-radius:12px;padding:16px;align-self:start}
+.tpanel .hd{display:flex;gap:12px;align-items:center;margin:6px 0 10px}.tpanel .hd img{width:52px;height:52px;border-radius:8px;border:2px solid #3a423d}
+.tpanel h4{font:700 24px/1.05 Alegreya,serif;margin:0}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.chip{font-size:14px;font-weight:700;border-radius:999px;padding:5px 12px;background:var(--bg);border:1px solid var(--line)}
+.chip.dps{background:color-mix(in srgb,var(--tan) 22%,transparent);border-color:transparent}
+.tfoot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--mute)}
+.lg{display:inline-flex;align-items:center;gap:6px}.lg i{width:12px;height:12px;border-radius:3px;border:2px solid}
+.tfoot .sp{flex:1}
+@media(max-width:980px){.tset{grid-template-columns:minmax(0,1fr)}.tg{gap:12px 14px}.tcol .tpanel{margin:0 10px 12px;color:var(--ink);background:var(--card);border:1px solid var(--line)}}
 .rows{list-style:none;margin:8px 0 0;padding:0}
 .rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,38%);gap:4px 12px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
 .rows li:first-child{border-top:0}
@@ -99,11 +114,11 @@ footer{padding:28px 0 48px}
 <section id="talents">
   <h2>Talents</h2>
   <p class="mute">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
-  <div class="copy"><code id="tstr"></code><button class="btn" id="copyt" type="button">Copy talent string</button></div>
+
   <div class="card" id="found" style="margin:6px 0 14px"></div>
-  <h3 style="margin-top:18px">The full tree</h3>
-  <p class="small">Every druid talent, with this build's points. Rows unlock every 5 points in that tree; "needs" marks an arrow. Tap a talent for its Wowhead tooltip.</p>
-  <div class="trees" id="trees"></div>
+  <h3 style="margin-top:18px">Copy the talents</h3>
+  <p class="small">Click any talent to see what it does for this build: the bright rings are the ones that matter.</p>
+  <div class="tset" id="tset"></div>
   <h3 style="margin-top:22px">What each point is worth</h3>
   <ul class="rows" id="tlist"></ul>
   <div class="card" style="margin-top:16px"><h3>Other builds we simmed</h3><p class="small">Same gear, 10,000 iterations each. Gaps under 1 DPS are ties.</p>
@@ -208,7 +223,7 @@ function render() {
     <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#7c8a80'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
     <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#7c8a80'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
 
-  $('tstr').textContent = b.talentsString;
+
   $('found').innerHTML = `<h3>Found by search: ${fmt(b.dps[180] - b.preset[180])} DPS over the sim's preset</h3>
     <p class="small">${esc(b.changes)}</p>
     <ol class="loop" style="margin-top:4px">${b.path.map(([m, g]) => `<li><div><b>${esc(m)}</b><div class="small">${fmt(g)} DPS</div></div></li>`).join('')}</ol>
@@ -217,18 +232,7 @@ function render() {
   $('tlist').innerHTML = b.talents.map(t => row(`${wh('spell', t.spell, t.name)} ${t.points}/${t.max}`,
     esc(t.text) + (t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''), t.all, tmax)).join('');
 
-  const pts = b.talentsString.split('-').map(x => x.split('').map(Number));
-  $('trees').innerHTML = D.trees.map((tr, ti) => {
-    const P = pts[ti] || [];
-    const total = tr.talents.reduce((t, x, i) => t + (P[i] || 0), 0);
-    const byLoc = {}; tr.talents.forEach(x => byLoc[x.r + ',' + x.c] = x.n);
-    return `<div class="tree"><h3>${esc(tr.name)} <span class="small">${total} points</span></h3><div class="tgrid">${tr.talents.map((x, i) => {
-      const n = P[i] || 0;
-      const tip = D.talentText[x.n] || '';
-      return `<a class="tal${n ? ' on' : ''}${n === x.m ? ' full' : ''}" style="grid-row:${x.r + 1};grid-column:${x.c + 1}" href="https://www.wowhead.com/forever/spell=${x.s}" target="_blank" rel="noopener" title="${esc(tip)}">
-        <span>${esc(x.n)}${x.p ? `<br><small>needs ${esc(byLoc[x.p[0] + ',' + x.p[1]] || '')}</small>` : ''}</span><b>${n}/${x.m}</b></a>`;
-    }).join('')}</div></div>`;
-  }).join('');
+  renderTalents();
   $('opener').innerHTML = D.opener.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
   $('loop').innerHTML = b.loop.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
   $('loopend').textContent = D.loopEnd;
@@ -258,6 +262,37 @@ function render() {
   try { localStorage.setItem('ff-build', build); } catch (e) {}
 }
 
+let selTal = null;
+function tier(v) { return v >= 40 ? 't-core' : v >= 10 ? 't-good' : ''; }
+function renderTalents() {
+  const b = D.builds[build];
+  const pts = b.talentsString.split('-').map(x => x.split('').map(Number));
+  const val = {}; b.talents.forEach(t => val[t.name] = t);
+  const totals = D.trees.map((tr, ti) => tr.talents.reduce((t, x, i) => t + ((pts[ti] || [])[i] || 0), 0));
+  if (!selTal) { const top = b.talents[0]; D.trees.forEach((tr, ti) => tr.talents.forEach((x, i) => { if (x.n === top.name) selTal = [ti, i]; })); }
+  const panel = () => {
+    const [ti, i] = selTal, x = D.trees[ti].talents[i], n = (pts[ti] || [])[i] || 0, v = val[x.n];
+    const note = D.talentText[x.n] || (n ? '' : 'Not taken in this build.');
+    return `<div class="tpanel"><div class="small">${esc(D.trees[ti].name)}</div>
+      <div class="hd"><img alt="" src="${D.icons[x.icon.toLowerCase()] || ''}"><h4>${esc(x.n)}</h4></div>
+      <div class="chips"><span class="chip">${n} / ${x.m} points</span>${v ? `<span class="chip dps">${fmt(v.all)} DPS in this build</span>` : ''}</div>
+      ${note ? `<p>${esc(note)}</p>` : ''}
+      ${v && v.last != null && Math.abs(v.last) >= 0.5 ? `<p class="small">The last point alone: ${fmt(v.last)} DPS.</p>` : ''}
+      <a class="small" href="https://www.wowhead.com/forever/spell=${x.s}" target="_blank" rel="noopener">Wowhead tooltip ↗</a></div>`;
+  };
+  const narrow = window.innerWidth <= 980;
+  $('tset').innerHTML = D.trees.map((tr, ti) => `<div class="tcol"><div class="bg" style="background-image:url(${D.treeBg[ti]})"></div>
+      <div class="th"><b>${esc(tr.name)}</b><span>${totals[ti]} pts</span></div>
+      <div class="tg">${tr.talents.map((x, i) => {
+        const n = (pts[ti] || [])[i] || 0, v = val[x.n];
+        const cls = ['ti', n ? 'on' : '', n && v ? tier(v.all) : '', selTal[0] === ti && selTal[1] === i ? 'sel' : ''].join(' ');
+        return `<button type="button" class="${cls}" data-t="${ti},${i}" aria-label="${esc(x.n)} ${n} of ${x.m}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})">${n && D.talentText[x.n] && v && Math.abs(v.all) >= 10 ? '<span class="in">i</span>' : ''}<span class="rk">${n}/${x.m}</span></button>`;
+      }).join('')}</div>${narrow && selTal[0] === ti ? panel() : ''}</div>`).join('')
+    + (narrow ? '' : panel())
+    + `<div class="tfoot"><span class="lg"><i style="border-color:#e0a84a"></i>Core · 40+ DPS</span><span class="lg"><i style="border-color:#5aa3d6"></i>Good · 10–40</span><span class="lg"><i style="border-color:#8c968f"></i>Small · under 10</span><span class="lg"><span class="ti-i" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#fff;border:1px solid #888;color:#111;font:700 11px/16px Georgia,serif;text-align:center">i</span>Worth reading</span><span>Faded = not taken</span>
+      <span class="sp"></span><button class="btn" id="copyt" type="button">Copy talent string</button><code>${esc(b.talentsString)}</code><span>${totals.join(' / ')}</span></div>`;
+}
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(renderTalents, 150); });
 const svg = $('hitsvg');
 function drawHit() {
   const b = D.builds[build], pts = b.hitCurve, W = svg.clientWidth, H = svg.clientHeight;
@@ -313,7 +348,9 @@ $('foot').innerHTML = `Simmed ${D.meta.date} · WoWSims Forever <code>${D.meta.f
 
 document.addEventListener('click', e => {
   const c = e.target.closest('[data-b]');
-  if (c) { build = c.dataset.b; render(); return; }
+  if (c) { build = c.dataset.b; selTal = null; render(); return; }
+  const tt = e.target.closest('[data-t]');
+  if (tt) { selTal = tt.dataset.t.split(',').map(Number); renderTalents(); return; }
   const f = e.target.closest('[data-f]');
   if (f) { fac = f.dataset.f; renderGear(); return; }
   const cp = e.target.closest('[data-copy]');
