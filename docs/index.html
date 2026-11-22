@@ -28,12 +28,15 @@ nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid
 nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px}
 nav a{flex:none;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:500;font-size:15px;min-height:40px;display:flex;align-items:center}
 nav a:hover,nav a:focus-visible{border-color:var(--moss);outline:none}
+nav a.on{background:var(--moss);border-color:var(--moss);color:var(--bg);font-weight:700}
 section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
 .hero{padding-top:clamp(26px,4vw,48px)}
 .kicker{color:var(--tan);font-weight:700;font-size:15px;margin-bottom:6px}
 .pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:22px 0}
 .bcard{text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;min-height:44px}
-.bcard[aria-pressed=true]{border-color:var(--moss);box-shadow:0 0 0 3px color-mix(in srgb,var(--moss) 22%,transparent)}
+.bcard[aria-pressed=true]{border-color:var(--moss);background:var(--moss);color:var(--bg);box-shadow:0 0 0 3px color-mix(in srgb,var(--moss) 22%,transparent)}
+.bcard[aria-pressed=true] .small,.bcard[aria-pressed=true] .big{color:var(--bg)}
+.bcard[aria-pressed=true] .tag{background:color-mix(in srgb,var(--bg) 22%,transparent);color:var(--bg)}
 .bcard:focus-visible{outline:3px solid var(--moss);outline-offset:2px}
 .bhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
 .tag{font-size:13px;font-weight:700;border-radius:6px;padding:2px 8px;background:color-mix(in srgb,var(--moss) 18%,transparent);color:var(--moss)}
@@ -367,6 +370,13 @@ document.addEventListener('click', e => {
   }
 });
 render();
+// highlight the step you are on
+const links = [...document.querySelectorAll('nav a')];
+const mark = id => links.forEach(a => { const on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on); if (on) a.scrollIntoView({block: 'nearest', inline: 'nearest'}); });
+links.forEach(a => a.addEventListener('click', () => mark(a.getAttribute('href').slice(1))));
+const spy = new IntersectionObserver(es => { const v = es.filter(e => e.isIntersecting).sort((x, y) => x.boundingClientRect.top - y.boundingClientRect.top)[0]; if (v) mark(v.target.id); }, {rootMargin: '-70px 0px -60% 0px'});
+document.querySelectorAll('main section[id]').forEach(x => spy.observe(x));
+mark('build');
 }
 </script>
 </body>
