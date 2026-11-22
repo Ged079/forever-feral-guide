@@ -5,42 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Forever Feral Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@700;800&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* VOICE  a raid guide from a friend: short, sure, every number simmed.
-   IDEA   a druid's field notebook: one page per step, the damage split laid out like a pelt's stripes.
+   IDEA   a game guide's step-by-step pages; the damage split laid out like a pelt's stripes.
    PICTURE the chosen build's DPS, large, over its damage split as one wide striped bar.
-   COLOUR night forest ground, moss support, Rip-red accent, leather tan for numbers.
-   TYPE   Alegreya display, Alegreya Sans body. LAYOUT step tabs, one column, cards in wrapping grids. */
+   COLOUR graphite ground, one Rip-red accent used sparingly, gold for the big numbers.
+   TYPE   Barlow Condensed display, Barlow body. LAYOUT step tabs, one column, cards in wrapping grids. */
 :root{color-scheme:light dark;
---bg:light-dark(#eef2ec,#0f1914);--card:light-dark(#ffffff,#16241d);--line:light-dark(#d3dccf,#26392e);
---ink:light-dark(#14211a,#e6ede6);--mute:light-dark(#566457,#9fb0a2);--moss:light-dark(#2f6b48,#6fbf8a);
---red:light-dark(#b8322e,#ef6a5f);--tan:light-dark(#8a5d22,#d8ae6b);--bar:light-dark(#2f6b48,#5fae7c)}
+--bg:light-dark(#f4f2ee,#121316);--card:light-dark(#ffffff,#1b1d21);--line:light-dark(#e1ddd5,#2b2e34);
+--ink:light-dark(#1b1c1f,#eceae5);--mute:light-dark(#6b6861,#9c9a93);--acc:light-dark(#bf4a2a,#ec7a50);--on-acc:light-dark(#ffffff,#1d0f09);
+--red:light-dark(#b3261e,#ff7b72);--tan:light-dark(#8c6a24,#e4bb68);--bar:light-dark(#bf4a2a,#ec7a50);--head:"Barlow Condensed","Arial Narrow",sans-serif}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Alegreya Sans",system-ui,sans-serif;overflow-x:clip}
-h1,h2,h3{font-family:Alegreya,Georgia,serif;line-height:1.08;margin:0;text-wrap:balance}
-h1{font-size:clamp(34px,6vw,52px)}h2{font-size:clamp(26px,4vw,34px);margin-bottom:6px}h3{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 Barlow,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.02;margin:0;text-wrap:balance}
+h1{font-size:clamp(42px,7vw,66px)}h2{font-size:clamp(30px,4.5vw,40px);margin-bottom:6px}h3{font-size:22px;font-weight:600}
 p{margin:.4em 0;max-width:68ch}.mute{color:var(--mute)}.small{font-size:14px;color:var(--mute)}
-a{color:var(--moss)}
+a{color:var(--acc)}
 .wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px)}
 nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px}
 nav a{flex:none;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:500;font-size:15px;min-height:40px;display:flex;align-items:center}
-nav a:hover,nav a:focus-visible{border-color:var(--moss);outline:none}
-nav a.on{background:var(--moss);border-color:var(--moss);color:var(--bg);font-weight:700}
+nav a:hover,nav a:focus-visible{border-color:var(--acc);outline:none}
+nav a.on{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}
+section h2::after{content:"";display:block;width:44px;height:4px;border-radius:2px;background:var(--acc);margin-top:10px}
 section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
 .hero{padding-top:clamp(26px,4vw,48px)}
 .kicker{color:var(--tan);font-weight:700;font-size:15px;margin-bottom:6px}
 .pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:22px 0}
 .bcard{text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;min-height:44px}
-.bcard[aria-pressed=true]{border-color:var(--moss);background:var(--moss);color:var(--bg);box-shadow:0 0 0 3px color-mix(in srgb,var(--moss) 22%,transparent)}
-.bcard[aria-pressed=true] .small,.bcard[aria-pressed=true] .big{color:var(--bg)}
-.bcard[aria-pressed=true] .tag{background:color-mix(in srgb,var(--bg) 22%,transparent);color:var(--bg)}
-.bcard:focus-visible{outline:3px solid var(--moss);outline-offset:2px}
+.bcard[aria-pressed=true]{border-color:var(--acc);background:var(--acc);color:var(--on-acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 22%,transparent)}
+.bcard[aria-pressed=true] .small,.bcard[aria-pressed=true] .big{color:var(--on-acc)}
+.bcard[aria-pressed=true] .tag{background:color-mix(in srgb,var(--on-acc) 16%,transparent);color:var(--on-acc)}
+.bcard:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .bhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
-.tag{font-size:13px;font-weight:700;border-radius:6px;padding:2px 8px;background:color-mix(in srgb,var(--moss) 18%,transparent);color:var(--moss)}
-.big{font-family:Alegreya,serif;font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1;color:var(--tan)}
+.tag{font-size:13px;font-weight:700;border-radius:6px;padding:2px 8px;background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc)}
+.big{font-family:var(--head);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:1;color:var(--tan)}
 .lens{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--mute);margin-top:4px}
 .lens b{color:var(--ink);font-weight:700}
 .pelt{display:flex;height:54px;border-radius:12px;overflow:hidden;margin:14px 0 8px}
@@ -50,23 +51,23 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
 .tset{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,300px);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px}
-.tcol{position:relative;border:1px solid #2b3530;border-radius:12px;overflow:hidden;background:#111613;color:#e9eee9}
+.tcol{position:relative;border:1px solid #2c2f35;border-radius:12px;overflow:hidden;background:#0f1012;color:#ecebe7}
 .tcol .bg{position:absolute;inset:44px 0 0 0;background-size:cover;background-position:top left;opacity:.55}
-.tcol .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(#0c100e55,#0c100ecc)}
-.th{position:relative;display:flex;justify-content:space-between;align-items:baseline;padding:10px 12px;background:#0d1210;border-bottom:1px solid #2b3530}
-.th b{font-family:Alegreya,serif;font-size:19px}.th span{color:#b5c2b8;font-size:14px}
+.tcol .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(#0c0d0f55,#0c0d0fcc)}
+.th{position:relative;display:flex;justify-content:space-between;align-items:baseline;padding:10px 12px;background:#0c0d0f;border-bottom:1px solid #2c2f35}
+.th b{font-family:var(--head);font-size:21px;font-weight:700}.th span{color:#a9acb3;font-size:14px}
 .tg{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,46px));grid-template-rows:repeat(7,auto);gap:12px 8px;justify-content:center;padding:14px 10px 16px}
-.ti{position:relative;width:100%;aspect-ratio:1;padding:0;border:2px solid #3a423d;border-radius:8px;background:#000 center/cover;cursor:pointer;filter:grayscale(1) brightness(.55)}
-.ti.on{filter:none;border-color:#8c968f}
+.ti{position:relative;width:100%;aspect-ratio:1;padding:0;border:2px solid #3d4047;border-radius:8px;background:#000 center/cover;cursor:pointer;filter:grayscale(1) brightness(.55)}
+.ti.on{filter:none;border-color:#9a9da4}
 .ti.t-core{border-color:#e0a84a;box-shadow:0 0 0 1px #e0a84a66}.ti.t-good{border-color:#5aa3d6;box-shadow:0 0 0 1px #5aa3d666}
 .ti.sel{outline:3px solid #fff;outline-offset:1px}
-.ti:focus-visible{outline:3px solid var(--moss);outline-offset:2px}
-.ti .rk{position:absolute;right:-6px;bottom:-8px;font:700 11px/1 "Alegreya Sans",sans-serif;background:#0b0f0d;color:#cfd8d1;border:1px solid #4a534d;border-radius:5px;padding:2px 4px}
+.ti:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.ti .rk{position:absolute;right:-6px;bottom:-8px;font:700 11px/1 Barlow,sans-serif;background:#0c0d0f;color:#d3d5da;border:1px solid #4a4d55;border-radius:5px;padding:2px 4px}
 .ti.on .rk{color:#f1c36b;border-color:#8a6a2e}
 .ti .in{position:absolute;right:-7px;top:-7px;width:16px;height:16px;border-radius:50%;background:#fff;color:#111;font:700 11px/16px Georgia,serif;text-align:center}
 .tpanel{position:relative;background:color-mix(in srgb,var(--line) 35%,var(--card));border-radius:12px;padding:16px;align-self:start}
-.tpanel .hd{display:flex;gap:12px;align-items:center;margin:6px 0 10px}.tpanel .hd img{width:52px;height:52px;border-radius:8px;border:2px solid #3a423d}
-.tpanel h4{font:700 24px/1.05 Alegreya,serif;margin:0}
+.tpanel .hd{display:flex;gap:12px;align-items:center;margin:6px 0 10px}.tpanel .hd img{width:52px;height:52px;border-radius:8px;border:2px solid #3d4047}
+.tpanel h4{font:700 28px/1.02 var(--head);margin:0}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.chip{font-size:14px;font-weight:700;border-radius:999px;padding:5px 12px;background:var(--bg);border:1px solid var(--line)}
 .chip.dps{background:color-mix(in srgb,var(--tan) 22%,transparent);border-color:transparent}
 .tfoot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--mute)}
@@ -76,7 +77,7 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .rows{list-style:none;margin:8px 0 0;padding:0}
 .rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,38%);gap:4px 12px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
 .rows li:first-child{border-top:0}
-.rows .nm b{font-weight:700}.rows .nm small{display:block;color:var(--mute);font-size:14px;line-height:1.4}
+.rows .nm b{font-weight:700}.rows .nm a,td a{color:var(--ink);text-decoration-color:color-mix(in srgb,var(--acc) 70%,transparent);text-underline-offset:3px}.rows .nm small{display:block;color:var(--mute);font-size:14px;line-height:1.4}
 .val{display:grid;gap:4px;justify-items:end;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .val b{font-size:15px}.meter{width:100%;height:8px;border-radius:4px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}
 .meter span{display:block;height:100%;background:var(--bar);border-radius:4px}
@@ -85,12 +86,12 @@ pre code{display:block;white-space:pre;padding:10px 12px;overflow-x:auto}
 code.ts{display:inline-block;font-size:13px;padding:4px 8px;white-space:nowrap}
 .copy{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
 code{font:15px/1.4 ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
-.btn{font:inherit;font-weight:700;border:0;border-radius:10px;background:var(--moss);color:var(--bg);padding:10px 16px;min-height:44px;cursor:pointer}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;background:var(--acc);color:var(--on-acc);padding:10px 16px;min-height:44px;cursor:pointer}
 .btn:focus-visible{outline:3px solid var(--tan);outline-offset:2px}
 ol.loop{list-style:none;counter-reset:s;margin:10px 0 0;padding:0}
 ol.loop li{counter-increment:s;display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line)}
-ol.loop li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--moss);color:var(--bg);font-weight:700}
-ol.loop.open li::before{background:var(--tan)}
+ol.loop li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--acc);color:var(--on-acc);font:700 17px/1 var(--head)}
+ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .note{border-left:3px solid var(--tan);padding:6px 0 6px 12px;margin:12px 0;color:var(--ink)}
 .fig{position:relative;height:220px;margin-top:8px}.fig svg{position:absolute;inset:0;width:100%;height:100%}
 table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
@@ -197,7 +198,7 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt = v => (Math.abs(v) < 0.5 ? 'nothing' : (v > 0 ? '+' : '−') + Math.abs(v).toFixed(Math.abs(v) < 10 ? 1 : 0));
 const wh = (kind, id, name) => `<a href="https://www.wowhead.com/forever/${kind}=${id}" target="_blank" rel="noopener">${esc(name)}</a>`;
-const COLORS = {'Shred':'#3f8f5e','Claw':'#3f8f5e','Rip':'#c0392b','Melee swings':'#8a6a3b','Rake':'#d0743c','Windfury Totem':'#4f7fa8','Ferocious Bite':'#9b5fb0','Other':'#7c8a80'};
+const COLORS = {'Shred':'#e07a3f','Claw':'#e07a3f','Rip':'#b3313b','Melee swings':'#7d746a','Rake':'#d6a23c','Windfury Totem':'#4f86b5','Ferocious Bite':'#8a63bf','Other':'#6b6f77'};
 let build = 'cat';
 try { const s = localStorage.getItem('ff-build'); if (s && D.builds[s]) build = s; } catch (e) {}
 
@@ -223,8 +224,8 @@ function render() {
   $('hero').innerHTML = `<div class="bhead"><div><div class="small">You picked</div><h3 style="font-size:28px">${esc(b.name)}</h3></div>
     <div style="text-align:right"><div class="big">${Math.round(b.dps[180])}</div><div class="small">DPS, 3 minute boss</div></div></div>
     <div class="lens"><span>1.5 min <b>${Math.round(b.dps[90])}</b></span><span>3 min <b>${Math.round(b.dps[180])}</b></span><span>5 min <b>${Math.round(b.dps[300])}</b></span></div>
-    <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#7c8a80'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
-    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#7c8a80'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
+    <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#6b6f77'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
+    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#6b6f77'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
 
 
   $('found').innerHTML = `<h3>Found by search: ${fmt(b.dps[180] - b.preset[180])} DPS over the sim's preset</h3>
@@ -292,7 +293,7 @@ function renderTalents() {
         return `<button type="button" class="${cls}" data-t="${ti},${i}" aria-label="${esc(x.n)} ${n} of ${x.m}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})">${n && D.talentText[x.n] && v && Math.abs(v.all) >= 10 ? '<span class="in">i</span>' : ''}<span class="rk">${n}/${x.m}</span></button>`;
       }).join('')}</div>${narrow && selTal[0] === ti ? panel() : ''}</div>`).join('')
     + (narrow ? '' : panel())
-    + `<div class="tfoot"><span class="lg"><i style="border-color:#e0a84a"></i>Core · 40+ DPS</span><span class="lg"><i style="border-color:#5aa3d6"></i>Good · 10–40</span><span class="lg"><i style="border-color:#8c968f"></i>Small · under 10</span><span class="lg"><span class="ti-i" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#fff;border:1px solid #888;color:#111;font:700 11px/16px Georgia,serif;text-align:center">i</span>Worth reading</span><span>Faded = not taken</span>
+    + `<div class="tfoot"><span class="lg"><i style="border-color:#e0a84a"></i>Core · 40+ DPS</span><span class="lg"><i style="border-color:#5aa3d6"></i>Good · 10–40</span><span class="lg"><i style="border-color:#9a9da4"></i>Small · under 10</span><span class="lg"><span class="ti-i" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#fff;border:1px solid #888;color:#111;font:700 11px/16px Georgia,serif;text-align:center">i</span>Worth reading</span><span>Faded = not taken</span>
       <span class="sp"></span><button class="btn" id="copyt" type="button">Copy talent string</button><code>${esc(b.talentsString)}</code><span>${totals.join(' / ')}</span></div>`;
 }
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(renderTalents, 150); });
