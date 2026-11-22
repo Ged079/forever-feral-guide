@@ -49,7 +49,7 @@ input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);backg
 .slot .en{font-size:12.5px;color:var(--mute);display:block}.slot.sw .nm::after{content:" swapped";font-size:11px;font-weight:700;color:var(--acc);margin-left:6px}
 .q{text-shadow:none}
 :root .q{filter:light-dark(brightness(.62) saturate(1.4),none)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:14px;margin-top:18px}
+.cards{display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:14px;margin-top:18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;scroll-margin-top:130px}
 .card h3{display:flex;justify-content:space-between;align-items:baseline}
 .opt{list-style:none;margin:8px 0 0;padding:0}
@@ -62,7 +62,7 @@ input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);backg
 .opt li.best .bar span{background:var(--acc)}.opt li.best .v{color:var(--acc)}
 .tag{white-space:nowrap;font-size:11px;font-weight:700;border-radius:5px;padding:1px 6px;margin-left:6px;background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc);vertical-align:2px}
 .tag.h{background:color-mix(in srgb,var(--mute) 20%,transparent);color:var(--mute)}
-.empty{color:var(--mute);font-size:14px;padding:8px 0}
+.card.none{grid-column:1/-1;display:flex;flex-direction:column;gap:4px;align-items:flex-start;padding:22px}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
 .ep li{display:grid;grid-template-columns:minmax(0,1fr) minmax(80px,1.4fr) 44px;gap:12px;align-items:center;padding:5px 0}
 .ep{list-style:none;padding:0;margin:8px 0}.ep .bar{margin:0;height:9px}.ep .bar span{background:var(--neg)}.ep .val{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
@@ -155,6 +155,7 @@ function render() {
   $('doll').innerHTML = `<div class="dcol">${LEFT.map(slotBtn).join('')}</div><div class="dcol">${RIGHT.map(slotBtn).join('')}</div><div class="dbot">${BOT.map(slotBtn).join('')}</div>`;
   const q = st.q.trim().toLowerCase();
   const order = [...LEFT, ...RIGHT, ...BOT];
+  const emptySlots = [];
   $('cards').innerHTML = order.filter(s => F.slots[s] && F.slots[s].bis).map(s => {
     const S = F.slots[s], pick = pickFor(F, s);
     const rows = S.options.filter(([id]) => {
@@ -169,12 +170,14 @@ function render() {
       const it = IT(id), best = id === pick;
       const w = Math.max(4, 100 * (1 - d / lo));
       return `<li class="${best ? 'best' : ''}"><span class="r">${i + 1}</span>${icon(id)}<span class="nm"><a class="q" style="color:${it.q}" href="${wh(id)}" target="_blank" rel="noopener">${nm(id, suf)}</a>${best ? '<span class="tag">Your pick</span>' : ''}${it.r ? '<span class="tag h" title="Needs Alterac Valley, PvP or exalted reputation">Needs rep</span>' : ''}<span class="src">${esc(it.src.join(' · '))}</span></span><span class="v">${id === S.bis ? 'BiS' : fmt(d)}<div class="bar"><span style="width:${(id === S.bis ? 100 : w).toFixed(0)}%"></span></div></span></li>`;
-    }).join('') : '<li class="empty">Nothing in this slot matches the filters.</li>';
+    }).join('') : '';
+    if (!rows.length) { emptySlots.push(SL[s]); return ''; }
     return `<div class="card" id="slot-${s}"><h3>${SL[s]}<span class="small">DPS vs best</span></h3><ol class="opt">${body}</ol></div>`;
   }).join('');
-  const shown = document.querySelectorAll('#cards .opt li:not(.empty)').length;
+  const shown = document.querySelectorAll('#cards .opt li').length;
   const filt = !allK || q;
-  $('fnote').textContent = filt ? `Filters the ranked lists below (${shown} options shown); the set at the top stays the best overall.` : 'Pick one or more to narrow the ranked lists below, e.g. only Crafted. The set at the top stays the best overall.';
+  if (!shown) $('cards').innerHTML = '<div class="card none"><b>Nothing matches these filters.</b><span class="small">Try another source, or clear the search.</span></div>';
+  $('fnote').textContent = filt && !shown ? 'Nothing matches these filters.' : filt ? `Showing ${shown} options in ${order.length - emptySlots.length - 1 < 0 ? 0 : document.querySelectorAll('#cards .opt').length} slots.${emptySlots.length && shown ? ' No matches for ' + emptySlots.join(', ') + '.' : ''} The set at the top stays the best overall.` : 'Pick one or more to narrow the ranked lists below, e.g. only Crafted. The set at the top stays the best overall.';
   // how to gear
   const emax = Math.max(...D.ep.map(e => e[1]));
   const LB = {'Hit Rating': 'Hit (to 4%)', 'Crit Rating': 'Crit', 'Haste Rating': 'Haste', 'Expertise Rating': 'Expertise', 'Armor Penetration': 'Armor penetration'};
