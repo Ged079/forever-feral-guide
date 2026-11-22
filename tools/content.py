@@ -16,10 +16,10 @@ TALENT_TEXT = {
     'Ferocity': 'Cheaper Claw and Rake. Worth a lot more on Hybrid, which Claws.',
     "Nature's Reach": '+2% hit per point. Each point saves you 20 hit rating on gear.',
     'Predatory Discipline': 'Ferocious Bite stops eating your extra energy but still hits harder with it. Lets you weave Bites in while Rip runs.',
-    'Furor': 'Energy back when you shift into Cat Form. Barely matters, since you rarely leave it.',
+    'Furor': 'Energy back when you shift into Cat Form, like after Innervate. Small, but it beats the utility talents.',
     'Leader of the Pack': '+crit for you and your party. Worth this much to you alone; more to the raid.',
-    'Feral Swiftness': 'Run speed and dodge. No DPS.',
-    'Feral Charge': 'Bear charge. Utility.',
+    'Feral Swiftness': 'Run speed and dodge. No DPS; the builds above skip it. Taking it back costs about 2 DPS.',
+    'Feral Charge': 'Bear charge. Utility; the builds above skip it. Taking it back costs about 10 DPS (the Nature\u2019s Reach or Majesty point).',
     'Feral Instinct': 'Bear Swipe damage. Tank talent.',
     'Thick Hide': 'Armor. Tank talent.',
     'Lacerate': 'Bear bleed. Tank talent.',
@@ -30,10 +30,12 @@ BUILDS = {
     'cat': {
         'name': 'Cat', 'sub': 'Shred build, 2/2 Blood Frenzy', 'difficulty': 'Medium', 'main': True,
         'when': 'Pure damage. Shred is your builder, Rip and Rake stay up, Bite between Rips.',
+        'changes': 'Versus the sim\u2019s preset: Nature\u2019s Reach 2/2 and Furor 5/5, paid for with Feral Charge and Feral Swiftness. Want Feral Charge back? It costs about 10 DPS.',
     },
     'hybrid': {
-        'name': 'Hybrid', 'sub': 'Claw build, can tank', 'difficulty': 'Easy',
-        'when': 'Takes Thick Hide, Lacerate and Primal Bite so you can bear tank when needed. Claw replaces Shred, so you never need to be behind the boss.',
+        'name': 'Hybrid', 'sub': 'Shred build that can tank', 'difficulty': 'Medium',
+        'when': 'Keeps Thick Hide, Lacerate and Primal Bite so you can bear tank when needed, and still Shreds. Gives up Blood Frenzy for them.',
+        'changes': 'Versus the sim\u2019s preset: Shredding Attacks instead of Feral Instinct (Shred instead of Claw), Nature\u2019s Majesty 2/2 and Furor 2/5, paid for with Feral Charge and Feral Swiftness. Want Feral Charge back for tanking? It costs about 15 DPS.',
     },
 }
 
@@ -51,11 +53,11 @@ LOOP = [
     ('Rip', 'When it is down, at {rip_cp} combo points, if 8+ s of the fight are left.', ['cat', 'hybrid']),
     ('Rake', 'When it is down, if 6+ s of the fight are left.', ['cat', 'hybrid']),
     ('{builder}', 'Your builder. Hold it back when you are pooling energy for a Bite.', ['cat', 'hybrid']),
-    ('Innervate', 'Under 1400 mana with 30 energy or less, then shift back to Cat.', ['cat', 'hybrid']),
+    ('Innervate', 'Under 1400 mana with 30 energy or less, then shift back to Cat. On fights of 3 minutes or less you can skip it (a few DPS more); on longer ones you need the mana.', ['cat', 'hybrid']),
 ]
 LOOP_FILL = {
     'cat': {'bite_cp': 4, 'rip_left': 3, 'rip_cp': '4 (5 if one more Shred still leaves energy for Rip right after)', 'builder': 'Shred'},
-    'hybrid': {'bite_cp': 5, 'rip_left': 4, 'rip_cp': '4 (5 if one more Claw still leaves energy for Rip right after)', 'builder': 'Claw'},
+    'hybrid': {'bite_cp': 5, 'rip_left': 4, 'rip_cp': '4 (5 if one more Shred still leaves energy for Rip right after)', 'builder': 'Shred'},
 }
 LOOP_END = 'Last 8 s: no new Rip; Bite at 5 points. Last global: Bite at 2+ points.'
 COOLDOWNS = 'On cooldown: Mighty Rage Potion, Goblin Sapper Charge, your racial. Major Mana Potion under 1400 mana.'

@@ -1,0 +1,66 @@
+{
+ "name": "cat",
+ "talents": "050022-55000032023012125001-055",
+ "log": [
+  {
+   "variant": "no Innervate",
+   "gain": 2.2
+  }
+ ],
+ "variants": [
+  {
+   "variant": "no mid-fight Bite",
+   "gain": -3.3
+  },
+  {
+   "variant": "no Rake",
+   "gain": -64.2
+  },
+  {
+   "variant": "no Clearcasting Shred step",
+   "gain": -1.5
+  },
+  {
+   "variant": "no Innervate",
+   "gain": 2.2
+  },
+  {
+   "variant": "Rip before Bite",
+   "gain": -0.1
+  },
+  {
+   "variant": "Rake before Rip",
+   "gain": -0.6
+  },
+  {
+   "variant": "Shifting Power first",
+   "gain": -0.2
+  },
+  {
+   "variant": "Shifting Power after builders",
+   "gain": -0.3
+  },
+  {
+   "variant": "Clearcasting Shred before Bite",
+   "gain": -0.5
+  }
+ ],
+ "robust": {
+  "90s": [
+   966.7,
+   966.7
+  ],
+  "180s": [
+   961.8,
+   964.0
+  ],
+  "300s": [
+   960.9,
+   957.1
+  ],
+  "slow reactions": [
+   956.4,
+   958.7
+  ]
+ }
+}

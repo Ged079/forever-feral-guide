@@ -80,7 +80,7 @@ footer{padding:28px 0 48px}
 <section class="hero" id="build">
   <div class="kicker">WoW Forever · Phase 1 · level 60 · Feral Cat</div>
   <h1>Play Feral Cat in five steps</h1>
-  <p class="mute">Pick a build, copy its talents, learn one short loop, bring the right consumables. Every number here comes from WoWSims Forever, so you can trust the order without doing the maths.</p>
+  <p class="mute">Pick a build, copy its talents, learn one short loop, bring the right consumables. Both builds were found by searching every legal talent move in WoWSims Forever, and every number here is simmed.</p>
   <div class="pick" id="pick"></div>
   <div class="card" id="hero"></div>
 </section>
@@ -89,6 +89,7 @@ footer{padding:28px 0 48px}
   <h2>Talents</h2>
   <p class="mute">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
   <div class="copy"><code id="tstr"></code><button class="btn" id="copyt" type="button">Copy talent string</button></div>
+  <div class="card" id="found" style="margin:6px 0 14px"></div>
   <ul class="rows" id="tlist"></ul>
 </section>
 
@@ -131,6 +132,8 @@ footer{padding:28px 0 48px}
   <h2>How we tested</h2>
   <div class="card">
     <p id="methodp"></p>
+    <p><b>How the builds were found.</b> Starting from each of the sim's presets, every legal way to move 1, 2, 3 or 5 points from one talent to another (row requirements, prerequisites, 51 points) was simmed at 1,000 iterations; the best move was kept only if it still won at 6,000 iterations on fresh random runs, and the climb repeated until no move helped. Hybrid had to keep Thick Hide, Lacerate and Primal Bite. A second Cat search from a scrambled build (<span id="rs"></span>) climbed back to the exact same build.</p>
+    <p><b>Rotation.</b> Every number in the sim's Adaptive Cat rotation (Shifting Power threshold, Rip and Bite combo points, Bite energy targets and timings) was swept for both builds, along with reorderings (Rip before Bite, Rake before Rip, Shifting Power earlier or later, no Bite, no Rake). The sim's values were already the best; the one gain, skipping Innervate, only holds on fights of 3 minutes or less.</p>
     <p>A talent's, consumable's or buff's worth is the build's DPS minus the same build without it, on the same seed. Races are one sim each in the same gear. Stat weights add and remove a small amount of each stat (20,000 iterations each) and divide the gap.</p>
     <p>Rerun on seeds with no iterations in common, every figure here moved by about 0.5 DPS or less, so treat gaps under 1 DPS as ties.</p>
     <h3 style="margin-top:14px">Least certain</h3>
@@ -181,6 +184,10 @@ function render() {
     <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#7c8a80'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
 
   $('tstr').textContent = b.talentsString;
+  $('found').innerHTML = `<h3>Found by search: ${fmt(b.dps[180] - b.preset[180])} DPS over the sim's preset</h3>
+    <p class="small">${esc(b.changes)}</p>
+    <ol class="loop" style="margin-top:4px">${b.path.map(([m, g]) => `<li><div><b>${esc(m)}</b><div class="small">${fmt(g)} DPS</div></div></li>`).join('')}</ol>
+    <p class="small">Sim preset for comparison: <code>${esc(b.presetString)}</code> (${Math.round(b.preset[180])} DPS).</p>`;
   const tmax = Math.max(...b.talents.map(t => t.all));
   $('tlist').innerHTML = b.talents.map(t => row(`${wh('spell', t.spell, t.name)} ${t.points}/${t.max}`,
     esc(t.text) + (t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''), t.all, tmax)).join('');
@@ -203,7 +210,7 @@ function render() {
 
   const emax = Math.max(...b.ep.map(e => e[1]));
   $('ep').innerHTML = b.ep.map(([n, e]) => row(esc(n), n === 'Hit Rating' ? `Only until the cap (${b.hitCap} rating from gear).` : '', e, emax, {label: e.toFixed(2)})).join('');
-  $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The pre-raid set has ${D.gearHit}. ${build === 'cat' ? 'Nature’s Reach 1/2 covers 2%.' : 'Nature’s Reach 2/2 covers 4%, so you need less.'}`;
+  $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The pre-raid set has ${D.gearHit}. Nature’s Reach 2/2 covers 4% of the 8%, so a few more hit pieces cap you.`;
   drawHit();
   try { localStorage.setItem('ff-build', build); } catch (e) {}
 }
@@ -242,6 +249,7 @@ $('swaps').innerHTML = D.swaps.map(s => row(`${esc(s.from)} → ${wh('item', s.t
 $('preptotal').innerHTML = `On the Cat build, consumables are worth <b>${Math.round(D.totals.consumables)} DPS</b> together and raid buffs and debuffs <b>${Math.round(D.totals.buffs)}</b>, out of ${Math.round(D.totals.base)}. The numbers below are for Cat; Hybrid's follow the same order.`;
 $('gearrows').innerHTML = D.gear.map(g => `<tr><td data-l="Slot">${esc(g.slot)}</td><td data-l="Item">${wh('item', g.id, g.name)}</td><td data-l="Enchant">${esc(g.enchant || '')}</td></tr>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);
+$('rs').textContent = `started at ${Math.round(D.restart.start)} DPS, ${D.restart.steps} moves back${D.restart.same ? '' : ', ending elsewhere'}`;
 $('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Tauren in the sim's pre-raid set, full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
 $('foot').innerHTML = `Simmed ${D.meta.date} · WoWSims Forever <code>${D.meta.forever}</code> · inspired by the Forever Hunter Guide`;
 

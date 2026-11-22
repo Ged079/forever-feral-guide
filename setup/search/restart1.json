@@ -1,0 +1,108 @@
+{
+ "name": "restart1",
+ "start": "052011-54200132023011015001-155",
+ "final": "050022-55000032023012125001-055",
+ "log": [
+  {
+   "build": "052011-54200132023011015001-155",
+   "dps": 879.1,
+   "move": "start"
+  },
+  {
+   "build": "051011-54200132023011115001-155",
+   "dps": 900.9,
+   "move": "Moonglow -1 \u2192 Leader of the Pack +1",
+   "confirm": [
+    878.9,
+    900.1
+   ]
+  },
+  {
+   "build": "050011-54200132023011125001-155",
+   "dps": 918.3,
+   "move": "Moonglow -1 \u2192 Natural Instinct +1",
+   "confirm": [
+    900.1,
+    917.4
+   ]
+  },
+  {
+   "build": "050011-54100132023012125001-155",
+   "dps": 934.4,
+   "move": "Feral Swiftness -1 \u2192 Blood Frenzy +1",
+   "confirm": [
+    917.4,
+    934.9
+   ]
+  },
+  {
+   "build": "050021-54000132023012125001-155",
+   "dps": 950.2,
+   "move": "Feral Swiftness -1 \u2192 Nature's Majesty +1",
+   "confirm": [
+    934.9,
+    950.8
+   ]
+  },
+  {
+   "build": "050022-54000132023012125001-055",
+   "dps": 960.5,
+   "move": "Nature's Focus -1 \u2192 Nature's Reach +1",
+   "confirm": [
+    950.8,
+    960.6
+   ]
+  },
+  {
+   "build": "050022-55000032023012125001-055",
+   "dps": 961.6,
+   "move": "Thick Hide -1 \u2192 Furor +1",
+   "confirm": [
+    960.6,
+    961.7
+   ]
+  }
+ ],
+ "neighbours": [
+  {
+   "build": "050022-54100032023012125001-055",
+   "move": "Furor -1 \u2192 Feral Swiftness +1",
+   "screen": 960.5
+  },
+  {
+   "build": "050022-54010032023012125001-055",
+   "move": "Furor -1 \u2192 Feral Instinct +1",
+   "screen": 960.5
+  },
+  {
+   "build": "050022-54001032023012125001-055",
+   "move": "Furor -1 \u2192 Brutal Impact +1",
+   "screen": 960.5
+  },
+  {
+   "build": "050022-54000132023012125001-055",
+   "move": "Furor -1 \u2192 Thick Hide +1",
+   "screen": 960.5
+  },
+  {
+   "build": "050022-53200032023012125001-055",
+   "move": "Furor -2 \u2192 Feral Swiftness +2",
+   "screen": 960.4
+  },
+  {
+   "build": "050022-53020032023012125001-055",
+   "move": "Furor -2 \u2192 Feral Instinct +2",
+   "screen": 960.4
+  },
+  {
+   "build": "050022-53002032023012125001-055",
+   "move": "Furor -2 \u2192 Brutal Impact +2",
+   "screen": 960.4
+  },
+  {
+   "build": "050022-53000232023012125001-055",
+   "move": "Furor -2 \u2192 Thick Hide +2",
+   "screen": 960.4
+  }
+ ]
+}

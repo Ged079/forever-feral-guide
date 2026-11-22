@@ -11,7 +11,11 @@ import sim
 DB = json.load(open(os.path.join(sim.FOREVER, 'assets/database/db.json')))
 TREES = json.load(open(os.path.join(sim.FOREVER, 'ui/sim/talents/trees/druid.json')))
 CONS = {c['id']: c for c in DB['consumables']}
-TALENTS = {
+TALENTS = {  # found by search.py (hill climb from the presets and a random start)
+    'cat': '050022-55000032023012125001-055',
+    'hybrid': '050022-52000332023110125011-055',
+}
+PRESETS = {  # the sim's own presets, for comparison
     'cat': '050021-53200032123012125001-055',
     'hybrid': '050012-50230302123110125011-055',
 }
@@ -227,6 +231,7 @@ def main():
         R = json.load(open('../setup/results.json'))
     if 'builds' in which:
         R['builds'] = {b: {L: round(dps(setup(b, L)), 1) for L in LENGTHS} for b in TALENTS}
+        R['presets'] = {b: {L: round(dps(setup(PRESETS[b], L)), 1) for L in LENGTHS} for b in PRESETS}
         print('builds', R['builds'], flush=True)
     if 'talents' in which:
         R['talents'] = {}

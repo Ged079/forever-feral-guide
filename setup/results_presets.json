@@ -1,0 +1,885 @@
+{
+ "meta": {
+  "iterations": 3000,
+  "seed": 1
+ },
+ "builds": {
+  "cat": {
+   "90": 955.3,
+   "180": 950.2,
+   "300": 949.3
+  },
+  "hybrid": {
+   "90": 895.3,
+   "180": 889.9,
+   "300": 891.5
+  }
+ },
+ "talents": {
+  "cat": [
+   {
+    "name": "Genesis",
+    "tree": "Balance",
+    "points": 5,
+    "max": 5,
+    "spell": 1223081,
+    "all": 28.7,
+    "last": 5.7
+   },
+   {
+    "name": "Nature's Majesty",
+    "tree": "Balance",
+    "points": 2,
+    "max": 2,
+    "spell": 1223082,
+    "all": 31.8,
+    "last": 15.7
+   },
+   {
+    "name": "Nature's Reach",
+    "tree": "Balance",
+    "points": 1,
+    "max": 2,
+    "spell": 16819,
+    "all": 11.8,
+    "last": null
+   },
+   {
+    "name": "Ferocity",
+    "tree": "Feral Combat",
+    "points": 5,
+    "max": 5,
+    "spell": 16934,
+    "all": 14.0,
+    "last": 4.4
+   },
+   {
+    "name": "Furor",
+    "tree": "Feral Combat",
+    "points": 3,
+    "max": 5,
+    "spell": 17056,
+    "all": 3.0,
+    "last": 1.1
+   },
+   {
+    "name": "Feral Swiftness",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 17002,
+    "all": 0.0,
+    "last": 0.0
+   },
+   {
+    "name": "Shredding Attacks",
+    "tree": "Feral Combat",
+    "points": 3,
+    "max": 3,
+    "spell": 16966,
+    "all": 35.2,
+    "last": 38.5
+   },
+   {
+    "name": "Savage Fury",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 16998,
+    "all": 35.0,
+    "last": 17.5
+   },
+   {
+    "name": "Feral Charge",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 1238122,
+    "all": 0.0,
+    "last": null
+   },
+   {
+    "name": "Sharpened Claws",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 16942,
+    "all": 47.9,
+    "last": 23.9
+   },
+   {
+    "name": "Predatory Strikes",
+    "tree": "Feral Combat",
+    "points": 3,
+    "max": 3,
+    "spell": 16972,
+    "all": 24.0,
+    "last": 8.0
+   },
+   {
+    "name": "Predatory Discipline",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 1328613,
+    "all": 4.9,
+    "last": null
+   },
+   {
+    "name": "Blood Frenzy",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 16958,
+    "all": 18.8,
+    "last": 18.4
+   },
+   {
+    "name": "Leader of the Pack",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 17007,
+    "all": 24.0,
+    "last": null
+   },
+   {
+    "name": "Natural Instinct",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 1223242,
+    "all": 37.3,
+    "last": 18.6
+   },
+   {
+    "name": "Rend and Tear",
+    "tree": "Feral Combat",
+    "points": 5,
+    "max": 5,
+    "spell": 1223246,
+    "all": 83.8,
+    "last": 16.8
+   },
+   {
+    "name": "Shifting Power",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 1322605,
+    "all": 169.5,
+    "last": null
+   },
+   {
+    "name": "Heart of the Wild",
+    "tree": "Restoration",
+    "points": 5,
+    "max": 5,
+    "spell": 17003,
+    "all": 18.9,
+    "last": 4.1
+   },
+   {
+    "name": "Naturalist",
+    "tree": "Restoration",
+    "points": 5,
+    "max": 5,
+    "spell": 17069,
+    "all": 84.3,
+    "last": 16.9
+   }
+  ],
+  "hybrid": [
+   {
+    "name": "Genesis",
+    "tree": "Balance",
+    "points": 5,
+    "max": 5,
+    "spell": 1223081,
+    "all": 28.4,
+    "last": 5.7
+   },
+   {
+    "name": "Nature's Majesty",
+    "tree": "Balance",
+    "points": 1,
+    "max": 2,
+    "spell": 1223082,
+    "all": 14.2,
+    "last": null
+   },
+   {
+    "name": "Nature's Reach",
+    "tree": "Balance",
+    "points": 2,
+    "max": 2,
+    "spell": 16819,
+    "all": 21.3,
+    "last": 10.0
+   },
+   {
+    "name": "Ferocity",
+    "tree": "Feral Combat",
+    "points": 5,
+    "max": 5,
+    "spell": 16934,
+    "all": 49.4,
+    "last": 10.9
+   },
+   {
+    "name": "Feral Swiftness",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 17002,
+    "all": 0.0,
+    "last": 0.0
+   },
+   {
+    "name": "Feral Instinct",
+    "tree": "Feral Combat",
+    "points": 3,
+    "max": 3,
+    "spell": 16947,
+    "all": 0.0,
+    "last": 0.0
+   },
+   {
+    "name": "Thick Hide",
+    "tree": "Feral Combat",
+    "points": 3,
+    "max": 3,
+    "spell": 16929,
+    "all": 0.0,
+    "last": 0.0
+   },
+   {
+    "name": "Savage Fury",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 16998,
+    "all": 32.1,
+    "last": 16.1
+   },
+   {
+    "name": "Feral Charge",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 1238122,
+    "all": 0.0,
+    "last": null
+   },
+   {
+    "name": "Sharpened Claws",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 16942,
+    "all": 42.6,
+    "last": 21.2
+   },
+   {
+    "name": "Predatory Strikes",
+    "tree": "Feral Combat",
+    "points": 3,
+    "max": 3,
+    "spell": 16972,
+    "all": 22.4,
+    "last": 7.5
+   },
+   {
+    "name": "Lacerate",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 1328617,
+    "all": 0.0,
+    "last": null
+   },
+   {
+    "name": "Predatory Discipline",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 1328613,
+    "all": 0.5,
+    "last": null
+   },
+   {
+    "name": "Leader of the Pack",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 17007,
+    "all": 21.4,
+    "last": null
+   },
+   {
+    "name": "Natural Instinct",
+    "tree": "Feral Combat",
+    "points": 2,
+    "max": 2,
+    "spell": 1223242,
+    "all": 32.6,
+    "last": 16.3
+   },
+   {
+    "name": "Rend and Tear",
+    "tree": "Feral Combat",
+    "points": 5,
+    "max": 5,
+    "spell": 1223246,
+    "all": 75.6,
+    "last": 15.1
+   },
+   {
+    "name": "Primal Bite",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 407995,
+    "all": 0.0,
+    "last": null
+   },
+   {
+    "name": "Shifting Power",
+    "tree": "Feral Combat",
+    "points": 1,
+    "max": 1,
+    "spell": 1322605,
+    "all": 179.0,
+    "last": null
+   },
+   {
+    "name": "Heart of the Wild",
+    "tree": "Restoration",
+    "points": 5,
+    "max": 5,
+    "spell": 17003,
+    "all": 18.1,
+    "last": 3.7
+   },
+   {
+    "name": "Naturalist",
+    "tree": "Restoration",
+    "points": 5,
+    "max": 5,
+    "spell": 17069,
+    "all": 78.8,
+    "last": 15.8
+   }
+  ]
+ },
+ "consumables": {
+  "base": 950.2269420873279,
+  "list": [
+   {
+    "id": 274274,
+    "slot": "flaskId",
+    "v": 15.7,
+    "name": "Flask of Natural Aggression"
+   },
+   {
+    "id": 250072,
+    "slot": "foodId",
+    "v": 14.5,
+    "name": "Swiftstrike Steak"
+   },
+   {
+    "id": 12662,
+    "slot": "conjuredId",
+    "v": 1.1,
+    "name": "Demonic Rune"
+   },
+   {
+    "id": 260817,
+    "slot": "explosiveId",
+    "v": 1.0,
+    "name": "EZ-Thro Dark Bomb"
+   },
+   {
+    "id": 12643,
+    "slot": "mhImbueId",
+    "v": 18.7,
+    "name": "Dense Weightstone"
+   },
+   {
+    "id": 13444,
+    "slot": "resourcePotId",
+    "v": 0.3,
+    "name": "Major Mana Potion"
+   },
+   {
+    "id": 13442,
+    "slot": "offensivePotId",
+    "v": 5.0,
+    "name": "Mighty Rage Potion"
+   },
+   {
+    "id": 12460,
+    "slot": "extraIds",
+    "v": 10.7,
+    "name": "Juju Might"
+   },
+   {
+    "id": 8412,
+    "slot": "extraIds",
+    "v": 17.7,
+    "name": "Ground Scorpok Assay"
+   },
+   {
+    "id": 10646,
+    "slot": "extraIds",
+    "v": 4.6,
+    "name": "Goblin Sapper Charge"
+   },
+   {
+    "id": 250328,
+    "slot": "elixirIds",
+    "v": 19.2,
+    "name": "Elixir of Cunning"
+   },
+   {
+    "id": 250338,
+    "slot": "elixirIds",
+    "v": 0.7,
+    "name": "Elixir of Sages"
+   },
+   {
+    "id": 250329,
+    "slot": "elixirIds",
+    "v": 0.0,
+    "name": "Elixir of the Phalanx"
+   },
+   {
+    "id": 250341,
+    "slot": "elixirIds",
+    "v": 1.7,
+    "name": "Greater Mageblood Elixir"
+   },
+   {
+    "id": 250351,
+    "slot": "elixirIds",
+    "v": 16.1,
+    "name": "Elixir of the Grizzly"
+   }
+  ],
+  "alts": [
+   {
+    "slot": "flaskId",
+    "from": "Flask of Natural Aggression",
+    "to": "Flask of Natural Accuracy",
+    "toId": 274273,
+    "v": -5.7
+   },
+   {
+    "slot": "flaskId",
+    "from": "Flask of Natural Aggression",
+    "to": "Flask of Natural Precision",
+    "toId": 274275,
+    "v": -5.8
+   },
+   {
+    "slot": "flaskId",
+    "from": "Flask of Natural Aggression",
+    "to": "Flask of Natural Swiftness",
+    "toId": 274276,
+    "v": -10.8
+   },
+   {
+    "slot": "foodId",
+    "from": "Swiftstrike Steak",
+    "to": "Smoked Desert Dumplings",
+    "toId": 20452,
+    "v": -1.6
+   },
+   {
+    "slot": "foodId",
+    "from": "Swiftstrike Steak",
+    "to": "Mightfish Steak",
+    "toId": 13934,
+    "v": -3.9
+   },
+   {
+    "slot": "mhImbueId",
+    "from": "Dense Weightstone",
+    "to": "Elemental Sharpening Stone",
+    "toId": 18262,
+    "v": -3.5
+   },
+   {
+    "slot": "offensivePotId",
+    "from": "Mighty Rage Potion",
+    "to": "Major Frenzy Potion",
+    "toId": 250943,
+    "v": -2.3
+   },
+   {
+    "slot": "elixirIds",
+    "from": "Elixir of Cunning",
+    "to": "Elixir of the Mongoose",
+    "toId": 13452,
+    "v": -1.4
+   },
+   {
+    "slot": "elixirIds",
+    "from": "Elixir of Cunning",
+    "to": "Elixir of Ferocity",
+    "toId": 250350,
+    "v": -11.4
+   },
+   {
+    "slot": "elixirIds",
+    "from": "Elixir of the Grizzly",
+    "to": "Elixir of Brute Force",
+    "toId": 13453,
+    "v": -4.7
+   },
+   {
+    "slot": "elixirIds",
+    "from": "Elixir of the Grizzly",
+    "to": "Elixir of Greater Strength",
+    "toId": 9206,
+    "v": 0.0
+   },
+   {
+    "slot": "extraIds",
+    "from": "Juju Might",
+    "to": "Winterfall Firewater",
+    "toId": 12820,
+    "v": -1.3
+   },
+   {
+    "slot": "explosiveId",
+    "from": "EZ-Thro Dark Bomb",
+    "to": "Dense Dynamite",
+    "toId": 18641,
+    "v": 1.5
+   }
+  ]
+ },
+ "buffs": {
+  "list": [
+   {
+    "kind": "raid",
+    "key": "arcaneIntellect",
+    "v": 1.8
+   },
+   {
+    "kind": "raid",
+    "key": "prayerOfSpirit",
+    "v": 1.4
+   },
+   {
+    "kind": "raid",
+    "key": "markOfTheWild",
+    "v": 21.9
+   },
+   {
+    "kind": "raid",
+    "key": "strengthOfEarthTotem",
+    "v": 27.2
+   },
+   {
+    "kind": "raid",
+    "key": "graceOfAirTotem",
+    "v": 55.8
+   },
+   {
+    "kind": "raid",
+    "key": "windfuryTotem",
+    "v": 72.0
+   },
+   {
+    "kind": "raid",
+    "key": "battleShout",
+    "v": 31.0
+   },
+   {
+    "kind": "blessing",
+    "key": "greaterBlessingOfKings",
+    "v": 48.3
+   },
+   {
+    "kind": "debuff",
+    "key": "judgementOfLight",
+    "v": 0.4
+   },
+   {
+    "kind": "debuff",
+    "key": "judgementOfWisdom",
+    "v": 34.0
+   },
+   {
+    "kind": "debuff",
+    "key": "curseOfElements",
+    "v": 0.4
+   },
+   {
+    "kind": "debuff",
+    "key": "curseOfRecklessness",
+    "v": 0.0
+   },
+   {
+    "kind": "debuff",
+    "key": "faerieFire",
+    "v": 0.0
+   },
+   {
+    "kind": "debuff",
+    "key": "exposeArmor",
+    "v": 2.4
+   },
+   {
+    "kind": "debuff",
+    "key": "sunderArmor",
+    "v": 0.0
+   },
+   {
+    "kind": "debuff",
+    "key": "giftOfArthas",
+    "v": 22.7
+   },
+   {
+    "kind": "debuff",
+    "key": "insectSwarm",
+    "v": 0.0
+   },
+   {
+    "kind": "group",
+    "key": "allArmorDebuffs",
+    "v": 153.2
+   },
+   {
+    "kind": "armorAlone",
+    "key": "sunderArmor",
+    "v": 147.9
+   },
+   {
+    "kind": "armorAlone",
+    "key": "exposeArmor",
+    "v": 150.3
+   },
+   {
+    "kind": "armorAlone",
+    "key": "faerieFire",
+    "v": 2.3
+   },
+   {
+    "kind": "armorAlone",
+    "key": "curseOfRecklessness",
+    "v": 2.3
+   },
+   {
+    "kind": "assumption",
+    "key": "otherBleed",
+    "v": 2.8
+   }
+  ],
+  "totals": {
+   "base": 950.2,
+   "consumables": 142.1,
+   "buffs": 385.1
+  }
+ },
+ "races": {
+  "RaceNightElf": {
+   "cat": 959.6,
+   "hybrid": 897.3
+  },
+  "RaceTauren": {
+   "cat": 950.2,
+   "hybrid": 889.9
+  },
+  "RaceHighOrderSkyborne": {
+   "cat": 957.5,
+   "hybrid": 896.9
+  },
+  "RaceWindshaperSkyborne": {
+   "cat": 956.1,
+   "hybrid": 895.6
+  }
+ },
+ "stats": {
+  "cat": {
+   "base": 949.9439575111023,
+   "perPoint": {
+    "Strength": 0.6499,
+    "Agility": 0.7257,
+    "Attack Power": 0.2682,
+    "Hit Rating": 0.5423,
+    "Crit Rating": 0.5632,
+    "Haste Rating": 0.2959,
+    "Armor Penetration": 0.0903,
+    "Expertise Rating": 0.5371
+   }
+  },
+  "hybrid": {
+   "base": 889.5267139518071,
+   "perPoint": {
+    "Strength": 0.607,
+    "Agility": 0.6641,
+    "Attack Power": 0.2505,
+    "Hit Rating": 0.3408,
+    "Crit Rating": 0.5091,
+    "Haste Rating": 0.302,
+    "Armor Penetration": 0.0815,
+    "Expertise Rating": 0.5256
+   }
+  }
+ },
+ "gear": {
+  "Strength": 144,
+  "Agility": 238,
+  "Attack Power": 76,
+  "Hit Rating": 34,
+  "Crit Rating": 70,
+  "Haste Rating": 0,
+  "Armor Penetration": 0,
+  "Expertise Rating": 0
+ },
+ "hit": {
+  "cat": [
+   [
+    -80,
+    920.4
+   ],
+   [
+    -70,
+    920.4
+   ],
+   [
+    -60,
+    920.5
+   ],
+   [
+    -50,
+    922.4
+   ],
+   [
+    -40,
+    928.9
+   ],
+   [
+    -30,
+    933.6
+   ],
+   [
+    -20,
+    938.8
+   ],
+   [
+    -10,
+    944.4
+   ],
+   [
+    0,
+    950.0
+   ],
+   [
+    10,
+    955.5
+   ],
+   [
+    20,
+    960.8
+   ],
+   [
+    30,
+    964.0
+   ],
+   [
+    40,
+    964.1
+   ],
+   [
+    50,
+    964.1
+   ],
+   [
+    60,
+    964.1
+   ],
+   [
+    70,
+    964.2
+   ],
+   [
+    80,
+    964.3
+   ]
+  ],
+  "hybrid": [
+   [
+    -80,
+    850.1
+   ],
+   [
+    -70,
+    851.9
+   ],
+   [
+    -60,
+    858.3
+   ],
+   [
+    -50,
+    863.6
+   ],
+   [
+    -40,
+    868.3
+   ],
+   [
+    -30,
+    874.0
+   ],
+   [
+    -20,
+    879.5
+   ],
+   [
+    -10,
+    884.6
+   ],
+   [
+    0,
+    889.7
+   ],
+   [
+    10,
+    892.8
+   ],
+   [
+    20,
+    892.8
+   ],
+   [
+    30,
+    892.9
+   ],
+   [
+    40,
+    892.9
+   ],
+   [
+    50,
+    893.0
+   ],
+   [
+    60,
+    893.0
+   ],
+   [
+    70,
+    893.0
+   ],
+   [
+    80,
+    893.1
+   ]
+  ]
+ }
+}

@@ -36,6 +36,7 @@ def breakdown(build):
             'casts': {n: round(casts[n] / it, 1) for n in ['Shred', 'Claw', 'Rip', 'Rake', 'Ferocious Bite', 'Shifting Power'] if casts.get(n, 0) / it >= 0.5}}
 
 
+SEARCH = {n: json.load(open(f'../setup/search/{n}.json')) for n in ('cat', 'hybrid', 'restart1')}
 data = {'builds': {}, 'meta': {'iterations': a.sim.ITER, 'forever': 'a73af71', 'date': '2026-11-22'}}
 for b, info in C.BUILDS.items():
     talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '')) for t in R['talents'][b]]
@@ -55,6 +56,8 @@ for b, info in C.BUILDS.items():
                              hitCurve=[[h + R['gear']['Hit Rating'], d] for h, d in hit],
                              loop=[[t.format(**fill), x.format(**fill)] for t, x, bs in C.LOOP if b in bs],
                              races={C.RACES[r][0]: v[b] for r, v in R['races'].items()},
+                             preset=R['presets'][b], presetString=a.PRESETS[b],
+                             path=[[x['move'], x['confirm'][1] - x['confirm'][0]] for x in SEARCH[b]['log'][1:]],
                              **breakdown(b))
 
 cons = R['consumables']
@@ -74,6 +77,7 @@ data['gearHit'] = R['gear']['Hit Rating']
 data['opener'] = C.OPENER
 data['loopEnd'] = C.LOOP_END
 data['cooldowns'] = C.COOLDOWNS
+data['restart'] = {'start': SEARCH['restart1']['log'][0]['dps'], 'steps': len(SEARCH['restart1']['log']) - 1, 'same': SEARCH['restart1']['final'] == a.TALENTS['cat']}
 
 os.makedirs('../docs', exist_ok=True)
 html = open('template.html').read().replace('/*DATA*/null', json.dumps(data, separators=(',', ':')))

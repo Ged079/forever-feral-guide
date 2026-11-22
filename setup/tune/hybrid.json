@@ -1,0 +1,72 @@
+{
+ "name": "hybrid",
+ "talents": "050022-52000332023110125011-055",
+ "log": [
+  {
+   "knob": "Preferred Rip CP with zero or two Blood Frenzy points",
+   "from": "5",
+   "to": "4",
+   "gain": 0.9
+  },
+  {
+   "variant": "no Innervate",
+   "gain": 5.2
+  }
+ ],
+ "variants": [
+  {
+   "variant": "no mid-fight Bite",
+   "gain": 0.0
+  },
+  {
+   "variant": "no Rake",
+   "gain": -65.4
+  },
+  {
+   "variant": "no Clearcasting Shred step",
+   "gain": -2.2
+  },
+  {
+   "variant": "no Innervate",
+   "gain": 5.2
+  },
+  {
+   "variant": "Rip before Bite",
+   "gain": -0.3
+  },
+  {
+   "variant": "Rake before Rip",
+   "gain": -0.6
+  },
+  {
+   "variant": "Shifting Power first",
+   "gain": -0.1
+  },
+  {
+   "variant": "Shifting Power after builders",
+   "gain": -0.7
+  },
+  {
+   "variant": "Clearcasting Shred before Bite",
+   "gain": -0.3
+  }
+ ],
+ "robust": {
+  "90s": [
+   946.0,
+   945.7
+  ],
+  "180s": [
+   940.7,
+   946.8
+  ],
+  "300s": [
+   942.3,
+   938.8
+  ],
+  "slow reactions": [
+   938.0,
+   943.3
+  ]
+ }
+}
