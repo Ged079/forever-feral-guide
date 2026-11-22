@@ -56,6 +56,7 @@ links to each other need absolute URLs; the default build links them relatively,
 Sim results are cached in `tools/cache/` by request, so rebuilding the pages without changing a setup runs no sims.
 All paths are relative to the scripts (`sim.SETUP`, `sim.DOCS`), so they run from any folder.
 
+- `setup/SIM_VERSION` is the wowsims/forever commit the current numbers come from; update it after a re-run.
 - `setup/defaults.siml` is the full setup; `setup/defaults.json` is what `wowsimcli siml parse -json` makes of it.
   `setup/prebis.gear.siml` is the sim's own pre-raid gear, used for `results_presetgear.json`.
 - `tools/content.py` holds the prose; numbers come only from the JSON in `setup/`.
