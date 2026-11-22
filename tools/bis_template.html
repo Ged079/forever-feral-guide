@@ -37,7 +37,7 @@ header.hero{padding:clamp(24px,4vw,44px) 0 18px}.kicker{color:var(--acc);font-we
 .ctrl label,.ctrl .lb{display:block;font-size:13px;font-weight:600;color:var(--mute);margin-bottom:6px}
 .seg{display:flex;flex-wrap:wrap;gap:6px}.seg button{font-size:14px;padding:6px 12px;min-height:36px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;grid-column:1/-1}
-.chipf{font-size:13px;padding:5px 11px;min-height:34px;gap:6px}.chipf[aria-pressed=false]{opacity:.45;text-decoration:line-through}
+.chipf{font-size:13px;padding:5px 11px;min-height:34px;gap:6px}.chipf[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}.fnote{width:100%;font-size:13px;color:var(--mute);margin-top:2px}
 input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-height:40px}
 .sum{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;margin:2px 0 14px}.sum .big{font:700 46px/1 var(--head)}
 .doll{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
@@ -125,7 +125,7 @@ const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;
 const SL = {head:'Head',neck:'Neck',shoulder:'Shoulder',back:'Back',chest:'Chest',wrist:'Wrist',hands:'Hands',waist:'Waist',legs:'Legs',feet:'Feet',finger1:'Ring 1',finger2:'Ring 2',trinket1:'Trinket 1',trinket2:'Trinket 2',main_hand:'Weapon',off_hand:'Off hand',ranged:'Idol'};
 const LEFT = ['head','neck','shoulder','back','chest','wrist','hands'], RIGHT = ['waist','legs','feet','finger1','finger2','trinket1','trinket2'], BOT = ['main_hand','ranged'];
 const KINDS = [['dungeon','Dungeon'],['quest','Quest'],['crafted','Crafted'],['vendor','Vendor'],['rep','Reputation'],['av','Alterac Valley'],['world','World drop']];
-const st = {fac: 'alliance', bud: 'max', topn: 5, q: '', kinds: new Set(KINDS.map(k => k[0])), tab: 'gear'};
+const st = {fac: 'alliance', bud: 'max', topn: 5, q: '', kinds: new Set(), tab: 'gear'};  // empty set = all sources
 try { const s = JSON.parse(localStorage.getItem('ffbis') || '{}'); if (D.factions[s.fac]) st.fac = s.fac; if (['max','easy'].includes(s.bud)) st.bud = s.bud; if ([3,5,10].includes(s.topn)) st.topn = s.topn; } catch (e) {}
 const save = () => { try { localStorage.setItem('ffbis', JSON.stringify({fac: st.fac, bud: st.bud, topn: st.topn})); } catch (e) {} };
 const IT = id => D.items[id] || {n: 'Unknown', q: '#ccc', i: '', src: [], k: []};
@@ -142,7 +142,8 @@ function render() {
   seg('fac', [['alliance', 'Alliance'], ['horde', 'Horde']], st.fac, 'fac');
   seg('bud', [['max', 'Max'], ['easy', 'No AV, PvP or exalted rep']], st.bud, 'bud');
   seg('topn', [[3, '3'], [5, '5'], [10, '10']], st.topn, 'topn');
-  $('kinds').innerHTML = '<span class="lb" style="width:100%;margin:0">Sources</span>' + KINDS.map(([k, l]) => `<button type="button" class="chipf" data-kind="${k}" aria-pressed="${st.kinds.has(k)}">${l}</button>`).join('');
+  const allK = !st.kinds.size;
+  $('kinds').innerHTML = '<span class="lb" style="width:100%;margin:0">Show options from</span>' + `<button type="button" class="chipf" data-kind="all" aria-pressed="${allK}">All sources</button>` + KINDS.map(([k, l]) => `<button type="button" class="chipf" data-kind="${k}" aria-pressed="${st.kinds.has(k)}">${l}</button>`).join('') + '<span class="fnote" id="fnote"></span>';
   const race = F.race === 'RaceNightElf' ? 'Night Elf' : 'Tauren';
   const easy = st.bud === 'easy';
   $('sum').innerHTML = `<span class="big">${easy ? '≈ ' + Math.round(F.dps + F.easyDelta) : Math.round(F.dps)}</span><span class="small">DPS · ${race} · Cat build · 3 minute boss${easy ? ` · ${F.easySwaps.length} pieces swapped, ${fmt(F.easyDelta)} DPS` : ''}</span>`;
@@ -159,7 +160,7 @@ function render() {
     const rows = S.options.filter(([id]) => {
       const it = IT(id);
       if (easy && it.r) return false;
-      if (!it.k.some(k => st.kinds.has(k))) return false;
+      if (!allK && !it.k.some(k => st.kinds.has(k))) return false;
       if (q && !(it.n.toLowerCase().includes(q) || it.src.join(' ').toLowerCase().includes(q))) return false;
       return true;
     }).slice(0, st.topn);
@@ -171,6 +172,9 @@ function render() {
     }).join('') : '<li class="empty">Nothing in this slot matches the filters.</li>';
     return `<div class="card" id="slot-${s}"><h3>${SL[s]}<span class="small">DPS vs best</span></h3><ol class="opt">${body}</ol></div>`;
   }).join('');
+  const shown = document.querySelectorAll('#cards .opt li:not(.empty)').length;
+  const filt = !allK || q;
+  $('fnote').textContent = filt ? `Filters the ranked lists below (${shown} options shown); the set at the top stays the best overall.` : 'Pick one or more to narrow the ranked lists below, e.g. only Crafted. The set at the top stays the best overall.';
   // how to gear
   const emax = Math.max(...D.ep.map(e => e[1]));
   const LB = {'Hit Rating': 'Hit (to 4%)', 'Crit Rating': 'Crit', 'Haste Rating': 'Haste', 'Expertise Rating': 'Expertise', 'Armor Penetration': 'Armor penetration'};
@@ -197,7 +201,7 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-k]');
   if (b) { st[b.dataset.k] = b.dataset.k === 'topn' ? +b.dataset.v : b.dataset.v; render(); return; }
   const k = e.target.closest('[data-kind]');
-  if (k) { const v = k.dataset.kind; st.kinds.has(v) ? st.kinds.delete(v) : st.kinds.add(v); if (!st.kinds.size) KINDS.forEach(x => st.kinds.add(x[0])); render(); return; }
+  if (k) { const v = k.dataset.kind; if (v === 'all') st.kinds.clear(); else st.kinds.has(v) ? st.kinds.delete(v) : st.kinds.add(v); render(); return; }
   const g = e.target.closest('[data-go]');
   if (g) { const el = $('slot-' + g.dataset.go); if (el) el.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'}); return; }
 });
