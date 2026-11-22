@@ -35,9 +35,11 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .kicker{color:var(--tan);font-weight:700;font-size:15px;margin-bottom:6px}
 .pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:22px 0}
 .bcard{text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;min-height:44px}
-.bcard[aria-pressed=true]{border-color:var(--acc);background:var(--acc);color:var(--on-acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 22%,transparent)}
-.bcard[aria-pressed=true] .small,.bcard[aria-pressed=true] .big{color:var(--on-acc)}
-.bcard[aria-pressed=true] .tag{background:color-mix(in srgb,var(--on-acc) 16%,transparent);color:var(--on-acc)}
+.bcard[aria-pressed=true]{border-color:var(--tan);background:color-mix(in srgb,var(--tan) 6%,var(--card))}
+.bcard .bbar{height:6px;border-radius:3px;background:color-mix(in srgb,var(--line) 80%,transparent);margin-top:12px;overflow:hidden}
+.bcard .bbar span{display:block;height:100%;background:var(--mute);border-radius:3px}
+.bcard[aria-pressed=true] .bbar span{background:var(--tan)}
+.bcard .big{color:var(--ink)}
 .bcard:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .bhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
 .tag{font-size:13px;font-weight:700;border-radius:6px;padding:2px 8px;background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc)}
@@ -94,6 +96,12 @@ ol.loop{list-style:none;counter-reset:s;margin:10px 0 0;padding:0}
 ol.loop li{counter-increment:s;display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line)}
 ol.loop li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--acc);color:var(--on-acc);font:700 17px/1 var(--head)}
 ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
+.ep{list-style:none;counter-reset:e;margin:10px 0;padding:0}
+.ep li{counter-increment:e;display:grid;grid-template-columns:26px minmax(0,1.1fr) minmax(70px,1.3fr) 44px;gap:12px;align-items:center;padding:7px 0}
+.ep li::before{content:counter(e);color:var(--mute);font:600 17px/1 var(--head)}
+.ep b{font-weight:600}.ep .meter{height:9px}.ep .meter span{background:color-mix(in srgb,var(--mute) 80%,transparent)}.ep li.hi .meter span{background:var(--tan)}
+.ep .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute)}
+.wl{margin:8px 0 0;padding-left:18px}.wl li{margin:0 0 10px}
 .note{border-left:3px solid var(--tan);padding:6px 0 6px 12px;margin:12px 0;color:var(--ink)}
 .fig{position:relative;height:220px;margin-top:8px}.fig svg{position:absolute;inset:0;width:100%;height:100%}
 table{width:100%;border-collapse:collapse;font-size:15px}td,th{padding:8px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
@@ -156,8 +164,9 @@ footer{padding:28px 0 48px}
 <section id="gear">
   <h2>Gear &amp; stats</h2>
   <div class="grid2">
-    <div class="card"><h3>Stat weights</h3><p class="small">DPS per point, with Agility = 1. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste.</p><ul class="rows" id="ep"></ul></div>
-    <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the pre-raid set.</p></div>
+    <div class="card"><h3>What to look for on gear</h3><p id="eplead"></p><ol class="ep" id="ep"></ol><p class="small" id="epnote"></p></div>
+    <div class="card"><h3>Weapons and idol</h3><ul class="wl" id="weap"></ul></div>
+    <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the best-in-slot set.</p></div>
   </div>
   <div class="card" style="margin-top:16px"><h3>Pre-raid best in slot</h3>
     <div class="pick" id="facpick" style="margin:10px 0;grid-template-columns:repeat(2,minmax(0,1fr))"></div>
@@ -215,7 +224,8 @@ function renderPick() {
     <div class="bhead"><h3>${esc(b.name)}</h3><span class="tag">${esc(b.difficulty)}${b.main ? ' · top DPS' : ''}</span></div>
     <div class="small">${esc(b.sub)}</div>
     <div class="big" style="font-size:40px;margin-top:8px">${Math.round(b.dps[180])}<span class="small" style="font-family:inherit"> DPS</span></div>
-    <p class="small" style="margin-top:6px">${esc(b.when)}</p></button>`).join('');
+    <p class="small" style="margin-top:6px">${esc(b.when)}</p>
+    <div class="bbar"><span style="width:${(b.dps[180] / Math.max(...Object.values(D.builds).map(x => x.dps[180])) * 100).toFixed(1)}%"></span></div></button>`).join('');
 }
 
 function render() {
@@ -255,8 +265,13 @@ function render() {
   }).join('');
   $('racenote').textContent = `All four races finish within ${((1 - races[races.length - 1][1] / best) * 100).toFixed(1)}% of each other on ${b.name}. Play the one you like.`;
 
-  const emax = Math.max(...b.ep.map(e => e[1]));
-  $('ep').innerHTML = b.ep.map(([n, e]) => row(esc(n), n === 'Hit Rating' ? `Only until the cap (${b.hitCap} rating from gear).` : '', e, emax, {label: e.toFixed(2)})).join('');
+  const LBL = {'Hit Rating': `Hit (to ${b.hitCap / 10}%)`, 'Crit Rating': 'Crit', 'Haste Rating': 'Haste', 'Expertise Rating': 'Expertise', 'Armor Penetration': 'Armor penetration', 'Attack Power': 'Attack Power', 'Feral Attack Power': 'Feral Attack Power'};
+  const eps = b.ep.filter(([n]) => n !== 'Agility' || true);
+  const emax = Math.max(...eps.map(e => e[1]));
+  $('eplead').innerHTML = `Hit is worth about as much as Crit until <b>${b.hitCap / 10}% from gear</b> (${b.hitCap} rating; Nature's Reach covers the other 4%), then nothing. Otherwise compare items with this order: longer bar, better stat.`;
+  $('ep').innerHTML = eps.map(([n, e]) => `<li class="${n === 'Hit Rating' ? 'hi' : ''}"><b>${esc(LBL[n] || n)}</b><span class="meter"><span style="width:${(e / emax * 100).toFixed(0)}%"></span></span><span class="v">${e.toFixed(2)}</span></li>`).join('');
+  $('epnote').textContent = `What one point of each stat is worth in Agility, for ${b.name}, simmed on the best-in-slot set. Ratings: 10 hit = 1% hit, 14 crit = 1% crit, 10 haste = 1% haste. Weights move with gear, so treat close ones (within about 0.05) as equal.`;
+  $('weap').innerHTML = D.weaponNotes.map(x => `<li>${x}</li>`).join('');
   $('hitnote').innerHTML = `<b>${b.name}: about ${b.hitCap} hit rating from gear</b> (${b.hitCap / 10}%) reaches the cap against a raid boss; past it, hit is worth nothing. The best-in-slot set has only ${D.gearHit}: the gear search found the Agility and Strength on the other pieces worth more than reaching the cap. Nature’s Reach 2/2 covers 4% of the 8%.`;
   drawHit();
   const C = D.consumables[build];

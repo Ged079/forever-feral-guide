@@ -43,6 +43,9 @@ for b, info in C.BUILDS.items():
     talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '')) for t in R['talents'][b]]
     talents.sort(key=lambda t: -t['all'])
     sw = R['stats'][b]['perPoint']
+    xw = json.load(open('../setup/extra_weights.json'))
+    sw = dict(sw, **{k: xw[k] for k in ('Intellect', 'MP5', 'Feral Attack Power')})
+    sw.pop('Armor Penetration', None) if sw.get('Armor Penetration', 0) / sw[AGI] < 0.15 and False else None
     ep = sorted(((n, round(v / sw[AGI], 2), v) for n, v in sw.items()), key=lambda x: -x[1])
     hit = R['hit'][b]
     gh = R['gear']['Hit Rating']
@@ -136,6 +139,14 @@ data['talentText'] = C.TALENT_TEXT
 _TA = json.load(open('../setup/talent_assets.json'))
 data['icons'] = _TA['icons']
 data['treeBg'] = _TA['bg']
+xw = json.load(open('../setup/extra_weights.json'))
+wd = round(xw['Weapon DPS'] / xw['Agility'], 1)
+data['weaponNotes'] = [
+    f"<b>Weapon DPS matters.</b> In Forever, Cat Form's claws hit harder with a higher-DPS weapon: each point of weapon DPS is worth about {wd} Agility. A slow, hard-hitting two-hander beats a stat stick.",
+    "<b>Best:</b> The Unstoppable Force (Alterac Valley vendor). Without AV reputation: Bonecrusher, then Brutehammer.",
+    "<b>Enchant:</b> Superior Impact (+9 weapon damage) edges out +25 Agility by about 3 DPS, because the paw uses the weapon's damage.",
+    "<b>Idol:</b> Idol of the Dream (Enchanting, or a Sunken Temple drop) is about 13 DPS over the next best, Howling Idol.",
+]
 data['macros'] = C.MACROS
 data['macroNote'] = C.MACRO_NOTE
 data['opener'] = C.OPENER
