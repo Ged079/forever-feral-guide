@@ -40,7 +40,7 @@ BUILDS = {
 }
 
 OPENER = [
-    ('Before the pull', 'Prowl about 1 s before, then Dash in as the pull starts.'),
+    ('On the pull', 'Dash in as the pull starts.'),
     ('Faerie Fire', "Keep it on the boss if nobody else does. If the raid already has it up, skip it."),
     ('Into the loop', 'Rake, build points, Rip. The sim rarely opens with Ravage, so skip it.'),
 ]
@@ -112,8 +112,7 @@ LOOP_ICONS = {'Shifting Power': 'spell_druid_displacement', 'Ferocious Bite (mid
 
 # From a sim log of the Cat build: what it casts in the first seconds.
 OPENER_CHIPS = [
-    (['ability_ambush'], 'Prowl', 'before the pull'),
-    (['ability_druid_dash'], 'Dash', 'on the pull'),
+    (['ability_druid_dash'], 'Dash', 'on the pull, to get in fast'),
     (['spell_nature_moonglow', 'inv_potion_41', 'spell_fire_selfdestruct'], 'Racial + Mighty Rage Potion + Sapper', 'as you reach the boss'),
     (['ability_druid_disembowel'], 'Rake', ''),
     (['spell_shadow_vampiricaura'], 'Shred', ''),

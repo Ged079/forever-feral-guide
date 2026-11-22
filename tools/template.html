@@ -296,7 +296,7 @@ function render() {
     `<b>End of the fight:</b> ${esc(D.loopEnd.replace(/^Last 8 s: /, 'in the last 8 s, '))}`,
     `<b>Innervate</b> is only worth it on long fights: on 3 minutes or less, skipping it is a few DPS more.`,
     `<b>Cooldowns:</b> ${esc(D.cooldowns.replace(/^On cooldown: /, 'use on cooldown: '))}`,
-    `<b>Ravage</b> rarely fires in the sim's opener; don't wait for it.`,
+    `<b>No need to Prowl first.</b> In 3,000 simmed pulls the opener never used Ravage or Pounce, and Prowling before the pull changed nothing (within 0.5 DPS). Prowl only if you want Pounce's stun.`,
   ].map(x => `<li>${x}</li>`).join('');
   $('casts').innerHTML = '<span class="small">Per 3 minute fight:</span>' + Object.entries(b.casts).map(([n, c]) => `<span><b>${c}</b> ${esc(n)}</span>`).join('');
 
