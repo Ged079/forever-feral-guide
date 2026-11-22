@@ -139,8 +139,19 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .acard.main{border-color:var(--acc)}.ahd{display:flex;justify-content:space-between;gap:8px;align-items:center}
 .adps{font:700 30px/1 var(--head)}.acard p{flex:1;margin:2px 0 8px}.acard .btn{align-self:flex-start;min-height:38px;padding:6px 14px}
 #altgrid{scroll-margin-top:76px}
-.bislink{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;padding:16px 18px;border:1px solid var(--acc);border-radius:14px;background:color-mix(in srgb,var(--acc) 7%,var(--card));color:var(--ink);text-decoration:none}
+.bislink{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;padding:16px 18px;border:1px solid var(--acc);border-radius:14px;background:color-mix(in srgb,var(--acc) 7%,var(--card));color:var(--ink);text-decoration:none}
 .bislink b{display:block;font:700 22px/1.1 var(--head)}.bislink .go{font-weight:700;color:var(--acc);white-space:nowrap}.bislink:hover{background:color-mix(in srgb,var(--acc) 12%,var(--card))}
+.bph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.seg2{display:flex;gap:6px}.seg2 button{font:inherit;font-size:14px;font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;min-height:38px;cursor:pointer}
+.seg2 button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:6px 14px}
+@media (max-width:560px){.bgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 8px}.bit{grid-template-columns:32px minmax(0,1fr);gap:8px}.bit img{width:32px;height:32px}.bit .nm{font-size:14px!important;white-space:normal!important;line-height:1.2!important}.bisprev .bislink{flex-direction:column;align-items:flex-start}}
+.bit{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;align-items:center;padding:6px 4px;border-radius:10px;text-decoration:none;color:inherit}
+.bit:hover{background:color-mix(in srgb,var(--line) 45%,transparent)}
+.bit img{width:38px;height:38px;border-radius:7px;border:1px solid #4a4d55;display:block}
+.bit .sl{display:block;font-size:12px;color:var(--mute)}.bit .nm{display:block;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bit .nm{color:light-dark(color-mix(in srgb,var(--qc) 58%,#000),var(--qc))}
+.bit .rp{font-size:11px;font-weight:700;color:var(--mute);margin-left:4px}
 .ep{list-style:none;counter-reset:e;margin:10px 0;padding:0}
 .ep li{counter-increment:e;display:grid;grid-template-columns:26px minmax(0,1.1fr) minmax(70px,1.3fr) 44px;gap:12px;align-items:center;padding:7px 0}
 .ep li::before{content:counter(e);color:var(--mute);font:600 17px/1 var(--head)}
@@ -219,12 +230,10 @@ footer{padding:28px 0 48px}
     <div class="card"><h3>Weapons and idol</h3><ul class="wl" id="weap"></ul></div>
     <div class="card"><h3>Hit cap</h3><p id="hitnote"></p><div class="fig"><svg id="hitsvg" role="img" aria-label="DPS against hit rating from gear"></svg></div><p class="small">DPS against hit rating from gear. The dot is the best-in-slot set.</p></div>
   </div>
-  <a class="bislink" href="https://claude.ai/artifact/Q7Lj3rf1dCzQSUYfb21RGK" target="_blank" rel="noopener"><span><b>Full pre-raid BiS list</b><span class="small">Every slot ranked, with filters for faction, budget and source</span></span><span class="go">Open ↗</span></a>
-  <div class="card" style="margin-top:16px"><h3>Pre-raid best in slot</h3>
-    <div class="pick" id="facpick" style="margin:10px 0;grid-template-columns:repeat(2,minmax(0,1fr))"></div>
-    <p class="small" id="gearnote"></p>
-    <table class="stack"><thead><tr><th>Slot</th><th>Item</th><th>Where from</th><th>Next best</th></tr></thead><tbody id="gearrows"></tbody></table>
-    <p class="small" id="ench"></p>
+  <div class="card bisprev" style="margin-top:16px">
+    <div class="bph"><div><h3>Pre-raid best in slot</h3><p class="small" id="gearnote" style="margin:4px 0 0"></p></div><div class="seg2" id="facpick"></div></div>
+    <div class="bgrid" id="gearrows"></div>
+    <a class="bislink" href="https://claude.ai/artifact/Q7Lj3rf1dCzQSUYfb21RGK" target="_blank" rel="noopener"><span><b>See every slot ranked</b><span class="small">Where each item drops, the next best options, enchants, and a set without AV, PvP or exalted rep</span></span><span class="go">Open BiS page ↗</span></a>
   </div>
 </section>
 
@@ -446,12 +455,9 @@ let fac = 'alliance';
 try { const f = localStorage.getItem('ff-fac'); if (f && D.gear[f]) fac = f; } catch (e) {}
 function renderGear() {
   const G = D.gear[fac];
-  $('facpick').innerHTML = [['alliance', 'Alliance'], ['horde', 'Horde']].map(([id, n]) => `<button class="bcard" type="button" data-f="${id}" aria-pressed="${id === fac}"><b>${n}</b> <span class="small">${Math.round(D.gear[id].dps)} DPS · ${id === 'alliance' ? 'Night Elf' : 'Tauren'}</span></button>`).join('');
-  const gain = G.log.slice(1).reduce((t, x) => t + (x.gain || 0), 0);
-  $('gearnote').textContent = `Found by swapping one slot at a time from the sim's preset set until nothing helped (${G.log.length - 1} swaps, about ${Math.round(gain)} DPS), then every pair of slots, then the weapon enchant. Cat build, ${G.race === 'RaceNightElf' ? 'Night Elf' : 'Tauren'}, 3 minute boss. Raid loot, raid reputation and PvP rank gear were left out; Alterac Valley vendor pieces need AV reputation, so check the next best beside them.`;
-  $('gearrows').innerHTML = G.rows.map(g => `<tr><td data-l="Slot">${esc(g.slot)}</td><td data-l="Item">${wh('item', g.id, g.name)}${g.enchant ? `<div class="small">${esc(g.enchant)}</div>` : ''}</td><td data-l="Where from" class="small">${g.src.map(esc).join('<br>')}</td><td data-l="Next best" class="small">${g.alts.filter(x => x.name !== g.name).map(x => `${wh('item', x.id, x.name)} <span class="mute">${fmt(x.delta)}</span>`).join('<br>')}</td></tr>`).join('');
-  const E = Object.entries(G.enchants).sort((x, y) => y[1] - x[1]);
-  $('ench').textContent = 'Weapon enchant: ' + E.map(([n, v], i) => `${n.replace('Enchant ', '')}${i ? ' ' + fmt(v - E[0][1]) : ' (best)'}`).join(' · ');
+  $('facpick').innerHTML = [['alliance', 'Alliance'], ['horde', 'Horde']].map(([id, n]) => `<button type="button" data-f="${id}" aria-pressed="${id === fac}">${n}</button>`).join('');
+  $('gearnote').textContent = `${Math.round(G.dps)} DPS · ${G.race === 'RaceNightElf' ? 'Night Elf' : 'Tauren'} · Cat build · found by the gear search`;
+  $('gearrows').innerHTML = G.rows.map(g => `<a class="bit" href="https://www.wowhead.com/forever/item=${g.id}" target="_blank" rel="noopener" title="${esc(g.src.join(' · '))}"><img alt="" src="${D.gearIcons[g.icon] || ''}"><span><span class="sl">${esc(g.slot)}${g.hard ? '<span class="rp">· needs rep</span>' : ''}</span><span class="nm" style="--qc:${g.q}">${esc(g.name)}</span></span></a>`).join('');
   try { localStorage.setItem('ff-fac', fac); } catch (e) {}
 }
 renderGear();
