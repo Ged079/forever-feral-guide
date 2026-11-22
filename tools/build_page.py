@@ -152,6 +152,16 @@ data['macros'] = C.MACROS
 data['macroNote'] = C.MACRO_NOTE
 data['opener'] = C.OPENER
 data['openerChips'] = C.OPENER_CHIPS
+_II = {x['id']: x.get('icon') for x in a.DB['itemIcons']}
+_CN = {c['name']: c['id'] for c in a.DB['consumables']}
+data['consIcon'] = {}
+for _b, _c in R['consumables'].items():
+    for x in _c['list'] + _c['adds']:
+        data['consIcon'][x['name']] = _II.get(x['id'])
+    for x in _c['alts']:
+        data['consIcon'][x['to']] = _II.get(x['toId'])
+        if x['from'] in _CN:
+            data['consIcon'][x['from']] = _II.get(_CN[x['from']])
 data['loopIcons'] = C.LOOP_ICONS
 data['loopEnd'] = C.LOOP_END
 data['cooldowns'] = C.COOLDOWNS

@@ -121,6 +121,11 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .tips{margin:0;padding-left:18px}.tips li{margin:0 0 8px}
 .trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
 .bignum{font:700 44px/1 var(--head);color:var(--ink)}
+.ico{width:30px;height:30px;border-radius:6px;border:1px solid #4a4d55;vertical-align:middle;margin-right:10px;flex:none}
+#racefull,#prepfull{scroll-margin-top:76px}
+.cname{display:inline-flex;align-items:center}.swp{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.bring{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}.bring li{display:flex;align-items:center;gap:10px}.bring .ico{width:36px;height:36px;margin:0}
+.bring .r{font:700 15px/1 var(--head);color:var(--mute);width:14px}
 .ep{list-style:none;counter-reset:e;margin:10px 0;padding:0}
 .ep li{counter-increment:e;display:grid;grid-template-columns:26px minmax(0,1.1fr) minmax(70px,1.3fr) 44px;gap:12px;align-items:center;padding:7px 0}
 .ep li::before{content:counter(e);color:var(--mute);font:600 17px/1 var(--head)}
@@ -175,12 +180,13 @@ footer{padding:28px 0 48px}
 <section id="prep">
   <h2>Before the pull</h2>
   <div class="trio">
-    <div class="card"><div class="lbl">Bring these first</div><p id="bring"></p></div>
+    <div class="card"><div class="lbl">Bring these first</div><div id="bring"></div></div>
     <div class="card"><div class="lbl">What they're worth</div><div class="bignum" id="wcons"></div><div class="small">DPS from consumables</div><div class="bignum" id="wbuffs" style="margin-top:8px"></div><div class="small">DPS from raid buffs and debuffs</div>
       <button class="btn ghost" type="button" data-toggle="prepfull" style="margin-top:14px">Full consumable &amp; buff list →</button></div>
     <div class="card"><div class="lbl">Which race?</div><h3 style="margin:4px 0 8px">Play the one you like.</h3><p class="small" id="racelead"></p>
       <button class="btn ghost" type="button" data-toggle="racefull" style="margin-top:10px">Compare races →</button></div>
   </div>
+  <div id="racefull" hidden><div class="card" style="margin-top:16px"><h3>Race</h3><p class="small" id="racenote"></p><ul class="rows" id="races"></ul></div></div>
   <div id="prepfull" hidden>
   <p class="mute" id="preptotal" style="margin-top:18px"></p>
   <div class="grid2">
@@ -191,7 +197,6 @@ footer{padding:28px 0 48px}
     <div class="card"><h3>Swaps and extras</h3><p class="small">Swap the first for the second, or add one on top of the full set. "Doesn't stack": the sim drops it next to what you already use, as the game does.</p><ul class="rows" id="swaps"></ul><ul class="rows" id="adds"></ul></div>
   </div>
   </div>
-  <div id="racefull" hidden><div class="card" style="margin-top:16px"><h3>Race</h3><p class="small" id="racenote"></p><ul class="rows" id="races"></ul></div></div>
 </section>
 
 <section id="gear">
@@ -310,8 +315,8 @@ function render() {
   }).join('');
   const rl = races.slice(0, 2).map(([n]) => n);
   $('racelead').innerHTML = `All four druid races finish within about ${((1 - races[races.length - 1][1] / best) * 100).toFixed(0)}% of each other. For the last percent: <b>${esc(races[0][0])}</b> (${esc(D.races.find(r => r[0] === races[0][0])[1])}); best Horde pick: <b>${esc(races.find(([n]) => D.races.find(r => r[0] === n)[1] === 'Horde')[0])}</b>.`;
-  const top5 = D.consumables[build].list.slice(0, 5).map(c => `<b>${esc(c.name)}</b>`);
-  $('bring').innerHTML = `In order of what they're worth: ${top5.slice(0, -1).join(', ')} and ${top5[top5.length - 1]}. Then the rest of the list. No swap or extra we tried beats the full set.`;
+  const CI2 = n => D.consIcon[n] && D.icons[D.consIcon[n]] ? `<img class="ico" alt="" src="${D.icons[D.consIcon[n]]}">` : '';
+  $('bring').innerHTML = `<ol class="bring">${D.consumables[build].list.slice(0, 5).map((c, i) => `<li><span class="r">${i + 1}</span>${CI2(c.name)}<span><b>${esc(c.name)}</b><span class="small" style="display:block">${fmt(c.v)} DPS</span></span></li>`).join('')}</ol><p class="small" style="margin-top:10px">Then the rest of the list. No swap or extra we tried beats the full set.</p>`;
   $('racenote').textContent = `All four races finish within ${((1 - races[races.length - 1][1] / best) * 100).toFixed(1)}% of each other on ${b.name}. Play the one you like.`;
 
   const LBL = {'Hit Rating': `Hit (to ${b.hitCap / 10}%)`, 'Crit Rating': 'Crit', 'Haste Rating': 'Haste', 'Expertise Rating': 'Expertise', 'Armor Penetration': 'Armor penetration', 'Attack Power': 'Attack Power', 'Feral Attack Power': 'Feral Attack Power'};
@@ -326,9 +331,10 @@ function render() {
   const C = D.consumables[build];
   const cmax = Math.max(...C.list.map(c => c.v));
   $('consnote').textContent = build === 'cat' ? 'What you lose without each one, with everything else on.' : 'What you lose without each one, measured on Hybrid.';
-  $('cons').innerHTML = C.list.map(c => row(wh('item', c.id, c.name), '', c.v, cmax)).join('');
-  $('swaps').innerHTML = C.swaps.map(s => row(`${esc(s.from)} → ${wh('item', s.toId, s.to)}`, '', s.v, 0, {nobar: true})).join('');
-  $('adds').innerHTML = C.adds.map(x => row(`+ ${wh('item', x.id, x.name)}`, '', x.v, 0, {nobar: true, label: x.stacks ? fmt(x.v) + ' DPS' : 'doesn\u2019t stack'})).join('');
+  const CI = n => D.consIcon[n] && D.icons[D.consIcon[n]] ? `<img class="ico" alt="" src="${D.icons[D.consIcon[n]]}">` : '';
+  $('cons').innerHTML = C.list.map(c => row(`<span class="cname">${CI(c.name)}${wh('item', c.id, c.name)}</span>`, '', c.v, cmax)).join('');
+  $('swaps').innerHTML = C.swaps.map(s => row(`<span class="swp"><span class="cname">${CI(s.from)}${esc(s.from)}</span><span class="mute">→</span><span class="cname">${CI(s.to)}${wh('item', s.toId, s.to)}</span></span>`, '', s.v, 0, {nobar: true})).join('');
+  $('adds').innerHTML = C.adds.map(x => row(`<span class="cname">${CI(x.name)}+ ${wh('item', x.id, x.name)}</span>`, '', x.v, 0, {nobar: true, label: x.stacks ? fmt(x.v) + ' DPS' : 'doesn\u2019t stack'})).join('');
   try { localStorage.setItem('ff-build', build); } catch (e) {}
 }
 
@@ -459,7 +465,12 @@ document.addEventListener('click', e => {
     return;
   }
   const tg = e.target.closest('[data-toggle]');
-  if (tg) { const el = $(tg.dataset.toggle); el.hidden = !el.hidden; tg.textContent = tg.textContent.replace(/[→↑]$/, el.hidden ? '→' : '↑'); return; }
+  if (tg) {
+    const el = $(tg.dataset.toggle); el.hidden = !el.hidden;
+    tg.textContent = tg.textContent.replace(/[→↓↑]$/, el.hidden ? '→' : '↓');
+    if (!el.hidden) el.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+    return;
+  }
   const ct = e.target.closest('[data-ct]');
   if (ct) {
     const lbl = ct.textContent;
@@ -485,9 +496,18 @@ render();
 const links = [...document.querySelectorAll('nav a')];
 const mark = id => links.forEach(a => { const on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on); if (on) a.scrollIntoView({block: 'nearest', inline: 'nearest'}); });
 links.forEach(a => a.addEventListener('click', () => mark(a.getAttribute('href').slice(1))));
-const spy = new IntersectionObserver(es => { const v = es.filter(e => e.isIntersecting).sort((x, y) => x.boundingClientRect.top - y.boundingClientRect.top)[0]; if (v) mark(v.target.id); }, {rootMargin: '-70px 0px -60% 0px'});
-document.querySelectorAll('main section[id]').forEach(x => spy.observe(x));
-mark('build');
+const secs = [...document.querySelectorAll('main section[id]')];
+let cur = '', tick = false;
+const spy = () => {
+  tick = false;
+  const atEnd = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
+  let id = secs[0].id;
+  for (const x of secs) if (x.getBoundingClientRect().top <= 120) id = x.id;
+  if (atEnd) id = secs[secs.length - 1].id;
+  if (id !== cur) { cur = id; mark(id); }
+};
+addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(spy); } }, {passive: true});
+spy();
 }
 </script>
 </body>
