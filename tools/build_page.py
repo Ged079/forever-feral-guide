@@ -131,6 +131,8 @@ def gear_card(fac):
 
 data['gear'] = {f: gear_card(f) for f in ('alliance', 'horde')}
 data['gearHit'] = R['gear']['Hit Rating']
+data['trees'] = json.load(open('../setup/trees.json'))
+data['talentText'] = C.TALENT_TEXT
 data['macros'] = C.MACROS
 data['macroNote'] = C.MACRO_NOTE
 data['opener'] = C.OPENER

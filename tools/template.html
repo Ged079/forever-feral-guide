@@ -46,6 +46,15 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:16px}
+.trees{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:12px}
+.tree{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.tree h3{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.tgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(64px,auto);gap:6px}
+.tal{border:1px solid var(--line);border-radius:8px;padding:5px 6px;font-size:13px;line-height:1.2;display:flex;flex-direction:column;justify-content:space-between;opacity:.5;text-decoration:none;color:var(--ink)}
+.tal.on{opacity:1;border-color:var(--moss);background:color-mix(in srgb,var(--moss) 14%,transparent)}
+.tal.full{border-width:2px}
+.tal b{font-weight:700;font-size:14px;color:var(--tan)}.tal small{color:var(--mute);font-size:12px}
+.tal:focus-visible,.tal:hover{opacity:1;outline:2px solid var(--moss)}
 .rows{list-style:none;margin:8px 0 0;padding:0}
 .rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,38%);gap:4px 12px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
 .rows li:first-child{border-top:0}
@@ -92,6 +101,10 @@ footer{padding:28px 0 48px}
   <p class="mute">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
   <div class="copy"><code id="tstr"></code><button class="btn" id="copyt" type="button">Copy talent string</button></div>
   <div class="card" id="found" style="margin:6px 0 14px"></div>
+  <h3 style="margin-top:18px">The full tree</h3>
+  <p class="small">Every druid talent, with this build's points. Rows unlock every 5 points in that tree; "needs" marks an arrow. Tap a talent for its Wowhead tooltip.</p>
+  <div class="trees" id="trees"></div>
+  <h3 style="margin-top:22px">What each point is worth</h3>
   <ul class="rows" id="tlist"></ul>
   <div class="card" style="margin-top:16px"><h3>Other builds we simmed</h3><p class="small">Same gear, 10,000 iterations each. Gaps under 1 DPS are ties.</p>
     <table class="stack"><thead><tr><th>Build</th><th>DPS</th><th>vs Cat</th><th>Talents</th></tr></thead><tbody id="altrows"></tbody></table></div>
@@ -204,6 +217,18 @@ function render() {
   $('tlist').innerHTML = b.talents.map(t => row(`${wh('spell', t.spell, t.name)} ${t.points}/${t.max}`,
     esc(t.text) + (t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''), t.all, tmax)).join('');
 
+  const pts = b.talentsString.split('-').map(x => x.split('').map(Number));
+  $('trees').innerHTML = D.trees.map((tr, ti) => {
+    const P = pts[ti] || [];
+    const total = tr.talents.reduce((t, x, i) => t + (P[i] || 0), 0);
+    const byLoc = {}; tr.talents.forEach(x => byLoc[x.r + ',' + x.c] = x.n);
+    return `<div class="tree"><h3>${esc(tr.name)} <span class="small">${total} points</span></h3><div class="tgrid">${tr.talents.map((x, i) => {
+      const n = P[i] || 0;
+      const tip = D.talentText[x.n] || '';
+      return `<a class="tal${n ? ' on' : ''}${n === x.m ? ' full' : ''}" style="grid-row:${x.r + 1};grid-column:${x.c + 1}" href="https://www.wowhead.com/forever/spell=${x.s}" target="_blank" rel="noopener" title="${esc(tip)}">
+        <span>${esc(x.n)}${x.p ? `<br><small>needs ${esc(byLoc[x.p[0] + ',' + x.p[1]] || '')}</small>` : ''}</span><b>${n}/${x.m}</b></a>`;
+    }).join('')}</div></div>`;
+  }).join('');
   $('opener').innerHTML = D.opener.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
   $('loop').innerHTML = b.loop.map(([t, x]) => `<li><div><b>${esc(t)}</b><div class="small">${esc(x)}</div></div></li>`).join('');
   $('loopend').textContent = D.loopEnd;
