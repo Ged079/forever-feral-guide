@@ -154,6 +154,7 @@ ol.loop.open li::before{background:var(--acc);color:var(--on-acc)}
 .ttip .nx{display:block;margin-top:8px;color:#9fa3ad;font-size:12.5px}.ttip .nx+.tx{color:#c9c6be}
 .ttip .tv{display:block;margin-top:8px;padding-top:7px;border-top:1px solid #2c2f37;color:#ec7a50;font-weight:600;font-size:12.5px}
 .ttip .tc{display:block;margin-top:4px;color:#9fa3ad;font-size:12.5px}
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:10px}.mhead h3{margin:0}
 .thead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
 .calcbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 18px;align-items:center;margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid color-mix(in srgb,var(--acc) 45%,var(--line))}
 .calcbar[hidden]{display:none}
@@ -634,7 +635,7 @@ $('wweap').innerHTML = W.weapons.map(wrow).join('');
 $('widol').innerHTML = W.idols.map(wrow).join('');
 $('wench').innerHTML = W.enchants.map((e, i) => `<div class="wrow noi"><span><span class="nm" style="--qc:var(--ink);color:var(--ink)">${esc(e.name)}</span><span class="sr">${esc(e.what)}${i ? '' : ' · the paw uses weapon damage'}</span></span>${i ? `<span class="dv">${e.delta.toFixed(1)} DPS</span>` : '<span class="best">Best</span>'}</div>`).join('');
 $('macronote').textContent = D.macroNote;
-$('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><h3>${esc(t)}</h3><p class="small">${esc(x)}</p><pre style="margin:8px 0"><code id="m${i}">${esc(m)}</code></pre><button class="btn" type="button" data-copy="m${i}">Copy</button></div>`).join('');
+$('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><div class="mhead"><h3>${esc(t)}</h3><button class="btn ghost sm" type="button" data-copy="m${i}">Copy</button></div><p class="small">${esc(x)}</p><pre style="margin:8px 0 0"><code id="m${i}">${esc(m)}</code></pre></div>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);
 $('rs').textContent = D.restart.map(r => `one from ${Math.round(r.start)} DPS took ${r.steps} moves and ended ${r.final === D.builds.cat.talentsString ? 'on the exact same build' : 'on the bear-ready Cat build below, a tie'}.`).join(' The other, ');
 $('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code> of ${D.meta.foreverDate}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Night Elf in the searched best-in-slot set (Tauren in the Horde set for Horde numbers), full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
