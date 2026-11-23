@@ -16,24 +16,20 @@ AGI = 'Agility'
 def breakdown(build):
     _, _, r = sim.run(a.setup(build))
     pm = r['raidMetrics']['parties'][0]['players'][0]
-    rows, casts = {}, {}
+    rows = {}
     for x in pm['actions']:
         i = x['id']
         n = SPELL.get(i.get('spellId')) or ITEM.get(i.get('itemId')) or ('Melee swings' if i.get('otherId') == 'OtherActionAttack' else None)
         if not n:
             continue
         dmg = sum(t.get('damage', 0) for t in x.get('targets', []))
-        c = sum(t.get('casts', 0) for t in x.get('targets', []))
         rows[n] = rows.get(n, 0) + dmg
-        casts[n] = casts.get(n, 0) + c
     tot = sum(rows.values())
     main = [(n, v / tot * 100) for n, v in sorted(rows.items(), key=lambda kv: -kv[1]) if v / tot > 0.02]
     other = 100 - sum(v for _, v in main)
     if other > 0.05:
         main.append(('Other', other))
-    it = a.sim.ITER
-    return {'parts': [[n, round(v, 1)] for n, v in main],
-            'casts': {n: round(casts[n] / it, 1) for n in ['Shred', 'Claw', 'Rip', 'Rake', 'Ferocious Bite', 'Shifting Power'] if casts.get(n, 0) / it >= 0.5}}
+    return {'parts': [[n, round(v, 1)] for n, v in main]}
 
 
 SEARCH = {n: json.load(open(sim.data(f'search_v1/{n}.json'))) for n in ('cat', 'hybrid', 'restart1')}
@@ -194,4 +190,3 @@ html = open(os.path.join(sim.HERE, 'template.html')).read().replace('/*DATA*/nul
                                                      '', 'og.png'))
 open(os.path.join(sim.DOCS, 'index.html'), 'w').write(html)
 print('ok', len(html), 'bytes; hit caps', {b: v['hitCap'] for b, v in data['builds'].items()})
-print(json.dumps({b: v['casts'] for b, v in data['builds'].items()}))

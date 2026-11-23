@@ -246,7 +246,7 @@ footer{padding:28px 0 48px}
   <div class="prio"><h3><span class="num">1</span>Press the first one ready</h3><ol class="abil" id="loop"></ol></div>
   <p class="back">↻ Then back to the top. Auto attack runs the whole time.</p>
   <div class="card"><div class="lbl">Opener: the first seconds, in order</div><div class="chips2" id="opener"></div></div>
-  <div class="card" style="margin-top:14px"><div class="lbl">Good to know</div><ul class="tips" id="tips"></ul><div class="legend" id="casts" style="margin-top:12px"></div></div>
+  <div class="card" style="margin-top:14px"><div class="lbl">Good to know</div><ul class="tips" id="tips"></ul></div>
 </section>
 
 <section id="prep">
@@ -394,7 +394,6 @@ function render() {
     `<b>Cooldowns:</b> ${esc(D.cooldowns.replace(/^On cooldown: /, 'use on cooldown: '))}`,
     `<b>No need to Prowl first.</b> In 3,000 simmed pulls the opener never used Ravage or Pounce, and Prowling before the pull changed nothing (within 0.5 DPS). Prowl only if you want Pounce's stun.`,
   ].map(x => `<li>${x}</li>`).join('');
-  $('casts').innerHTML = '<span class="small">Per 3 minute fight:</span>' + Object.entries(b.casts).map(([n, c]) => `<span><b>${c}</b> ${esc(n)}</span>`).join('');
 
   const races = Object.entries(b.races).sort((x, y) => y[1] - x[1]);
   const best = races[0][1];
