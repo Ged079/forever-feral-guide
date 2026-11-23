@@ -708,16 +708,10 @@ if (HP.sec && document.getElementById(HP.sec)) requestAnimationFrame(() => docum
 
 const GLOSS = [
   ['Combo points (CP)', 'Built by Shred, Claw and Rake, up to 5 on the target; spent by Rip and Ferocious Bite.'],
-  ['Energy', 'The cat’s resource: 100 max, refills 10 per second. Shifting Power gives 40 at once.'],
-  ['Shifting Power', 'Forever’s new feral talent: spend mana to gain 40 energy, every 8 seconds. Replaces powershifting.'],
-  ['Powershifting', 'Classic trick of leaving and re-entering Cat Form for energy. Does not work in Forever.'],
-  ['Bear-weaving', 'Dipping into Dire Bear to spend rage while energy refills. Loses DPS in Forever.'],
   ['Clearcasting', 'Omen of Clarity proc: your next ability is free. Spend it on Shred.'],
   ['Bleed', 'Damage over time from Rip, Rake and Pounce. Rend and Tear adds damage against bleeding targets.'],
-  ['Pooling', 'Holding energy instead of spending it, so a finisher or Bite lands at the right moment.'],
   ['Hit cap', 'The hit chance after which misses stop: 8% against a raid boss. Nature’s Reach gives 4%, gear the rest.'],
   ['Stat weights', 'What one point of a stat is worth, measured in Agility. Simmed on the best-in-slot set.'],
-  ['Best in slot (BiS)', 'The best item for a slot. Pre-raid BiS means without raid drops.'],
   ['Sim', 'WoWSims Forever: it plays the fight thousands of times (iterations) and averages the DPS.'],
 ];
 $('gloss').innerHTML = GLOSS.map(([t, d]) => `<div><dt>${esc(t)}</dt><dd>${esc(d)}</dd></div>`).join('');
