@@ -164,12 +164,6 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 @media(max-width:760px){.calcbar{grid-template-columns:minmax(0,1fr)}.calcbar .cbtns{justify-content:flex-start}}
 .calc .ti{filter:grayscale(1) brightness(.55)}.calc .ti.on{filter:none}.calc .ti.can{filter:grayscale(.35) brightness(.85);border-color:#6a6d75}
 .calc .ti.on.full{border-color:var(--acc)}
-.faq .card p{margin:6px 0 10px}
-.qbars{list-style:none;margin:0;padding:0}.qbars li{display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:4px 12px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:14.5px}
-.qbars li:first-child{border-top:0}.qbars .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}.qbars .bar{grid-column:1/-1;height:6px;border-radius:3px;background:color-mix(in srgb,var(--line) 80%,transparent);overflow:hidden}
-.qbars .bar span{display:block;height:100%;background:var(--mute);border-radius:3px}.qbars li.best .bar span{background:var(--acc)}.qbars li.best .v{color:var(--acc)}
-.qlen table{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}.qlen th,.qlen td{text-align:right;padding:6px 6px;border-top:1px solid var(--line)}
-.qlen th:first-child,.qlen td:first-child{text-align:left}.qlen th{font-size:12.5px;color:var(--mute);font-weight:600;border-top:0}
 .gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px 22px;margin:12px 0 0}
 .gloss div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}.gloss dt{font-weight:700}.gloss dd{margin:2px 0 0;color:var(--mute);font-size:14.5px}
 .bph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -220,7 +214,7 @@ footer{padding:28px 0 48px}
 </head>
 <body>
 <nav aria-label="Steps"><div class="wrap">
-<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#faq">Questions</a><a href="#macros">Macros</a><a href="#method">How we tested</a><a class="ext" href="__BIS_URL__"__XT__>Pre-raid BiS ↗</a>
+<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#macros">Macros</a><a href="#method">How we tested</a><a class="ext" href="__BIS_URL__"__XT__>Pre-raid BiS ↗</a>
 </div></nav>
 
 <main class="wrap">
@@ -295,17 +289,6 @@ footer{padding:28px 0 48px}
     <div class="bph"><div><h3>Pre-raid best in slot</h3><p class="small" id="gearnote" style="margin:4px 0 0"></p></div><div class="seg2" id="facpick"></div></div>
     <div class="bgrid" id="gearrows"></div>
     <a class="bislink" href="__BIS_URL__"__XT__><span><b>See every slot ranked</b><span class="small">Where each item drops, the next best options, enchants, and a set without AV, PvP or exalted rep</span></span><span class="go">Open BiS page ↗</span></a>
-  </div>
-</section>
-
-<section id="faq">
-  <h2>Questions people ask</h2>
-  <p class="mute">Each answer is its own sim on the Cat build and the best-in-slot set, 3,000 iterations.</p>
-  <div class="grid2 faq">
-    <div class="card"><h3>Should I bear-weave or powershift?</h3><p id="qweave"></p><ul class="qbars" id="qweavebars"></ul></div>
-    <div class="card"><h3>Does fight length change anything?</h3><p id="qlen"></p><div class="qlen" id="qlentbl"></div></div>
-    <div class="card"><h3>What about packs and AoE?</h3><p id="qaoe"></p><div class="qlen" id="qaoetbl"></div></div>
-    <div class="card"><h3>What about raid gear?</h3><p id="qraid"></p></div>
   </div>
 </section>
 
@@ -723,32 +706,6 @@ render();
 if (HP.calc && /^[0-5-]+$/.test(HP.calc)) { calc = parseT(HP.calc); renderTalents(); }
 if (HP.sec && document.getElementById(HP.sec)) requestAnimationFrame(() => document.getElementById(HP.sec).scrollIntoView());
 
-// ---------- questions ----------
-{
-  const X = D.extra || {};
-  const W = (X.weave || []).filter(r => r.build === 'cat');
-  if (W.length) {
-    const pure = W.find(r => r.name === 'Pure Cat').dps, mx = Math.max(...W.map(r => r.dps));
-    const ps = W.filter(r => r.name.startsWith('Powershift')), bw = W.filter(r => r.name.startsWith('Bear-weave'));
-    $('qweave').innerHTML = `No. <b>Powershifting doesn't work in Forever</b>: you can't recast Cat Form while in it, and leaving and re-entering only gives back the energy you had (Furor), never more, while costing a global cooldown and mana. Simmed, it loses ${Math.round(pure - Math.max(...ps.map(r => r.dps)))} to ${Math.round(pure - Math.min(...ps.map(r => r.dps)))} DPS. <b>Bear-weaving</b> (Dire Bear on low energy, Maul on Furor's rage, back to Cat) loses ${Math.round(pure - Math.max(...bw.map(r => r.dps)))} to ${Math.round(pure - Math.min(...bw.map(r => r.dps)))} DPS: Shifting Power already fills the energy gaps. Stay in Cat.`;
-    $('qweavebars').innerHTML = W.map(r => `<li class="${r.name === 'Pure Cat' ? 'best' : ''}"><span>${esc(r.name)}</span><span class="v">${Math.round(r.dps)}</span><span class="bar"><span style="width:${(r.dps / mx * 100).toFixed(1)}%"></span></span></li>`).join('');
-  }
-  const L = X.length || [];
-  if (L.length) {
-    const lens = [...new Set(L.map(r => r.duration))];
-    const get = (b, d) => L.find(r => r.build === b && r.duration === d);
-    const minu = d => d % 60 ? (d / 60).toFixed(1) + ' min' : d / 60 + ' min';
-    const inn = Math.max(...L.map(r => Math.abs(r.noInnervate - r.dps)));
-    $('qlen').innerHTML = `A little. DPS is highest on short fights (the opener's cooldowns count for more) and settles near ${Math.round(get('cat', 300).dps)} past 3 minutes. Mana holds even at 7 minutes: Shifting Power stays at about one cast every 8 seconds, and dropping the self-Innervate changes at most ${inn.toFixed(1)} DPS at any length. Same build and rotation at every length.`;
-    $('qlentbl').innerHTML = `<table><tr><th>Fight</th><th>Cat</th><th>Hybrid</th><th>Shifting Power casts</th></tr>${lens.map(d => `<tr><td>${minu(d)}</td><td>${Math.round(get('cat', d).dps)}</td><td>${Math.round(get('hybrid', d).dps)}</td><td>${Math.round(get('cat', d).shiftingPower)}</td></tr>`).join('')}</table>`;
-  }
-  const A = X.aoe || [];
-  if (A.length) {
-    $('qaoe').innerHTML = `Cat has no AoE in Forever, and Dire Bear's Swipe hits at most 3 targets. Even on 3 or 5 targets, Swipe's total damage (with the cat's gear and talents) stays below the cat's single-target DPS, so stay in Cat and kill one target at a time unless the pack must die together.`;
-    $('qaoetbl').innerHTML = `<table><tr><th>Targets</th><th>Cat, total DPS</th><th>Dire Bear Swipe, total DPS</th></tr>${A.map(r => `<tr><td>${r.targets}</td><td>${Math.round(r.cat)}</td><td>${Math.round(r.bearSwipe)}</td></tr>`).join('')}</table>`;
-  }
-  $('qraid').innerHTML = `Raids open on 9 December: Barrow Deeps, Hyjal Summit and Onyxia's Lair. Their loot is not in the sim's item data yet, so there is nothing to sim. Once it is, this guide adds a raid set, and the hit cap and stat weights get re-simmed with it.`;
-}
 const GLOSS = [
   ['Combo points (CP)', 'Built by Shred, Claw and Rake, up to 5 on the target; spent by Rip and Ferocious Bite.'],
   ['Energy', 'The cat’s resource: 100 max, refills 10 per second. Shifting Power gives 40 at once.'],

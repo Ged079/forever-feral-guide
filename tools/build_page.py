@@ -118,7 +118,6 @@ def _fmt(v):
 
 _CURVES = _curves()
 data['talentRanks'] = json.load(open(sim.data('talent_ranks.json'))) if os.path.exists(sim.data('talent_ranks.json')) else None
-data['extra'] = json.load(open(sim.data('extra_sims.json'))) if os.path.exists(sim.data('extra_sims.json')) else {}
 data['tips'] = {}
 for _tr in data['trees']:
     for _t in _tr['talents']:
