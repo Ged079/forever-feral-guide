@@ -46,6 +46,9 @@ python3 analyze.py             # values, weights, hit curve            -> ../set
 python3 extra_weights.py       # Int, Spirit, MP5, Feral AP, weapon DPS -> ../setup/extra_weights.json
 python3 alternatives.py        # the other builds on the page          -> ../setup/alternatives.json
 python3 rank.py                # per-slot ranking, both factions       -> ../setup/rank/
+python3 talent_ranks.py        # every rank of every talent on Cat     -> ../setup/talent_ranks.json (talent calculator)
+python3 extra_sims.py          # bear-weave, powershift, fight length, AoE -> ../setup/extra_sims.json
+python3 og_image.py            # link-preview images (needs Playwright) -> ../docs/og.png, ../docs/bis/og.png
 python3 build_page.py          # the guide   -> ../docs/index.html
 python3 build_bis.py           # the BiS page -> ../docs/bis/index.html
 ```
@@ -59,6 +62,8 @@ All paths are relative to the scripts (`sim.SETUP`, `sim.DOCS`), so they run fro
 - `setup/SIM_VERSION` is the wowsims/forever commit the current numbers come from; update it after a re-run.
 - `setup/defaults.siml` is the full setup; `setup/defaults.json` is what `wowsimcli siml parse -json` makes of it.
   `setup/prebis.gear.siml` is the sim's own pre-raid gear, used for `results_presetgear.json`.
+- The BiS page's upgrade finder reads every wearable item from the sim's item data, the per-slot ranking and the stat
+  weights; plain set bonuses come from the sim's set table.
 - `tools/content.py` holds the prose; numbers come only from the JSON in `setup/`.
 - `tools/template.html` and `tools/bis_template.html` are the two pages; the build scripts embed the data and icons,
   so each output is one self-contained file.

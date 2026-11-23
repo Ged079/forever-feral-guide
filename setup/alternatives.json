@@ -3,42 +3,42 @@
   "name": "Cat",
   "talents": "050022-55000032023012125001-055",
   "note": "The main build. Most DPS.",
-  "dps": 1007.9,
+  "dps": 1011.8,
   "delta": 0
  },
  {
   "name": "Cat, bear-ready",
   "talents": "050022-51002232023012125001-055",
   "note": "Furor down to 1/5; the 4 points go to Thick Hide 2/3 and Brutal Impact 2/2 for off-tanking. A tie with Cat; found by a search that started from a scrambled build.",
-  "dps": 1007.3,
-  "delta": -0.6
+  "dps": 1011.3,
+  "delta": -0.5
  },
  {
   "name": "Cat with Feral Charge",
   "talents": "050021-55000032123012125001-055",
   "note": "Feral Charge for a gap closer or interrupt, paid with a point of Nature\u2019s Reach (2% hit).",
-  "dps": 995.4,
+  "dps": 999.3,
   "delta": -12.5
  },
  {
   "name": "Hybrid",
   "talents": "050022-52000332023110125011-055",
   "note": "Thick Hide 3/3, Lacerate and Primal Bite for real tanking.",
-  "dps": 989.0,
-  "delta": -18.9
+  "dps": 991.5,
+  "delta": -20.3
  },
  {
   "name": "Sim preset: Cat",
   "talents": "050021-53200032123012125001-055",
   "note": "The sim\u2019s own Cat build, for comparison.",
-  "dps": 995.3,
-  "delta": -12.6
+  "dps": 999.1,
+  "delta": -12.7
  },
  {
   "name": "Sim preset: Hybrid",
   "talents": "050012-50230302123110125011-055",
   "note": "The sim\u2019s own Hybrid build, for comparison.",
-  "dps": 936.1,
-  "delta": -71.8
+  "dps": 938.8,
+  "delta": -73.0
  }
 ]

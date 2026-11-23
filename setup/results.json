@@ -5,26 +5,26 @@
  },
  "builds": {
   "cat": {
-   "90": 1019.0,
-   "180": 1007.9,
-   "300": 1004.6
+   "90": 1026.4,
+   "180": 1011.8,
+   "300": 1007.3
   },
   "hybrid": {
-   "90": 992.6,
-   "180": 989.0,
-   "300": 986.9
+   "90": 998.3,
+   "180": 991.5,
+   "300": 988.0
   }
  },
  "presets": {
   "cat": {
-   "90": 1006.1,
-   "180": 995.3,
-   "300": 992.2
+   "90": 1013.9,
+   "180": 999.1,
+   "300": 994.6
   },
   "hybrid": {
-   "90": 937.6,
-   "180": 936.1,
-   "300": 934.6
+   "90": 943.5,
+   "180": 938.8,
+   "300": 936.0
   }
  },
  "talents": {
@@ -35,7 +35,7 @@
     "points": 5,
     "max": 5,
     "spell": 1223081,
-    "all": 30.0,
+    "all": 30.2,
     "last": 6.0
    },
    {
@@ -44,8 +44,8 @@
     "points": 2,
     "max": 2,
     "spell": 1223082,
-    "all": 32.7,
-    "last": 16.1
+    "all": 31.7,
+    "last": 15.8
    },
    {
     "name": "Nature's Reach",
@@ -53,7 +53,7 @@
     "points": 2,
     "max": 2,
     "spell": 16819,
-    "all": 23.4,
+    "all": 25.7,
     "last": 12.5
    },
    {
@@ -62,8 +62,8 @@
     "points": 5,
     "max": 5,
     "spell": 16934,
-    "all": 16.9,
-    "last": 3.3
+    "all": 16.5,
+    "last": 3.1
    },
    {
     "name": "Furor",
@@ -72,7 +72,7 @@
     "max": 5,
     "spell": 17056,
     "all": 0.6,
-    "last": 0.1
+    "last": 0.0
    },
    {
     "name": "Shredding Attacks",
@@ -80,8 +80,8 @@
     "points": 3,
     "max": 3,
     "spell": 16966,
-    "all": 33.8,
-    "last": 39.2
+    "all": 33.9,
+    "last": 39.8
    },
    {
     "name": "Savage Fury",
@@ -90,7 +90,7 @@
     "max": 2,
     "spell": 16998,
     "all": 35.3,
-    "last": 17.6
+    "last": 17.7
    },
    {
     "name": "Sharpened Claws",
@@ -98,8 +98,8 @@
     "points": 2,
     "max": 2,
     "spell": 16942,
-    "all": 48.9,
-    "last": 24.2
+    "all": 47.9,
+    "last": 23.8
    },
    {
     "name": "Predatory Strikes",
@@ -107,8 +107,8 @@
     "points": 3,
     "max": 3,
     "spell": 16972,
-    "all": 24.7,
-    "last": 8.2
+    "all": 25.0,
+    "last": 8.3
    },
    {
     "name": "Predatory Discipline",
@@ -116,7 +116,7 @@
     "points": 1,
     "max": 1,
     "spell": 1328613,
-    "all": 10.7,
+    "all": 11.8,
     "last": null
    },
    {
@@ -125,8 +125,8 @@
     "points": 2,
     "max": 2,
     "spell": 16958,
-    "all": 18.2,
-    "last": 18.9
+    "all": 19.6,
+    "last": 20.2
    },
    {
     "name": "Leader of the Pack",
@@ -134,7 +134,7 @@
     "points": 1,
     "max": 1,
     "spell": 17007,
-    "all": 24.2,
+    "all": 23.8,
     "last": null
    },
    {
@@ -143,8 +143,8 @@
     "points": 2,
     "max": 2,
     "spell": 1223242,
-    "all": 41.9,
-    "last": 20.9
+    "all": 43.0,
+    "last": 21.5
    },
    {
     "name": "Rend and Tear",
@@ -152,8 +152,8 @@
     "points": 5,
     "max": 5,
     "spell": 1223246,
-    "all": 88.4,
-    "last": 17.7
+    "all": 88.9,
+    "last": 17.8
    },
    {
     "name": "Shifting Power",
@@ -161,7 +161,7 @@
     "points": 1,
     "max": 1,
     "spell": 1322605,
-    "all": 147.0,
+    "all": 147.2,
     "last": null
    },
    {
@@ -170,8 +170,8 @@
     "points": 5,
     "max": 5,
     "spell": 17003,
-    "all": 20.2,
-    "last": 3.7
+    "all": 20.3,
+    "last": 3.6
    },
    {
     "name": "Naturalist",
@@ -179,8 +179,8 @@
     "points": 5,
     "max": 5,
     "spell": 17069,
-    "all": 89.5,
-    "last": 17.9
+    "all": 89.8,
+    "last": 18.0
    }
   ],
   "hybrid": [
@@ -190,7 +190,7 @@
     "points": 5,
     "max": 5,
     "spell": 1223081,
-    "all": 31.3,
+    "all": 31.4,
     "last": 6.3
    },
    {
@@ -199,8 +199,8 @@
     "points": 2,
     "max": 2,
     "spell": 1223082,
-    "all": 29.9,
-    "last": 15.0
+    "all": 29.4,
+    "last": 14.7
    },
    {
     "name": "Nature's Reach",
@@ -208,8 +208,8 @@
     "points": 2,
     "max": 2,
     "spell": 16819,
-    "all": 23.5,
-    "last": 9.9
+    "all": 25.5,
+    "last": 10.2
    },
    {
     "name": "Ferocity",
@@ -218,7 +218,7 @@
     "max": 5,
     "spell": 16934,
     "all": 16.6,
-    "last": 3.4
+    "last": 3.3
    },
    {
     "name": "Furor",
@@ -244,8 +244,8 @@
     "points": 3,
     "max": 3,
     "spell": 16966,
-    "all": 38.3,
-    "last": 42.4
+    "all": 38.5,
+    "last": 42.6
    },
    {
     "name": "Savage Fury",
@@ -253,8 +253,8 @@
     "points": 2,
     "max": 2,
     "spell": 16998,
-    "all": 37.2,
-    "last": 18.6
+    "all": 37.3,
+    "last": 18.7
    },
    {
     "name": "Sharpened Claws",
@@ -262,8 +262,8 @@
     "points": 2,
     "max": 2,
     "spell": 16942,
-    "all": 44.5,
-    "last": 22.4
+    "all": 44.0,
+    "last": 22.0
    },
    {
     "name": "Predatory Strikes",
@@ -271,8 +271,8 @@
     "points": 3,
     "max": 3,
     "spell": 16972,
-    "all": 24.7,
-    "last": 8.2
+    "all": 25.0,
+    "last": 8.3
    },
    {
     "name": "Lacerate",
@@ -298,7 +298,7 @@
     "points": 1,
     "max": 1,
     "spell": 17007,
-    "all": 22.4,
+    "all": 22.0,
     "last": null
    },
    {
@@ -307,8 +307,8 @@
     "points": 2,
     "max": 2,
     "spell": 1223242,
-    "all": 40.6,
-    "last": 20.3
+    "all": 41.7,
+    "last": 20.8
    },
    {
     "name": "Rend and Tear",
@@ -316,8 +316,8 @@
     "points": 5,
     "max": 5,
     "spell": 1223246,
-    "all": 86.0,
-    "last": 17.2
+    "all": 86.3,
+    "last": 17.3
    },
    {
     "name": "Primal Bite",
@@ -334,7 +334,7 @@
     "points": 1,
     "max": 1,
     "spell": 1322605,
-    "all": 183.4,
+    "all": 184.1,
     "last": null
    },
    {
@@ -343,8 +343,8 @@
     "points": 5,
     "max": 5,
     "spell": 17003,
-    "all": 20.7,
-    "last": 3.7
+    "all": 20.9,
+    "last": 3.8
    },
    {
     "name": "Naturalist",
@@ -352,19 +352,19 @@
     "points": 5,
     "max": 5,
     "spell": 17069,
-    "all": 87.8,
+    "all": 88.0,
     "last": 17.6
    }
   ]
  },
  "consumables": {
   "cat": {
-   "base": 1007.9061883582478,
+   "base": 1011.8125162810874,
    "list": [
     {
      "id": 274274,
      "slot": "flaskId",
-     "v": 16.1,
+     "v": 15.8,
      "name": "Flask of Natural Aggression"
     },
     {
@@ -376,19 +376,19 @@
     {
      "id": 12662,
      "slot": "conjuredId",
-     "v": 2.6,
+     "v": 2.2,
      "name": "Demonic Rune"
     },
     {
      "id": 260817,
      "slot": "explosiveId",
-     "v": -0.1,
+     "v": -0.0,
      "name": "EZ-Thro Dark Bomb"
     },
     {
      "id": 12643,
      "slot": "mhImbueId",
-     "v": 18.9,
+     "v": 19.1,
      "name": "Dense Weightstone"
     },
     {
@@ -400,37 +400,37 @@
     {
      "id": 13442,
      "slot": "offensivePotId",
-     "v": 10.1,
+     "v": 10.5,
      "name": "Mighty Rage Potion"
     },
     {
      "id": 12460,
      "slot": "extraIds",
-     "v": 11.0,
+     "v": 11.1,
      "name": "Juju Might"
     },
     {
      "id": 8412,
      "slot": "extraIds",
-     "v": 19.0,
+     "v": 18.9,
      "name": "Ground Scorpok Assay"
     },
     {
      "id": 10646,
      "slot": "extraIds",
-     "v": 5.8,
+     "v": 4.5,
      "name": "Goblin Sapper Charge"
     },
     {
      "id": 250328,
      "slot": "elixirIds",
-     "v": 20.0,
+     "v": 20.1,
      "name": "Elixir of Cunning"
     },
     {
      "id": 250338,
      "slot": "elixirIds",
-     "v": 0.5,
+     "v": 0.4,
      "name": "Elixir of Sages"
     },
     {
@@ -442,13 +442,13 @@
     {
      "id": 250341,
      "slot": "elixirIds",
-     "v": 1.1,
+     "v": 1.3,
      "name": "Greater Mageblood Elixir"
     },
     {
      "id": 250351,
      "slot": "elixirIds",
-     "v": 16.5,
+     "v": 16.7,
      "name": "Elixir of the Grizzly"
     }
    ],
@@ -458,63 +458,63 @@
      "from": "Flask of Natural Aggression",
      "to": "Flask of Natural Accuracy",
      "toId": 274273,
-     "v": -5.9
+     "v": -5.5
     },
     {
      "slot": "flaskId",
      "from": "Flask of Natural Aggression",
      "to": "Flask of Natural Precision",
      "toId": 274275,
-     "v": -6.0
+     "v": -5.7
     },
     {
      "slot": "flaskId",
      "from": "Flask of Natural Aggression",
      "to": "Flask of Natural Swiftness",
      "toId": 274276,
-     "v": -12.6
+     "v": -11.6
     },
     {
      "slot": "foodId",
      "from": "Swiftstrike Steak",
      "to": "Smoked Desert Dumplings",
      "toId": 20452,
-     "v": -1.5
+     "v": -1.3
     },
     {
      "slot": "foodId",
      "from": "Swiftstrike Steak",
      "to": "Mightfish Steak",
      "toId": 13934,
-     "v": -4.1
+     "v": -3.9
     },
     {
      "slot": "mhImbueId",
      "from": "Dense Weightstone",
      "to": "Elemental Sharpening Stone",
      "toId": 18262,
-     "v": -3.1
+     "v": -3.7
     },
     {
      "slot": "offensivePotId",
      "from": "Mighty Rage Potion",
      "to": "Major Frenzy Potion",
      "toId": 250943,
-     "v": -3.0
+     "v": -3.2
     },
     {
      "slot": "elixirIds",
      "from": "Elixir of Cunning",
      "to": "Elixir of the Mongoose",
      "toId": 13452,
-     "v": -0.9
+     "v": -1.0
     },
     {
      "slot": "elixirIds",
      "from": "Elixir of Cunning",
      "to": "Elixir of Ferocity",
      "toId": 250350,
-     "v": -11.0
+     "v": -10.8
     },
     {
      "slot": "elixirIds",
@@ -549,14 +549,14 @@
      "from": "Mighty Rage Potion",
      "to": "Superior Frenzy Potion",
      "toId": 250942,
-     "v": -5.3
+     "v": -5.5
     },
     {
      "slot": "foodId",
      "from": "Swiftstrike Steak",
      "to": "Bear Bruscitti",
      "toId": 250070,
-     "v": -1.5
+     "v": -1.3
     }
    ],
    "adds": [
@@ -611,18 +611,18 @@
    ]
   },
   "hybrid": {
-   "base": 989.0317632375796,
+   "base": 991.5409443396279,
    "list": [
     {
      "id": 274274,
      "slot": "flaskId",
-     "v": 15.0,
+     "v": 14.7,
      "name": "Flask of Natural Aggression"
     },
     {
      "id": 250072,
      "slot": "foodId",
-     "v": 14.3,
+     "v": 14.1,
      "name": "Swiftstrike Steak"
     },
     {
@@ -634,13 +634,13 @@
     {
      "id": 260817,
      "slot": "explosiveId",
-     "v": 0.2,
+     "v": 0.1,
      "name": "EZ-Thro Dark Bomb"
     },
     {
      "id": 12643,
      "slot": "mhImbueId",
-     "v": 19.5,
+     "v": 19.7,
      "name": "Dense Weightstone"
     },
     {
@@ -652,31 +652,31 @@
     {
      "id": 13442,
      "slot": "offensivePotId",
-     "v": 6.6,
+     "v": 6.7,
      "name": "Mighty Rage Potion"
     },
     {
      "id": 12460,
      "slot": "extraIds",
-     "v": 11.0,
+     "v": 11.1,
      "name": "Juju Might"
     },
     {
      "id": 8412,
      "slot": "extraIds",
-     "v": 18.1,
+     "v": 17.9,
      "name": "Ground Scorpok Assay"
     },
     {
      "id": 10646,
      "slot": "extraIds",
-     "v": 3.0,
+     "v": 3.2,
      "name": "Goblin Sapper Charge"
     },
     {
      "id": 250328,
      "slot": "elixirIds",
-     "v": 19.9,
+     "v": 19.7,
      "name": "Elixir of Cunning"
     },
     {
@@ -694,13 +694,13 @@
     {
      "id": 250341,
      "slot": "elixirIds",
-     "v": 2.8,
+     "v": 2.9,
      "name": "Greater Mageblood Elixir"
     },
     {
      "id": 250351,
      "slot": "elixirIds",
-     "v": 16.5,
+     "v": 16.7,
      "name": "Elixir of the Grizzly"
     }
    ],
@@ -710,63 +710,63 @@
      "from": "Flask of Natural Aggression",
      "to": "Flask of Natural Accuracy",
      "toId": 274273,
-     "v": -2.3
+     "v": -2.1
     },
     {
      "slot": "flaskId",
      "from": "Flask of Natural Aggression",
      "to": "Flask of Natural Precision",
      "toId": 274275,
-     "v": -2.4
+     "v": -2.2
     },
     {
      "slot": "flaskId",
      "from": "Flask of Natural Aggression",
      "to": "Flask of Natural Swiftness",
      "toId": 274276,
-     "v": -8.8
+     "v": -8.5
     },
     {
      "slot": "foodId",
      "from": "Swiftstrike Steak",
      "to": "Smoked Desert Dumplings",
      "toId": 20452,
-     "v": -0.8
+     "v": -0.4
     },
     {
      "slot": "foodId",
      "from": "Swiftstrike Steak",
      "to": "Mightfish Steak",
      "toId": 13934,
-     "v": -3.4
+     "v": -3.0
     },
     {
      "slot": "mhImbueId",
      "from": "Dense Weightstone",
      "to": "Elemental Sharpening Stone",
      "toId": 18262,
-     "v": -4.9
+     "v": -5.3
     },
     {
      "slot": "offensivePotId",
      "from": "Mighty Rage Potion",
      "to": "Major Frenzy Potion",
      "toId": 250943,
-     "v": -1.1
+     "v": -1.2
     },
     {
      "slot": "elixirIds",
      "from": "Elixir of Cunning",
      "to": "Elixir of the Mongoose",
      "toId": 13452,
-     "v": -1.8
+     "v": -1.7
     },
     {
      "slot": "elixirIds",
      "from": "Elixir of Cunning",
      "to": "Elixir of Ferocity",
      "toId": 250350,
-     "v": -11.4
+     "v": -11.3
     },
     {
      "slot": "elixirIds",
@@ -801,14 +801,14 @@
      "from": "Mighty Rage Potion",
      "to": "Superior Frenzy Potion",
      "toId": 250942,
-     "v": -3.4
+     "v": -3.5
     },
     {
      "slot": "foodId",
      "from": "Swiftstrike Steak",
      "to": "Bear Bruscitti",
      "toId": 250070,
-     "v": -0.8
+     "v": -0.4
     }
    ],
    "adds": [
@@ -878,42 +878,42 @@
    {
     "kind": "raid",
     "key": "markOfTheWild",
-    "v": 25.0
+    "v": 24.7
    },
    {
     "kind": "raid",
     "key": "strengthOfEarthTotem",
-    "v": 27.6
+    "v": 27.9
    },
    {
     "kind": "raid",
     "key": "graceOfAirTotem",
-    "v": 57.1
+    "v": 56.8
    },
    {
     "kind": "raid",
     "key": "windfuryTotem",
-    "v": 76.9
+    "v": 77.2
    },
    {
     "kind": "raid",
     "key": "battleShout",
-    "v": 32.5
+    "v": 32.7
    },
    {
     "kind": "blessing",
     "key": "greaterBlessingOfKings",
-    "v": 53.3
+    "v": 53.7
    },
    {
     "kind": "debuff",
     "key": "judgementOfLight",
-    "v": 0.1
+    "v": -0.9
    },
    {
     "kind": "debuff",
     "key": "judgementOfWisdom",
-    "v": 22.0
+    "v": 21.4
    },
    {
     "kind": "debuff",
@@ -943,7 +943,7 @@
    {
     "kind": "debuff",
     "key": "giftOfArthas",
-    "v": 23.5
+    "v": 23.7
    },
    {
     "kind": "debuff",
@@ -953,27 +953,27 @@
    {
     "kind": "group",
     "key": "allArmorDebuffs",
-    "v": 163.9
+    "v": 163.6
    },
    {
     "kind": "armorAlone",
     "key": "sunderArmor",
-    "v": 157.7
+    "v": 158.4
    },
    {
     "kind": "armorAlone",
     "key": "exposeArmor",
-    "v": 160.3
+    "v": 161.1
    },
    {
     "kind": "armorAlone",
     "key": "faerieFire",
-    "v": 2.9
+    "v": 2.1
    },
    {
     "kind": "armorAlone",
     "key": "curseOfRecklessness",
-    "v": 2.9
+    "v": 2.1
    },
    {
     "kind": "assumption",
@@ -982,61 +982,61 @@
    }
   ],
   "totals": {
-   "base": 1007.9,
-   "consumables": 145.1,
-   "buffs": 397.4
+   "base": 1011.8,
+   "consumables": 145.4,
+   "buffs": 398.7
   }
  },
  "races": {
   "RaceNightElf": {
-   "cat": 1007.9,
-   "hybrid": 989.0
+   "cat": 1011.8,
+   "hybrid": 991.5
   },
   "RaceTauren": {
-   "cat": 997.2,
-   "hybrid": 982.2
+   "cat": 1003.2,
+   "hybrid": 985.4
   },
   "RaceHighOrderSkyborne": {
-   "cat": 1004.4,
-   "hybrid": 989.5
+   "cat": 1009.2,
+   "hybrid": 992.8
   },
   "RaceWindshaperSkyborne": {
-   "cat": 1003.3,
-   "hybrid": 987.3
+   "cat": 1009.5,
+   "hybrid": 990.9
   }
  },
  "stats": {
   "cat": {
-   "base": 1007.0267688898814,
+   "base": 1010.9886371700113,
    "perPoint": {
-    "Strength": 0.6646,
-    "Agility": 0.745,
-    "Attack Power": 0.2747,
-    "Hit Rating": 0.566,
-    "Crit Rating": 0.576,
-    "Haste Rating": 0.3055,
-    "Armor Penetration": 0.0963,
-    "Expertise Rating": 0.5633
+    "Strength": 0.672,
+    "Agility": 0.7448,
+    "Attack Power": 0.2778,
+    "Hit Rating": 0.5882,
+    "Crit Rating": 0.5723,
+    "Haste Rating": 0.2996,
+    "Armor Penetration": 0.0967,
+    "Expertise Rating": 0.5865
    }
   },
   "hybrid": {
-   "base": 989.498513628178,
+   "base": 992.03080747125,
    "perPoint": {
-    "Strength": 0.6656,
-    "Agility": 0.7105,
-    "Attack Power": 0.2752,
-    "Hit Rating": 0.582,
-    "Crit Rating": 0.5312,
-    "Haste Rating": 0.3128,
-    "Armor Penetration": 0.0915,
-    "Expertise Rating": 0.5765
+    "Strength": 0.6727,
+    "Agility": 0.7073,
+    "Attack Power": 0.2781,
+    "Hit Rating": 0.5887,
+    "Crit Rating": 0.5231,
+    "Haste Rating": 0.3124,
+    "Armor Penetration": 0.0916,
+    "Expertise Rating": 0.583
    }
   }
  },
  "gear": {
   "Strength": 169,
   "Agility": 273,
-  "Attack Power": 76,
+  "Attack Power": 46,
   "Hit Rating": 10,
   "Crit Rating": 84,
   "Haste Rating": 0,
@@ -1047,141 +1047,141 @@
   "cat": [
    [
     -80,
-    975.5
+    977.2
    ],
    [
     -70,
-    975.6
+    977.3
    ],
    [
     -60,
-    975.6
+    977.3
    ],
    [
     -50,
-    975.7
+    977.3
    ],
    [
     -40,
-    983.0
+    985.2
    ],
    [
     -30,
-    989.7
+    993.0
    ],
    [
     -20,
-    995.4
+    998.7
    ],
    [
     -10,
-    1001.3
+    1004.7
    ],
    [
     0,
-    1007.2
+    1011.3
    ],
    [
     10,
-    1012.5
+    1016.4
    ],
    [
     20,
-    1018.1
+    1022.6
    ],
    [
     30,
-    1024.0
+    1028.5
    ],
    [
     40,
-    1024.1
+    1028.5
    ],
    [
     50,
-    1024.1
+    1028.5
    ],
    [
     60,
-    1024.2
+    1028.7
    ],
    [
     70,
-    1024.3
+    1028.8
    ],
    [
     80,
-    1024.3
+    1028.8
    ]
   ],
   "hybrid": [
    [
     -80,
-    957.4
+    958.0
    ],
    [
     -70,
-    957.4
+    958.0
    ],
    [
     -60,
-    957.4
+    958.1
    ],
    [
     -50,
-    957.4
+    958.1
    ],
    [
     -40,
-    965.0
+    965.7
    ],
    [
     -30,
-    972.1
+    974.2
    ],
    [
     -20,
-    978.1
+    980.5
    ],
    [
     -10,
-    983.7
+    986.1
    ],
    [
     0,
-    989.7
+    992.2
    ],
    [
     10,
-    995.8
+    998.4
    ],
    [
     20,
-    1001.4
+    1004.1
    ],
    [
     30,
-    1007.5
+    1010.2
    ],
    [
     40,
-    1007.5
+    1010.2
    ],
    [
     50,
-    1007.5
+    1010.2
    ],
    [
     60,
-    1007.6
+    1010.3
    ],
    [
     70,
-    1007.6
+    1010.3
    ],
    [
     80,
-    1007.7
+    1010.4
    ]
   ]
  }

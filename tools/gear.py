@@ -80,6 +80,9 @@ def stats_of(it, suffix=None):
         for k, v in enumerate(SUFFIX[suffix].get('stats', [])):
             if v:
                 st[k] = st.get(k, 0) + int(v * rpp / 10000 + 0.5)  # as the sim rounds it
+    ps = it.get('pseudoStats') or []
+    if len(ps) > 14 and ps[14]:
+        st[18] = st.get(18, 0) + ps[14] * 14  # "+1% critical strike" is a pseudo stat; 14 rating is 1%
     return st
 
 
@@ -121,7 +124,8 @@ def candidates(faction):
         for suf in sufs:
             if suf is not None and suf not in SUFFIX:
                 continue
-            c = {'id': it['id'], 'suffix': suf, 'ep': ep(it, suf), 'special': bool(it.get('itemEffects') or it.get('setId'))}
+            c = {'id': it['id'], 'suffix': suf, 'ep': ep(it, suf), 'special': bool(it.get('itemEffects') or it.get('setId') or it.get('pseudoStats')),
+                 'pseudo': bool(it.get('pseudoStats'))}
             t = it.get('type')
             if t == 13:
                 pools['off_hand' if it.get('weaponType') == 5 else 'main_hand'].append(c)
@@ -146,6 +150,7 @@ def candidates(faction):
         n = PER_WEAPON if s == 'main_hand' else PER_SLOT
         top = uniq[:n]
         top += [c for c in uniq[n:] if c['special']][:PER_SLOT_EFFECT]
+        top += [c for c in uniq[n:] if c.get('pseudo') and c not in top]  # hidden equip stats: always sim them
         out[s] = top
     return out
 

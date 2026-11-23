@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Pre-raid best in slot for Feral Cat in WoW Forever: every slot ranked by WoWSims Forever, with faction, budget and source filters.">
 <meta name="theme-color" content="#1b1c20">
+__HEAD__
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ec7a50'/%3E%3Cg fill='%231b1c20'%3E%3Cellipse cx='32' cy='42' rx='13' ry='11'/%3E%3Cellipse cx='16' cy='28' rx='5.5' ry='7'/%3E%3Cellipse cx='26' cy='18' rx='5.5' ry='7.5'/%3E%3Cellipse cx='38' cy='18' rx='5.5' ry='7.5'/%3E%3Cellipse cx='48' cy='28' rx='5.5' ry='7'/%3E%3C/g%3E%3C/svg%3E">
 <title>Feral Pre-raid BiS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,18 +101,67 @@ footer{padding:28px 0 48px}
 section[hidden]{display:none}
 @media(max-width:640px){.doll,.dbot{grid-template-columns:minmax(0,1fr)}.opt li{grid-template-columns:18px 30px minmax(0,1fr) 64px;gap:8px}.opt .ic{width:30px;height:30px}.sum .big{font-size:38px}}
 @media(prefers-reduced-motion:no-preference){.bar span{transition:width .3s ease}}
+.upd{display:inline-block;font-size:12.5px;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin:2px 0 8px}
+
+/* upgrade finder */
+.fmode .ctrl>div:not(:first-child){display:none}
+.fgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px;align-items:start}
+@media(max-width:900px){.fgrid{grid-template-columns:minmax(0,1fr)}}
+.phd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.pbtns{display:flex;gap:6px;flex-wrap:wrap}
+.pb{font:inherit;font-size:13.5px;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 12px;min-height:34px;cursor:pointer}
+.pb:hover{border-color:var(--acc)}
+.btn{font:inherit;font-weight:700;font-size:14px;border:0;border-radius:10px;background:var(--acc);color:var(--on-acc);padding:8px 14px;min-height:38px;cursor:pointer}
+.fpaste[hidden]{display:none}
+.fpaste{display:grid;gap:8px;margin:0 0 12px;padding:12px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
+.fpaste textarea{width:100%;font:13px/1.4 ui-monospace,monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px}
+.frow2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.ferr{font-size:13px;color:var(--acc)}
+.fslots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 10px}
+@media(max-width:520px){.fslots{grid-template-columns:minmax(0,1fr)}}
+.fs{display:grid;grid-template-columns:36px minmax(0,1fr);gap:9px;align-items:center;padding:5px;border-radius:10px;border:1px solid transparent;background:transparent;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.fs:hover,.fs:focus-visible{border-color:var(--line);background:var(--card2);outline:none}
+.fs .fi,.fup .fi,.fplist .fi{width:36px;height:36px;border-radius:7px;border:1px solid #4a4d55;background:#000 center/cover;display:block}
+.fs .lb{display:block;font-size:12px;color:var(--mute)}.fs .nm{display:block;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs.empty .nm{color:var(--mute);font-weight:500}.fs.empty .fi{background:var(--card2);border-style:dashed;border-color:var(--line)}
+.ftiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.ft{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.ft b{display:block;font:700 32px/1 var(--head);font-variant-numeric:tabular-nums}.ft span{display:block;font-size:13px;color:var(--mute);margin-top:6px}
+.ft.hl b{color:var(--acc)}
+@media(max-width:520px){.ftiles{grid-template-columns:repeat(2,minmax(0,1fr))}.ftiles .ft:last-child{grid-column:1/-1}}
+#fkind{margin-bottom:10px}
+.fwarn{display:flex;gap:10px;align-items:flex-start;margin:0 0 10px;padding:10px 12px;border-radius:10px;font-size:14px;background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid color-mix(in srgb,var(--acc) 35%,transparent)}
+.fups{list-style:none;margin:0;padding:0}
+.fup{display:grid;grid-template-columns:22px 36px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 2px;border-top:1px solid var(--line)}
+.fup:first-child{border-top:0}
+.fup .n{font:700 17px var(--head);color:var(--mute);text-align:center}
+.fup a{font-weight:600;text-decoration:none}.fup a:hover{text-decoration:underline}
+.fup .src{display:block;font-size:12.5px;color:var(--mute);line-height:1.35}
+.fup .g{font:700 22px/1 var(--head);color:var(--acc);text-align:right;font-variant-numeric:tabular-nums}.fup .g small{display:block;font:500 11.5px Barlow,sans-serif;color:var(--mute);margin-top:3px}
+.fup.tie .g{color:var(--mute)}
+.fnone{padding:16px 4px;color:var(--mute)}
+.fpick{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.55);display:flex;align-items:flex-start;justify-content:center;padding:6vh 14px}
+.fpick[hidden]{display:none}
+.fpbox{width:min(560px,100%);max-height:86vh;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.fsuf[hidden]{display:none}
+.fsuf{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.fsuf select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;min-height:38px;flex:1}
+.fplist{list-style:none;margin:10px 0 0;padding:0;overflow:auto}
+.fplist button{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;padding:7px 6px;border:0;border-radius:10px;background:transparent;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.fplist button:hover,.fplist button:focus-visible{background:var(--card2);outline:none}
+.fplist .nm{font-weight:600;display:block}.fplist .src{font-size:12.5px;color:var(--mute);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fplist .fv{font-size:12.5px;color:var(--mute);white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="top"><div class="wrap">
   <div class="brand">Forever Feral <span>·</span> Pre-raid BiS</div>
-  <nav class="tabs" aria-label="Tabs"><a href="#gear" data-tab="gear">Gear by slot</a><a href="#how" data-tab="how">How to gear</a><a href="#method" data-tab="method">Method</a></nav>
+  <nav class="tabs" aria-label="Tabs"><a href="#gear" data-tab="gear">Gear by slot</a><a href="#finder" data-tab="finder">Upgrade finder</a><a href="#how" data-tab="how">How to gear</a><a href="#method" data-tab="method">Method</a></nav>
   <a class="back" id="guidelink" href="#">Class guide ↗</a>
 </div></div>
 
 <main class="wrap">
 <header class="hero">
   <div class="kicker">WoW Forever · Phase 1 · Feral Cat</div>
+  <div class="upd" id="updated"></div>
   <h1>Pre-raid best in slot</h1>
   <p class="small">Every slot ranked by WoWSims Forever: each option is the best-in-slot set with only that piece swapped, so Δ DPS is what you lose by wearing it instead. The shaded band around "Best" is the sim's margin (±1.7 DPS, 95%): anything whose dot sits inside it is a tie. No raid loot, raid reputation or PvP rank gear.</p>
 </header>
@@ -130,6 +180,37 @@ section[hidden]{display:none}
   <div class="sum" id="sum"></div>
   <div class="doll" id="doll"></div>
   <div class="cards" id="cards"></div>
+</section>
+
+<section id="tab-finder" hidden>
+  <div class="fgrid">
+    <div class="panel fmine">
+      <div class="phd"><h2>Your gear</h2><div class="pbtns"><button type="button" class="pb" id="fpaste">Paste WoWSims export</button><button type="button" class="pb" id="fbis">Fill with BiS</button><button type="button" class="pb" id="fclear">Clear</button></div></div>
+      <div class="fpaste" id="fpastebox" hidden>
+        <label for="fjson" class="small">Paste the JSON from the WoWSims Forever site (Export, then JSON) or from the WowSimsExporter addon (<code>/wse</code>).</label>
+        <textarea id="fjson" rows="4" spellcheck="false" placeholder='{"player":{"equipment":{"items":[...'></textarea>
+        <div class="frow2"><button type="button" class="btn" id="fload">Load my gear</button><span class="ferr" id="ferr"></span></div>
+      </div>
+      <div class="fslots" id="fslots"></div>
+      <p class="small">Tap a slot to pick what you wear. Saved in this browser only. Enchants are not counted, so compare items, not enchants.</p>
+    </div>
+    <div>
+      <div class="ftiles" id="ftiles"></div>
+      <div class="panel">
+        <div class="phd"><h2>Best upgrades for you</h2></div>
+        <div class="seg" id="fkind"></div>
+        <div id="fwarn"></div>
+        <ol class="fups" id="fups"></ol>
+        <p class="small" id="fhow"></p>
+      </div>
+    </div>
+  </div>
+  <div class="fpick" id="fpick" hidden role="dialog" aria-modal="true" aria-labelledby="fptitle"><div class="fpbox">
+    <div class="phd"><h3 id="fptitle"></h3><button type="button" class="pb" id="fpclose" aria-label="Close">✕</button></div>
+    <input type="search" id="fpq" placeholder="Search items" autocomplete="off">
+    <div class="fsuf" id="fsuf" hidden><label for="fpsuf" class="small">Random enchantment</label><select id="fpsuf"></select><button type="button" class="btn" id="fpok">Use this</button></div>
+    <ul class="fplist" id="fplist"></ul>
+  </div></div>
 </section>
 
 <section id="tab-how" hidden>
@@ -153,6 +234,7 @@ section[hidden]{display:none}
 {
 const D = /*DATA*/null;
 const $ = id => document.getElementById(id);
+const day = d => d ? new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}) : '';
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const SL = {head:'Head',neck:'Neck',shoulder:'Shoulder',back:'Back',chest:'Chest',wrist:'Wrist',hands:'Hands',waist:'Waist',legs:'Legs',feet:'Feet',finger1:'Ring 1',finger2:'Ring 2',trinket1:'Trinket 1',trinket2:'Trinket 2',main_hand:'Weapon',off_hand:'Off hand',ranged:'Idol'};
 const LEFT = ['head','neck','shoulder','back','chest','wrist','hands'], RIGHT = ['waist','legs','feet','finger1','finger2','trinket1','trinket2'], BOT = ['main_hand','ranged'];
@@ -170,6 +252,7 @@ const seg = (el, opts, cur, key) => { $(el).innerHTML = opts.map(([v, l]) => `<b
 function pickFor(F, slot) { const s = F.slots[slot]; if (!s || !s.bis) return null; return st.bud === 'easy' ? F.easy[slot] : s.bis; }
 
 function render() {
+  if (st.tab === 'finder') renderFinder();
   const F = D.factions[st.fac];
   seg('fac', [['alliance', 'Alliance'], ['horde', 'Horde']], st.fac, 'fac');
   seg('bud', [['max', 'Max'], ['easy', 'No AV, PvP or exalted rep']], st.bud, 'bud');
@@ -231,20 +314,23 @@ function render() {
     `<b>Faction pieces:</b> Alliance and Horde sets differ only where a piece is faction-locked. Switch faction above to see yours.`,
     `<b>Can't get AV or exalted rep yet?</b> Switch Budget to "No AV, PvP or exalted rep": it swaps those pieces for the best you can get without them.`,
   ].map(x => `<li>${x}</li>`).join('');
-  $('foot').innerHTML = `Simmed with WoWSims Forever · companion to the <a href="${esc(D.guideUrl)}">Forever Feral class guide</a>`;
+  $('updated').textContent = `Updated ${day(D.meta.built)} · numbers from the ${day(D.meta.foreverDate)} WoWSims Forever`;
+  $('foot').innerHTML = `Simmed with WoWSims Forever <code>${D.meta.forever}</code> · companion to the <a href="${esc(D.guideUrl)}">Forever Feral class guide</a>`;
   $('guidelink').href = D.guideUrl;
   if (/^https?:/.test(D.guideUrl)) document.querySelectorAll('a[href="' + D.guideUrl + '"]').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
   save();
 }
 
 function showTab(t) {
-  st.tab = ['gear', 'how', 'method'].includes(t) ? t : 'gear';
+  st.tab = ['gear', 'finder', 'how', 'method'].includes(t) ? t : 'gear';
   document.querySelectorAll('[data-tab]').forEach(a => a.classList.toggle('on', a.dataset.tab === st.tab));
-  ['gear', 'how', 'method'].forEach(x => $('tab-' + x).hidden = x !== st.tab);
+  ['gear', 'finder', 'how', 'method'].forEach(x => $('tab-' + x).hidden = x !== st.tab);
+  document.body.classList.toggle('fmode', st.tab === 'finder');
+  if (st.tab === 'finder') renderFinder();
 }
 
 document.addEventListener('click', e => {
-  const b = e.target.closest('[data-k]');
+  const b = e.target.closest('[data-k]:not([data-k=fkind])');
   if (b) { st[b.dataset.k] = b.dataset.k === 'topn' ? +b.dataset.v : b.dataset.v; render(); return; }
   const k = e.target.closest('[data-kind]');
   if (k) { const v = k.dataset.kind; if (v === 'all') st.kinds.clear(); else st.kinds.has(v) ? st.kinds.delete(v) : st.kinds.add(v); render(); $('kinds').hidden = false; $('ddbtn').setAttribute('aria-expanded', 'true'); const f = $('kinds').querySelector(`[data-kind="${v}"]`); if (f) f.focus(); return; }
@@ -255,8 +341,189 @@ document.addEventListener('click', e => {
 });
 let qt; $('q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { st.q = e.target.value; render(); }, 120); });
 addEventListener('keydown', e => { if (e.key === 'Escape' && !$('kinds').hidden) { $('kinds').hidden = true; $('ddbtn').setAttribute('aria-expanded', 'false'); $('ddbtn').focus(); } });
-addEventListener('hashchange', () => showTab(location.hash.slice(1)));
-showTab(location.hash.slice(1));
+
+// ---------- upgrade finder ----------
+const FD = D.finder;
+const FSLOTS = ['head','neck','shoulder','back','chest','wrist','hands','waist','legs','feet','finger1','finger2','trinket1','trinket2','main_hand','off_hand','ranged'];
+const GRP = s => ({finger1: 'finger', finger2: 'finger', trinket1: 'trinket', trinket2: 'trinket'})[s] || s;
+const FKINDS = [['all', 'All'], ['dungeon', 'Dungeons'], ['quest', 'Quests'], ['crafted', 'Crafted'], ['vendor', 'Vendors'], ['norep', 'No rep needed']];
+const fst = {mine: {}, kind: 'all', slot: null, pickId: null};
+try { const m = JSON.parse(localStorage.getItem('ffbis-mine') || 'null'); if (m && typeof m === 'object') fst.mine = m; } catch (e) {}
+const fsave = () => { try { localStorage.setItem('ffbis-mine', JSON.stringify(fst.mine)); } catch (e) {} };
+const FI = id => FD.items[id];
+const iconUrl = name => D.icons[name] || (location.protocol.startsWith('http') && !/claude/.test(location.host) ? `https://wow.zamimg.com/images/wow/icons/medium/${name}.jpg` : '');
+const fimg = name => { const u = iconUrl(name); return `<span class="fi"${u ? ` style="background-image:url('${u}')"` : ''}></span>`; };
+const fname = (id, suf) => FI(id)[0] + (suf && FD.suffix[suf] ? ' ' + FD.suffix[suf][0] : '');
+function fstats(id, suf) {
+  const it = FI(id), st = Object.assign({}, it[4]);
+  if (suf && FD.suffix[suf]) for (const [k, v] of Object.entries(FD.suffix[suf][1])) st[k] = (st[k] || 0) + Math.floor(v * it[12] / 10000 + 0.5);
+  return st;
+}
+const fep = (id, suf) => { if (!id || !FI(id)) return 0; const st = fstats(id, suf); let v = FD.wdps * FI(id)[5]; for (const k in st) v += (FD.w[k] || 0) * st[k]; return v; };
+function bisGear() {
+  const S = D.factions[st.fac].slots, g = {};
+  FSLOTS.forEach(s => { if (S[s] && S[s].bis) g[s] = [S[s].bis, S[s].bisSuffix || 0]; });
+  return g;
+}
+// One item's worth in its slot, against the best-in-slot item there: the sim's own number when it ranked the item, else stat weights.
+function fval(slot, id, suf) {
+  const bis = (D.factions[st.fac].slots[slot] || {});
+  const base = bis.bis ? fep(bis.bis, bis.bisSuffix) : 0;
+  if (!id) return -base;
+  const sm = (FD.simmed[st.fac][GRP(slot)] || {})[id + ':' + (suf || 0)];
+  return sm !== undefined && bis.bis ? sm : fep(id, suf) - base;
+}
+function setStats(g) {
+  const n = {}, out = {};
+  Object.values(g).forEach(([id]) => { const s = FI(id) && FI(id)[6]; if (s) n[s] = (n[s] || 0) + 1; });
+  for (const [sid, k] of Object.entries(n)) for (const [p, st] of Object.entries(FD.sets[sid] || {})) if (k >= +p) for (const [i, v] of Object.entries(st)) out[i] = (out[i] || 0) + v;
+  return out;
+}
+const rawHit = g => Object.values(g).reduce((t, [id, suf]) => t + (FI(id) ? fstats(id, suf)[17] || 0 : 0), 0);
+// The set's DPS: the best-in-slot set's simmed DPS, plus each slot's difference, with hit counted only up to the cap.
+function fest(g) {
+  const B = bisGear(), cap = FD.hitCap, hw = FD.w[17];
+  let v = D.factions[st.fac].dps;
+  FSLOTS.forEach(s => { const x = g[s]; if (s === 'off_hand' && !x) return; v += fval(s, x && x[0], x && x[1]); });
+  const sb = setStats(B), su = setStats(g);
+  for (const k of new Set([...Object.keys(sb), ...Object.keys(su)])) if (+k !== 17) v += (FD.w[k] || 0) * ((su[k] || 0) - (sb[k] || 0));
+  const hb = rawHit(B), hu = rawHit(g);
+  v += hw * ((Math.min(hu + (su[17] || 0), cap) - Math.min(hb + (sb[17] || 0), cap)) - (hu - hb));
+  return v;
+}
+const kindOk = id => { const it = FI(id); if (fst.kind === 'all') return true; if (fst.kind === 'norep') return !it[8]; return it[9].includes(fst.kind); };
+const facOk = id => { const f = FI(id)[10]; return !f || f === (st.fac === 'alliance' ? 1 : 2); };
+function bestSuffix(slot, id) {
+  const it = FI(id); if (!it[11].length) return 0;
+  let best = it[11][0], bv = -1e9;
+  it[11].forEach(sf => { const v = fval(slot, id, sf); if (v > bv) { bv = v; best = sf; } });
+  return best;
+}
+function upgrades() {
+  const g = fst.mine, now = fest(g), out = [];
+  const worn = new Set(Object.values(g).map(x => x[0]));
+  const twoH = g.main_hand && FI(g.main_hand[0]) && FI(g.main_hand[0])[14];
+  for (const [id, it] of Object.entries(FD.items)) {
+    if (!it[7] || !facOk(id) || !kindOk(id)) continue;
+    const grp = it[3], slots = grp === 'finger' ? ['finger1', 'finger2'] : grp === 'trinket' ? ['trinket1', 'trinket2'] : [grp];
+    if (grp === 'off_hand' && twoH) continue;
+    let best = null;
+    for (const s of slots) {
+      const cur = g[s];
+      if (cur && +cur[0] === +id) continue;
+      if (it[15] && worn.has(+id) && !(cur && +cur[0] === +id)) continue;
+      const suf = bestSuffix(s, +id);
+      const ng = Object.assign({}, g, {[s]: [+id, suf]});
+      if (grp === 'main_hand' && it[14]) delete ng.off_hand;
+      const gain = fest(ng) - now;
+      if (!best || gain > best.gain) best = {id: +id, suf, slot: s, gain, cur};
+    }
+    if (best && best.gain >= 0.5) out.push(best);
+  }
+  // at most two per slot, so one slot with many options doesn't fill the list
+  const per = {};
+  return out.sort((x, y) => y.gain - x.gain).filter(u => { const k = GRP(u.slot); per[k] = (per[k] || 0) + 1; return per[k] <= 2; }).slice(0, 15);
+}
+function renderFinder() {
+  const g = fst.mine;
+  $('fslots').innerHTML = FSLOTS.map(s => {
+    const x = g[s];
+    if (s === 'off_hand' && g.main_hand && FI(g.main_hand[0]) && FI(g.main_hand[0])[14]) return '';
+    const it = x && FI(x[0]);
+    return `<button type="button" class="fs${it ? '' : ' empty'}" data-fs="${s}">${it ? fimg(it[2]) : '<span class="fi"></span>'}<span><span class="lb">${SL[s]}</span><span class="nm${it ? ' q' : ''}"${it ? ` style="--qc:${it[1]}"` : ''}>${it ? esc(fname(x[0], x[1])) : 'Empty · pick an item'}</span></span></button>`;
+  }).join('');
+  const filled = FSLOTS.filter(s => g[s]).length;
+  const est = fest(g), top = D.factions[st.fac].dps;
+  const su = setStats(g), hit = rawHit(g) + (su[17] || 0);
+  $('ftiles').innerHTML = filled ? `<div class="ft"><b>≈ ${Math.round(est)}</b><span>your set, DPS</span></div><div class="ft"><b>${Math.round(top)}</b><span>pre-raid best in slot</span></div><div class="ft hl"><b>${est >= top - 0.5 ? '✓' : '−' + Math.round(top - est)}</b><span>${est >= top - 0.5 ? 'you have the set' : 'DPS to gain from gear'}</span></div>`
+    : `<div class="ft" style="grid-column:1/-1"><b style="font-size:22px">Add your gear to start</b><span>Pick items slot by slot, paste a WoWSims export, or start from the best-in-slot set and swap what you don't have.</span></div>`;
+  seg('fkind', FKINDS, fst.kind, 'fkind');
+  const warn = [];
+  if (filled && hit > FD.hitCap) warn.push(`You have ${hit} hit rating from gear, past the cap of ${FD.hitCap}. The extra ${hit - FD.hitCap} does nothing, so swaps that trade hit for Agility or Strength rank higher.`);
+  const empty = FSLOTS.filter(s => !g[s] && s !== 'off_hand').length;
+  if (filled && empty) warn.push(`${empty} slot${empty > 1 ? 's are' : ' is'} empty, so anything there counts as an upgrade.`);
+  $('fwarn').innerHTML = warn.map(w => `<div class="fwarn"><span>⚠</span><span>${esc(w)}</span></div>`).join('');
+  const ups = filled ? upgrades() : [];
+  $('fups').innerHTML = !filled ? '' : ups.length ? ups.map((u, i) => {
+    const it = FI(u.id), src = (it[16] || [])[0] || '';
+    const rep = u.cur && FI(u.cur[0]) ? 'replaces ' + esc(fname(u.cur[0], u.cur[1])) : 'fills an empty slot';
+    return `<li class="fup${u.gain < D.err ? ' tie' : ''}"><span class="n">${i + 1}</span>${fimg(it[2])}<span><a class="q" style="--qc:${it[1]}" href="https://www.wowhead.com/forever/item=${u.id}" target="_blank" rel="noopener">${esc(fname(u.id, u.suf))}</a>
+      <span class="src">${SL[u.slot].replace(/ \d$/, '')}${src ? ' · ' + esc(src) : ''}${it[8] ? ' · needs rep' : ''}</span><span class="src">${rep}</span></span>
+      <span class="g">+${u.gain.toFixed(u.gain < 10 ? 1 : 0)}<small>${u.gain < D.err ? 'within margin' : 'DPS'}</small></span></li>`;
+  }).join('') : `<li class="fnone">No upgrades left from this filter. ${est >= top - 0.5 ? 'You have the pre-raid set: time to raid.' : 'Try another source filter.'}</li>`;
+  $('fhow').textContent = filled ? 'Each upgrade is one item swapped into your set. Items the sim ranked use its own numbers (procs, on-use and set effects included); others use the simmed stat weights. Hit counts only up to the cap, and plain set bonuses are included. Within the sim margin means too close to call.' : '';
+}
+document.addEventListener('click', e => {
+  const s = e.target.closest('[data-fs]');
+  if (s) { openPick(s.dataset.fs); return; }
+  if (e.target.closest('#fpaste')) { const bx = $('fpastebox'); bx.hidden = !bx.hidden; if (!bx.hidden) $('fjson').focus(); return; }
+  if (e.target.closest('#fbis')) { fst.mine = bisGear(); fsave(); renderFinder(); return; }
+  if (e.target.closest('#fclear')) { fst.mine = {}; fsave(); renderFinder(); return; }
+  if (e.target.closest('#fload')) { loadPaste(); return; }
+  if (e.target.closest('#fpclose') || e.target.id === 'fpick') { closePick(); return; }
+  const p = e.target.closest('[data-pid]');
+  if (p) { pickItem(p.dataset.pid); return; }
+  if (e.target.closest('#fpok')) { setSlot(fst.slot, fst.pickId, +$('fpsuf').value); return; }
+  const k = e.target.closest('[data-k="fkind"]');
+  if (k) { fst.kind = k.dataset.v; renderFinder(); }
+});
+function setSlot(slot, id, suf) {
+  if (id) fst.mine[slot] = [+id, suf || 0]; else delete fst.mine[slot];
+  if (slot === 'main_hand' && id && FI(id)[14]) delete fst.mine.off_hand;
+  fsave(); closePick(); renderFinder();
+}
+function openPick(slot) {
+  fst.slot = slot; fst.pickId = null;
+  $('fptitle').textContent = SL[slot]; $('fpq').value = ''; $('fsuf').hidden = true;
+  $('fpick').hidden = false; document.body.style.overflow = 'hidden'; listPick(); $('fpq').focus();
+}
+function closePick() { $('fpick').hidden = true; document.body.style.overflow = ''; }
+function listPick() {
+  const slot = fst.slot, q = $('fpq').value.trim().toLowerCase(), grp = GRP(slot);
+  const rows = Object.entries(FD.items).filter(([id, it]) => it[3] === grp && (!q || it[0].toLowerCase().includes(q)))
+    .map(([id, it]) => [id, it, fep(+id, bestSuffix(slot, +id))]).sort((x, y) => y[2] - x[2]).slice(0, 60);
+  $('fplist').innerHTML = `<li><button type="button" data-pid="0"><span class="fi"></span><span><span class="nm">Nothing in this slot</span></span><span></span></button></li>` +
+    rows.map(([id, it]) => `<li><button type="button" data-pid="${id}">${fimg(it[2])}<span><span class="nm q" style="--qc:${it[1]}">${esc(it[0])}${it[11].length ? ' <span class="small">(random enchant)</span>' : ''}</span><span class="src">${esc((it[16] || [])[0] || (it[7] ? '' : 'Raid, PvP or not in the pre-raid list'))}</span></span><span class="fv">${q ? '' : ''}</span></button></li>`).join('');
+}
+function pickItem(id) {
+  if (+id === 0) { setSlot(fst.slot, 0); return; }
+  const it = FI(id);
+  if (!it[11].length) { setSlot(fst.slot, +id, 0); return; }
+  fst.pickId = +id;
+  $('fpsuf').innerHTML = it[11].map(sf => `<option value="${sf}">${esc(it[0] + ' ' + FD.suffix[sf][0])}</option>`).join('');
+  $('fpsuf').value = String(bestSuffix(fst.slot, +id)); $('fsuf').hidden = false; $('fpsuf').focus();
+}
+$('fpq').addEventListener('input', listPick);
+addEventListener('keydown', e => { if (e.key === 'Escape' && !$('fpick').hidden) closePick(); });
+// WoWSims JSON (site export or the WowSimsExporter addon): an "items" list in the sim's slot order.
+function findItems(o) {
+  if (!o || typeof o !== 'object') return null;
+  if (Array.isArray(o.items) && o.items.length >= 10 && o.items.every(x => x && typeof x === 'object')) return o.items;
+  for (const v of Object.values(o)) { const r = findItems(v); if (r) return r; }
+  return null;
+}
+function loadPaste() {
+  let j; $('ferr').textContent = '';
+  try { j = JSON.parse($('fjson').value); } catch (e) { $('ferr').textContent = 'That isn’t valid JSON. Copy the whole export and try again.'; return; }
+  const items = findItems(j);
+  if (!items) { $('ferr').textContent = 'No gear list found in that JSON.'; return; }
+  const mine = {}; let unknown = 0;
+  items.slice(0, FSLOTS.length).forEach((x, i) => { if (!x.id) return; if (!FI(x.id)) { unknown++; return; } mine[FSLOTS[i]] = [x.id, x.randomSuffix || 0]; });
+  fst.mine = mine; fsave(); $('fpastebox').hidden = true; $('fjson').value = ''; renderFinder();
+  if (unknown) $('ferr').textContent = `${unknown} item${unknown > 1 ? 's' : ''} not in the item list were left empty.`;
+}
+
+// Links can carry choices: #gear&fac=horde&budget=easy (a tab, then any of fac, budget, slots).
+function readHash() {
+  const P = {};
+  location.hash.slice(1).split('&').filter(Boolean).forEach(p => { if (p.includes('=')) { const [k, v] = p.split('=').map(decodeURIComponent); P[k] = v; } else P.tab = p; });
+  if (D.factions[P.fac]) st.fac = P.fac;
+  if (['max', 'easy'].includes(P.budget)) st.bud = P.budget;
+  if ([3, 5, 10].includes(+P.slots)) st.topn = +P.slots;
+  return P.tab;
+}
+addEventListener('hashchange', () => { showTab(readHash()); render(); });
+showTab(readHash());
 render();
 }
 </script>

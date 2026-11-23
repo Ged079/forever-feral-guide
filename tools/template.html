@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="A sim-backed Feral Cat guide for WoW Forever: talents, rotation, consumables, races, stat weights and gear. Every number is a WoWSims Forever sim.">
 <meta name="theme-color" content="#1b1c20">
+__HEAD__
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ec7a50'/%3E%3Cg fill='%231b1c20'%3E%3Cellipse cx='32' cy='42' rx='13' ry='11'/%3E%3Cellipse cx='16' cy='28' rx='5.5' ry='7'/%3E%3Cellipse cx='26' cy='18' rx='5.5' ry='7.5'/%3E%3Cellipse cx='38' cy='18' rx='5.5' ry='7.5'/%3E%3Cellipse cx='48' cy='28' rx='5.5' ry='7'/%3E%3C/g%3E%3C/svg%3E">
 <title>Forever Feral Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -152,6 +153,27 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .ttip .nx{display:block;margin-top:8px;color:#9fa3ad;font-size:12.5px}.ttip .nx+.tx{color:#c9c6be}
 .ttip .tv{display:block;margin-top:8px;padding-top:7px;border-top:1px solid #2c2f37;color:#ec7a50;font-weight:600;font-size:12.5px}
 .ttip .tc{display:block;margin-top:4px;color:#9fa3ad;font-size:12.5px}
+.share{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--acc)}
+.thead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.calcbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 18px;align-items:center;margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid color-mix(in srgb,var(--acc) 45%,var(--line))}
+.calcbar[hidden]{display:none}
+.calcbar .cdps b{display:block;font:700 34px/1 var(--head);font-variant-numeric:tabular-nums}.calcbar .cdps span{font-size:13px;color:var(--mute)}
+.calcbar .cdps .dl{font:600 15px Barlow,sans-serif;margin-left:6px}.calcbar .cmid{font-size:14px;color:var(--mute)}
+.calcbar .cbtns{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.calcbar .cbtns .btn{min-height:38px;padding:6px 12px;font-size:14px}
+.calcbar .seg2 button{min-height:34px;padding:4px 12px}
+@media(max-width:760px){.calcbar{grid-template-columns:minmax(0,1fr)}.calcbar .cbtns{justify-content:flex-start}}
+.calc .ti{filter:grayscale(1) brightness(.55)}.calc .ti.on{filter:none}.calc .ti.can{filter:grayscale(.35) brightness(.85);border-color:#6a6d75}
+.calc .ti.on.full{border-color:var(--acc)}
+.faq .card p{margin:6px 0 10px}
+.qbars{list-style:none;margin:0;padding:0}.qbars li{display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:4px 12px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:14.5px}
+.qbars li:first-child{border-top:0}.qbars .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}.qbars .bar{grid-column:1/-1;height:6px;border-radius:3px;background:color-mix(in srgb,var(--line) 80%,transparent);overflow:hidden}
+.qbars .bar span{display:block;height:100%;background:var(--mute);border-radius:3px}.qbars li.best .bar span{background:var(--acc)}.qbars li.best .v{color:var(--acc)}
+.qlen table{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}.qlen th,.qlen td{text-align:right;padding:6px 6px;border-top:1px solid var(--line)}
+.qlen th:first-child,.qlen td:first-child{text-align:left}.qlen th{font-size:12.5px;color:var(--mute);font-weight:600;border-top:0}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px 22px;margin:12px 0 0}
+.gloss div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}.gloss dt{font-weight:700}.gloss dd{margin:2px 0 0;color:var(--mute);font-size:14.5px}
+.upd{display:inline-block;font-size:12.5px;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin:2px 0 8px}
 .bph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg2{display:flex;gap:6px}.seg2 button{font:inherit;font-size:14px;font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;min-height:38px;cursor:pointer}
 .seg2 button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}
@@ -200,12 +222,13 @@ footer{padding:28px 0 48px}
 </head>
 <body>
 <nav aria-label="Steps"><div class="wrap">
-<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#macros">Macros</a><a href="#method">How we tested</a><a class="ext" href="__BIS_URL__"__XT__>Pre-raid BiS ↗</a>
+<a href="#build">1 · Pick a build</a><a href="#talents">2 · Talents</a><a href="#play">3 · How to play</a><a href="#prep">4 · Before the pull</a><a href="#gear">5 · Gear &amp; stats</a><a href="#faq">Questions</a><a href="#macros">Macros &amp; addons</a><a href="#method">How we tested</a><a class="ext" href="__BIS_URL__"__XT__>Pre-raid BiS ↗</a>
 </div></nav>
 
 <main class="wrap">
 <section class="hero" id="build">
   <div class="kicker">WoW Forever · Phase 1 · level 60 · Feral Cat</div>
+  <div class="upd" id="updated"></div>
   <h1>Play Feral Cat in five steps</h1>
   <p class="mute">Pick a build, copy its talents, learn one short loop, bring the right consumables. Both builds were found by searching every legal talent move in WoWSims Forever, and every number here is simmed.</p>
   <div class="pick" id="pick"></div>
@@ -214,8 +237,10 @@ footer{padding:28px 0 48px}
 
 <section id="talents">
   <h2>Talents</h2>
-  <h3 style="margin-top:18px">Copy the talents</h3>
-  <p class="small">Click any talent to see what it does for this build: the bright rings are the ones that matter.</p>
+  <div class="thead"><div><h3 style="margin-top:18px">Copy the talents</h3>
+  <p class="small" id="tlead">Click any talent to see what it does for this build: the bright rings are the ones that matter.</p></div>
+  <button type="button" class="btn ghost" id="calcbtn">Try your own build</button></div>
+  <div class="calcbar" id="calcbar" hidden></div>
   <div class="tset" id="tset"></div>
   <div class="card" id="found" style="margin-top:16px"></div>
   <h3 style="margin-top:22px">What each point is worth</h3>
@@ -276,10 +301,35 @@ footer{padding:28px 0 48px}
   </div>
 </section>
 
+<section id="faq">
+  <h2>Questions people ask</h2>
+  <p class="mute">Each answer is its own sim on the Cat build and the best-in-slot set, 3,000 iterations.</p>
+  <div class="grid2 faq">
+    <div class="card"><h3>Should I bear-weave or powershift?</h3><p id="qweave"></p><ul class="qbars" id="qweavebars"></ul></div>
+    <div class="card"><h3>Does fight length change anything?</h3><p id="qlen"></p><div class="qlen" id="qlentbl"></div></div>
+    <div class="card"><h3>What about packs and AoE?</h3><p id="qaoe"></p><div class="qlen" id="qaoetbl"></div></div>
+    <div class="card"><h3>What about raid gear?</h3><p id="qraid"></p></div>
+  </div>
+</section>
+
 <section id="macros">
-  <h2>Macros</h2>
+  <h2>Macros &amp; addons</h2>
   <p class="mute" id="macronote"></p>
   <div class="grid2" id="macrolist"></div>
+  <div class="card" style="margin-top:14px"><h3>Addons and auras in Forever</h3>
+    <p>Forever runs on the modern client, which hides most combat data from addons, so the regular WeakAuras does not work and Classic addons need a Forever version. What still works for a cat:</p>
+    <ul class="tips">
+      <li><b>Cooldown Manager</b> (built in): put <b>Shifting Power</b> on it so you see the 8 second cooldown come back, and press it at 53 energy or less.</li>
+      <li><b>Damage Meter</b> (built in): check your Shred and Rip share against the guide's damage bar above.</li>
+      <li><b>Musca Auras</b>: a community port of WeakAuras for Forever, opened with <code>/wa</code>. Don't install it next to another WeakAuras.</li>
+      <li>Download addons for the <b>Forever</b> game version in CurseForge; Classic builds generally won't load.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="glossary">
+  <h2>Glossary</h2>
+  <dl class="gloss" id="gloss"></dl>
 </section>
 
 <section id="method">
@@ -312,11 +362,15 @@ footer{padding:28px 0 48px}
 const D = /*DATA*/null;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const day = d => d ? new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}) : '';
 const fmt = v => (Math.abs(v) < 0.5 ? 'nothing' : (v > 0 ? '+' : '−') + Math.abs(v).toFixed(Math.abs(v) < 10 ? 1 : 0));
 const wh = (kind, id, name) => `<a href="https://www.wowhead.com/forever/${kind}=${id}" target="_blank" rel="noopener">${esc(name)}</a>`;
 const COLORS = {'Shred':'#e07a3f','Claw':'#e07a3f','Rip':'#b3313b','Melee swings':'#7d746a','Rake':'#d6a23c','Windfury Totem':'#4f86b5','Ferocious Bite':'#8a63bf','Other':'#6b6f77'};
+// Links can carry choices: #build=hybrid&fac=horde, optionally after a section (#talents&build=hybrid).
+const HP = Object.fromEntries(location.hash.slice(1).split('&').filter(Boolean).map(p => p.includes('=') ? p.split('=').map(decodeURIComponent) : ['sec', p]));
 let build = 'cat';
 try { const s = localStorage.getItem('ff-build'); if (s && D.builds[s]) build = s; } catch (e) {}
+if (D.builds[HP.build]) build = HP.build;
 
 function row(name, sub, v, max, opt = {}) {
   const cls = opt.label ? '' : Math.abs(v) < 0.5 ? 'zero' : v < 0 ? 'neg' : '';
@@ -342,7 +396,8 @@ function render() {
     <div style="text-align:right"><div class="big">${Math.round(b.dps[180])}</div><div class="small">DPS, 3 minute boss</div></div></div>
     <div class="lens"><span>1.5 min <b>${Math.round(b.dps[90])}</b></span><span>3 min <b>${Math.round(b.dps[180])}</b></span><span>5 min <b>${Math.round(b.dps[300])}</b></span></div>
     <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#6b6f77'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
-    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#6b6f77'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
+    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#6b6f77'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>
+    <div class="share"><button class="btn ghost" type="button" id="share">Copy link to this build</button><span class="small">Opens the guide with ${esc(b.name)} picked</span></div>`;
 
 
   const ALTS = D.alternatives || [];
@@ -405,9 +460,53 @@ function render() {
 
 let selTal = null;
 function tier(v) { return v >= 40 ? 't-core' : v >= 10 ? 't-good' : ''; }
+// ---------- talent calculator: the Cat build plus each changed talent's simmed worth, one talent at a time ----------
+const parseT = s => { const p = s.split('-').map(x => x.split('').map(Number)); while (p.length < 3) p.push([]); return p; };
+const strT = p => p.map(x => x.join('').replace(/0+$/, '')).join('-').replace(/-+$/, '');
+let calc = null, calcMode = 'add';
+const TR = D.talentRanks;
+if (!TR) document.getElementById('calcbtn').hidden = true;
+const treePts = (p, ti) => D.trees[ti].talents.reduce((t, x, i) => t + (p[ti][i] || 0), 0);
+const rowPts = (p, ti, below) => D.trees[ti].talents.reduce((t, x, i) => t + (x.r < below ? (p[ti][i] || 0) : 0), 0);
+const prereqOk = (p, ti, x) => { if (!x.p) return true; const j = D.trees[ti].talents.findIndex(y => y.r === x.p[0] && y.c === x.p[1]); return j < 0 || (p[ti][j] || 0) === D.trees[ti].talents[j].m; };
+const total = p => [0, 1, 2].reduce((t, ti) => t + treePts(p, ti), 0);
+function legalTree(p, ti) {
+  return D.trees[ti].talents.every((x, i) => !(p[ti][i] || 0) || (rowPts(p, ti, x.r) >= 5 * x.r && prereqOk(p, ti, x)));
+}
+function canAdd(p, ti, i) { const x = D.trees[ti].talents[i], n = p[ti][i] || 0; return n < x.m && total(p) < 51 && rowPts(p, ti, x.r) >= 5 * x.r && prereqOk(p, ti, x); }
+function canRemove(p, ti, i) { if (!(p[ti][i] || 0)) return false; const q = p.map(x => x.slice()); q[ti][i]--; return legalTree(q, ti); }
+function calcDps(p) {
+  if (!TR) return null;
+  const base = parseT(TR.talents);
+  let v = TR.base;
+  D.trees.forEach((tr, ti) => tr.talents.forEach((x, i) => {
+    const n = p[ti][i] || 0, b = base[ti][i] || 0, row = TR.ranks[x.n];
+    if (n !== b && row && row[n] != null && row[b] != null) v += row[n] - row[b];
+  }));
+  return v;
+}
+function renderCalcBar() {
+  const bar = $('calcbar');
+  bar.hidden = !calc; $('calcbtn').textContent = calc ? 'Back to the guide builds' : 'Try your own build';
+  $('tlead').textContent = calc ? 'Click a talent to add a point, right-click (or switch to Remove) to take one off. The tier and prerequisite rules apply.' : 'Click any talent to see what it does for this build: the bright rings are the ones that matter.';
+  if (!calc) return;
+  const v = calcDps(calc), d = v - TR.base, used = total(calc);
+  const far = used < 45;
+  bar.innerHTML = far ? `<div class="cdps"><b>${51 - used}</b><span>points left to spend</span></div>
+    <div class="cmid">${used} / 51 points · ${[0, 1, 2].map(ti => treePts(calc, ti)).join(' / ')}<br><span class="small">The DPS estimate shows once 45 or more points are spent: it adds each talent's simmed worth to the Cat build, so it needs a build close to a full one.</span></div>
+    <div class="cbtns"><div class="seg2"><button type="button" data-cm="add" aria-pressed="${calcMode === 'add'}">Add</button><button type="button" data-cm="remove" aria-pressed="${calcMode === 'remove'}">Remove</button></div>
+      <button type="button" class="btn ghost" data-cr="cat">Reset to Cat</button><button type="button" class="btn ghost" data-cr="empty">Clear</button>
+      <button type="button" class="btn ghost" id="calclink">Copy link</button><button type="button" class="btn" id="calccopy">Copy talent string</button></div>` : `<div class="cdps"><b>≈ ${Math.round(v)}<span class="dl" style="color:${Math.abs(d) < 0.5 ? 'var(--mute)' : d > 0 ? 'var(--acc)' : 'var(--mute)'}">${Math.abs(d) < 0.5 ? 'same as Cat' : (d > 0 ? '+' : '−') + Math.abs(d).toFixed(Math.abs(d) < 10 ? 1 : 0) + ' vs Cat'}</span></b><span>estimated DPS, best-in-slot set</span></div>
+    <div class="cmid">${used} / 51 points · ${[0, 1, 2].map(ti => treePts(calc, ti)).join(' / ')}<br><span class="small">Each talent's worth is simmed on its own, so a build far from Cat is a rough estimate.</span></div>
+    <div class="cbtns"><div class="seg2"><button type="button" data-cm="add" aria-pressed="${calcMode === 'add'}">Add</button><button type="button" data-cm="remove" aria-pressed="${calcMode === 'remove'}">Remove</button></div>
+      <button type="button" class="btn ghost" data-cr="cat">Reset to Cat</button><button type="button" class="btn ghost" data-cr="empty">Clear</button>
+      <button type="button" class="btn ghost" id="calclink">Copy link</button><button type="button" class="btn" id="calccopy">Copy talent string</button></div>`;
+}
 function renderTalents() {
   const b = D.builds[build];
-  const pts = b.talentsString.split('-').map(x => x.split('').map(Number));
+  renderCalcBar();
+  $('tset').classList.toggle('calc', !!calc);
+  const pts = calc || b.talentsString.split('-').map(x => x.split('').map(Number));
   const val = {}; b.talents.forEach(t => val[t.name] = t);
   const totals = D.trees.map((tr, ti) => tr.talents.reduce((t, x, i) => t + ((pts[ti] || [])[i] || 0), 0));
   if (!selTal) { const top = b.talents[0]; D.trees.forEach((tr, ti) => tr.talents.forEach((x, i) => { if (x.n === top.name) selTal = [ti, i]; })); }
@@ -416,7 +515,7 @@ function renderTalents() {
     const note = D.talentText[x.n] || (n ? '' : 'Not taken in this build.');
     return `<div class="tpanel"><div class="small">${esc(D.trees[ti].name)}</div>
       <div class="hd"><img alt="" src="${D.icons[x.icon.toLowerCase()] || ''}"><h4>${esc(x.n)}</h4></div>
-      <div class="chips"><span class="chip">${n} / ${x.m} points</span>${v ? `<span class="chip dps">${fmt(v.all)} DPS in this build</span>` : ''}</div>
+      <div class="chips"><span class="chip">${n} / ${x.m} points</span>${v && !calc ? `<span class="chip dps">${fmt(v.all)} DPS in this build</span>` : ''}</div>
       <p class="small" style="margin:10px 0 0">${n ? '' : 'Rank 1: '}${esc(D.tips[x.n][Math.max(n, 1) - 1])}</p>
       ${note ? `<p>${esc(note)}</p>` : ''}
       ${v && v.last != null && Math.abs(v.last) >= 0.5 ? `<p class="small">The last point alone: ${fmt(v.last)} DPS.</p>` : ''}
@@ -427,7 +526,8 @@ function renderTalents() {
       <div class="th"><b>${esc(tr.name)}</b><span>${totals[ti]} pts</span></div>
       <div class="tg">${tr.talents.map((x, i) => {
         const n = (pts[ti] || [])[i] || 0, v = val[x.n];
-        const cls = ['ti', n ? 'on' : '', n && v ? tier(v.all) : '', selTal[0] === ti && selTal[1] === i ? 'sel' : ''].join(' ');
+        const cls = calc ? ['ti', n ? 'on' : '', n === x.m ? 'full' : '', !n && canAdd(calc, ti, i) ? 'can' : ''].join(' ')
+          : ['ti', n ? 'on' : '', n && v ? tier(v.all) : '', selTal[0] === ti && selTal[1] === i ? 'sel' : ''].join(' ');
         return `<button type="button" class="${cls}" data-t="${ti},${i}" aria-label="${esc(x.n)} ${n} of ${x.m}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})">${n && D.talentText[x.n] && v && Math.abs(v.all) >= 10 ? '<span class="in">i</span>' : ''}<span class="rk">${n}/${x.m}</span></button>`;
       }).join('')}</div>${narrow && selTal[0] === ti ? panel() : ''}</div>`).join('')
     + (narrow ? '' : panel())
@@ -469,10 +569,17 @@ function tipHtml(el) {
     if (n !== base) extra = `<span class="tc">The main Cat build has ${base}/${D.trees[ti].talents[i].m}.</span>`;
   } else {
     [ti, i] = el.dataset.t.split(',').map(Number);
-    const pts = D.builds[build].talentsString.split('-').map(x => x.split('').map(Number));
-    n = (pts[ti] || [])[i] || 0;
-    const v = D.builds[build].talents.find(t => t.name === D.trees[ti].talents[i].n);
-    if (n && v && Math.abs(v.all) >= 0.5) extra = `<span class="tv">Worth ${fmt(v.all)} DPS in ${esc(D.builds[build].name)}</span>`;
+    if (calc) {
+      n = calc[ti][i] || 0;
+      const x = D.trees[ti].talents[i], row = TR && TR.ranks[x.n];
+      if (row && n < x.m && row[n + 1] != null && row[n] != null) extra = `<span class="tv">Next point: ${Math.abs(row[n + 1] - row[n]) < 0.5 ? 'no DPS' : fmt(row[n + 1] - row[n]) + ' DPS'}${canAdd(calc, ti, i) ? '' : ' (not available yet)'}</span>`;
+      else if (row && n === x.m && n && row[n - 1] != null) extra = `<span class="tv">${Math.abs(row[n] - row[n - 1]) < 0.5 ? 'The last point adds no DPS' : 'Last point is worth ' + fmt(row[n] - row[n - 1]) + ' DPS'}</span>`;
+    } else {
+      const pts = D.builds[build].talentsString.split('-').map(x => x.split('').map(Number));
+      n = (pts[ti] || [])[i] || 0;
+      const v = D.builds[build].talents.find(t => t.name === D.trees[ti].talents[i].n);
+      if (n && v && Math.abs(v.all) >= 0.5) extra = `<span class="tv">Worth ${fmt(v.all)} DPS in ${esc(D.builds[build].name)}</span>`;
+    }
   }
   const x = D.trees[ti].talents[i], R = D.tips[x.n];
   return `<span class="tn">${esc(x.n)}</span><span class="tr">Rank ${n}/${x.m}</span>`
@@ -498,6 +605,13 @@ document.addEventListener('pointerdown', e => {
   if (el && el !== tipFor) showTip(el); else hideTip();
 });
 document.addEventListener('scroll', hideTip, {passive: true, capture: true});
+document.addEventListener('contextmenu', e => {
+  const tt = calc && e.target.closest('#tset [data-t]');
+  if (!tt) return;
+  e.preventDefault();
+  const [ti, i] = tt.dataset.t.split(',').map(Number);
+  if (canRemove(calc, ti, i)) { calc[ti][i]--; selTal = [ti, i]; renderTalents(); }
+});
 const svg = $('hitsvg');
 function drawHit() {
   const b = D.builds[build], pts = b.hitCurve, W = svg.clientWidth, H = svg.clientHeight;
@@ -536,6 +650,7 @@ $('wbuffs').textContent = '+' + Math.round(D.totals.buffs);
 $('preptotal').innerHTML = `On the Cat build, consumables are worth <b>${Math.round(D.totals.consumables)} DPS</b> together and raid buffs and debuffs <b>${Math.round(D.totals.buffs)}</b>, out of ${Math.round(D.totals.base)}. Buffs below are for Cat; consumables follow the build you picked.`;
 let fac = 'alliance';
 try { const f = localStorage.getItem('ff-fac'); if (f && D.gear[f]) fac = f; } catch (e) {}
+if (D.gear[HP.fac]) fac = HP.fac;
 function renderGear() {
   const G = D.gear[fac];
   $('facpick').innerHTML = [['alliance', 'Alliance'], ['horde', 'Horde']].map(([id, n]) => `<button type="button" data-f="${id}" aria-pressed="${id === fac}">${n}</button>`).join('');
@@ -554,14 +669,32 @@ $('macronote').textContent = D.macroNote;
 $('macrolist').innerHTML = D.macros.map(([t, x, m], i) => `<div class="card"><h3>${esc(t)}</h3><p class="small">${esc(x)}</p><pre style="margin:8px 0"><code id="m${i}">${esc(m)}</code></pre><button class="btn" type="button" data-copy="m${i}">Copy</button></div>`).join('');
 $('bleed').textContent = D.otherBleed.toFixed(1);
 $('rs').textContent = D.restart.map(r => `one from ${Math.round(r.start)} DPS took ${r.steps} moves and ended ${r.final === D.builds.cat.talentsString ? 'on the exact same build' : 'on the bear-ready Cat build below, a tie'}.`).join(' The other, ');
-$('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code>, ${D.meta.date}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Night Elf in the searched best-in-slot set (Tauren in the Horde set for Horde numbers), full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
-$('foot').innerHTML = `Simmed ${D.meta.date} · WoWSims Forever <code>${D.meta.forever}</code> · inspired by the Forever Hunter Guide`;
+$('methodp').innerHTML = `Every number is a WoWSims Forever sim (master <code>${D.meta.forever}</code> of ${D.meta.foreverDate}, ${D.meta.iterations.toLocaleString('en-US')} iterations on one seed) with the sim's Adaptive Cat rotation: a Night Elf in the searched best-in-slot set (Tauren in the Horde set for Horde numbers), full raid buffs and consumables, Greater Blessing of Kings as the only blessing, a level 63 Dragonkin boss, a 150–350 ms reaction time and a 3 minute fight unless a length is named.`;
+$('foot').innerHTML = `Updated ${day(D.meta.built)} · WoWSims Forever <code>${D.meta.forever}</code> (${day(D.meta.foreverDate)}) · inspired by the Forever Hunter Guide`;
+$('updated').textContent = `Updated ${day(D.meta.built)} · numbers from the ${day(D.meta.foreverDate)} WoWSims Forever`;
 
 document.addEventListener('click', e => {
   const c = e.target.closest('[data-b]');
   if (c) { build = c.dataset.b; selTal = null; render(); return; }
   const tt = e.target.closest('[data-t]');
-  if (tt) { selTal = tt.dataset.t.split(',').map(Number); renderTalents(); return; }
+  if (tt) {
+    selTal = tt.dataset.t.split(',').map(Number);
+    if (calc) { const [ti, i] = selTal; if (calcMode === 'remove' || e.shiftKey) { if (canRemove(calc, ti, i)) calc[ti][i]--; } else if (canAdd(calc, ti, i)) calc[ti][i] = (calc[ti][i] || 0) + 1; }
+    renderTalents(); if (calc && tipFor && tipFor.dataset.t) { const el = document.querySelector(`[data-t="${tt.dataset.t}"]`); if (el) showTip(el); }
+    return;
+  }
+  if (e.target.closest('#calcbtn')) { calc = calc ? null : parseT(D.builds.cat.talentsString); renderTalents(); return; }
+  const cm = e.target.closest('[data-cm]');
+  if (cm) { calcMode = cm.dataset.cm; renderCalcBar(); return; }
+  const cr = e.target.closest('[data-cr]');
+  if (cr) { calc = cr.dataset.cr === 'cat' ? parseT(D.builds.cat.talentsString) : [[], [], []]; renderTalents(); return; }
+  if (e.target.closest('#calccopy') || e.target.closest('#calclink')) {
+    const btn = e.target.closest('button'), link = btn.id === 'calclink', label = btn.textContent;
+    const txt = link ? D.siteUrl + '#talents&calc=' + strT(calc) : strT(calc);
+    const done = ok => { btn.textContent = ok ? 'Copied ✓' : txt; setTimeout(() => btn.textContent = label, ok ? 1500 : 6000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => done(true), () => done(false)); else done(false);
+    return;
+  }
   const f = e.target.closest('[data-f]');
   if (f) { fac = f.dataset.f; renderGear(); return; }
   const vw = e.target.closest('[data-view]');
@@ -594,6 +727,12 @@ document.addEventListener('click', e => {
     if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => done(true), () => done(false)); else done(false);
     return;
   }
+  if (e.target.closest('#share')) {
+    const btn = $('share'), url = D.siteUrl + '#build=' + build + '&fac=' + fac;
+    const done = ok => { btn.textContent = ok ? 'Link copied ✓' : url; setTimeout(() => btn.textContent = 'Copy link to this build', ok ? 1500 : 6000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(() => done(true), () => done(false)); else done(false);
+    return;
+  }
   if (e.target.closest('#copyt')) {
     const btn = $('copyt'), s = D.builds[build].talentsString;
     const done = ok => { btn.textContent = ok ? 'Copied ✓' : 'Select and copy'; setTimeout(() => btn.textContent = 'Copy talent string', 1500); };
@@ -601,6 +740,51 @@ document.addEventListener('click', e => {
   }
 });
 render();
+if (HP.calc && /^[0-5-]+$/.test(HP.calc)) { calc = parseT(HP.calc); renderTalents(); }
+if (HP.sec && document.getElementById(HP.sec)) requestAnimationFrame(() => document.getElementById(HP.sec).scrollIntoView());
+
+// ---------- questions ----------
+{
+  const X = D.extra || {};
+  const W = (X.weave || []).filter(r => r.build === 'cat');
+  if (W.length) {
+    const pure = W.find(r => r.name === 'Pure Cat').dps, mx = Math.max(...W.map(r => r.dps));
+    const ps = W.filter(r => r.name.startsWith('Powershift')), bw = W.filter(r => r.name.startsWith('Bear-weave'));
+    $('qweave').innerHTML = `No. <b>Powershifting doesn't work in Forever</b>: you can't recast Cat Form while in it, and leaving and re-entering only gives back the energy you had (Furor), never more, while costing a global cooldown and mana. Simmed, it loses ${Math.round(pure - Math.max(...ps.map(r => r.dps)))} to ${Math.round(pure - Math.min(...ps.map(r => r.dps)))} DPS. <b>Bear-weaving</b> (Dire Bear on low energy, Maul on Furor's rage, back to Cat) loses ${Math.round(pure - Math.max(...bw.map(r => r.dps)))} to ${Math.round(pure - Math.min(...bw.map(r => r.dps)))} DPS: Shifting Power already fills the energy gaps. Stay in Cat.`;
+    $('qweavebars').innerHTML = W.map(r => `<li class="${r.name === 'Pure Cat' ? 'best' : ''}"><span>${esc(r.name)}</span><span class="v">${Math.round(r.dps)}</span><span class="bar"><span style="width:${(r.dps / mx * 100).toFixed(1)}%"></span></span></li>`).join('');
+  }
+  const L = X.length || [];
+  if (L.length) {
+    const lens = [...new Set(L.map(r => r.duration))];
+    const get = (b, d) => L.find(r => r.build === b && r.duration === d);
+    const minu = d => d % 60 ? (d / 60).toFixed(1) + ' min' : d / 60 + ' min';
+    const inn = Math.max(...L.map(r => Math.abs(r.noInnervate - r.dps)));
+    $('qlen').innerHTML = `A little. DPS is highest on short fights (the opener's cooldowns count for more) and settles near ${Math.round(get('cat', 300).dps)} past 3 minutes. Mana holds even at 7 minutes: Shifting Power stays at about one cast every 8 seconds, and dropping the self-Innervate changes at most ${inn.toFixed(1)} DPS at any length. Same build and rotation at every length.`;
+    $('qlentbl').innerHTML = `<table><tr><th>Fight</th><th>Cat</th><th>Hybrid</th><th>Shifting Power casts</th></tr>${lens.map(d => `<tr><td>${minu(d)}</td><td>${Math.round(get('cat', d).dps)}</td><td>${Math.round(get('hybrid', d).dps)}</td><td>${Math.round(get('cat', d).shiftingPower)}</td></tr>`).join('')}</table>`;
+  }
+  const A = X.aoe || [];
+  if (A.length) {
+    $('qaoe').innerHTML = `Cat has no AoE in Forever, and Dire Bear's Swipe hits at most 3 targets. Even on 3 or 5 targets, Swipe's total damage (with the cat's gear and talents) stays below the cat's single-target DPS, so stay in Cat and kill one target at a time unless the pack must die together.`;
+    $('qaoetbl').innerHTML = `<table><tr><th>Targets</th><th>Cat, total DPS</th><th>Dire Bear Swipe, total DPS</th></tr>${A.map(r => `<tr><td>${r.targets}</td><td>${Math.round(r.cat)}</td><td>${Math.round(r.bearSwipe)}</td></tr>`).join('')}</table>`;
+  }
+  $('qraid').innerHTML = `Raids open on 9 December: Barrow Deeps, Hyjal Summit and Onyxia's Lair. Their loot is not in the sim's item data yet, so there is nothing to sim. Once it is, this guide adds a raid set, and the hit cap and stat weights get re-simmed with it.`;
+}
+const GLOSS = [
+  ['Combo points (CP)', 'Built by Shred, Claw and Rake, up to 5 on the target; spent by Rip and Ferocious Bite.'],
+  ['Energy', 'The cat’s resource: 100 max, refills 10 per second. Shifting Power gives 40 at once.'],
+  ['Shifting Power', 'Forever’s new feral talent: spend mana to gain 40 energy, every 8 seconds. Replaces powershifting.'],
+  ['Powershifting', 'Classic trick of leaving and re-entering Cat Form for energy. Does not work in Forever.'],
+  ['Bear-weaving', 'Dipping into Dire Bear to spend rage while energy refills. Loses DPS in Forever.'],
+  ['Clearcasting', 'Omen of Clarity proc: your next ability is free. Spend it on Shred.'],
+  ['Bleed', 'Damage over time from Rip, Rake and Pounce. Rend and Tear adds damage against bleeding targets.'],
+  ['Pooling', 'Holding energy instead of spending it, so a finisher or Bite lands at the right moment.'],
+  ['Hit cap', 'The hit chance after which misses stop: 8% against a raid boss. Nature’s Reach gives 4%, gear the rest.'],
+  ['Stat weights', 'What one point of a stat is worth, measured in Agility. Simmed on the best-in-slot set.'],
+  ['Best in slot (BiS)', 'The best item for a slot. Pre-raid BiS means without raid drops.'],
+  ['Sim', 'WoWSims Forever: it plays the fight thousands of times (iterations) and averages the DPS.'],
+];
+$('gloss').innerHTML = GLOSS.map(([t, d]) => `<div><dt>${esc(t)}</dt><dd>${esc(d)}</dd></div>`).join('');
+
 // highlight the step you are on
 const links = [...document.querySelectorAll('nav a:not(.ext)')];
 const mark = id => links.forEach(a => { const on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on); if (on) a.scrollIntoView({block: 'nearest', inline: 'nearest'}); });

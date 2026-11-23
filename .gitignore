@@ -1,3 +1,6 @@
 tools/cache
 __pycache__/
 *.png
+!docs/og.png
+!docs/bis/og.png
+tools/.og.html

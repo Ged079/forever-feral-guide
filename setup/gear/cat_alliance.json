@@ -3,35 +3,15 @@
  "faction": "alliance",
  "race": "RaceNightElf",
  "talents": "050022-55000032023012125001-055",
- "dps": 1006.8,
+ "dps": 1010.7,
  "log": [
   {
    "move": "start",
-   "dps": 971.1
+   "dps": 1009.6
   },
   {
-   "move": "head: Feralheart Cap",
-   "gain": 13.5
-  },
-  {
-   "move": "ranged: Idol of the Dream",
-   "gain": 10.4
-  },
-  {
-   "move": "trinket2: Hand of Justice",
-   "gain": 1.5
-  },
-  {
-   "move": "back: Cape of the Black Baron",
-   "gain": 4.1
-  },
-  {
-   "move": "hands: Theramore Gloves",
-   "gain": 2.7
-  },
-  {
-   "move": "feet: Grovekeeper Sandals",
-   "gain": 1.8
+   "move": "trinket1: Blackhand's Breadth",
+   "gain": 3.9
   }
  ],
  "gear": [
@@ -121,10 +101,10 @@
   },
   {
    "slot": "trinket1",
-   "id": 18537,
+   "id": 13965,
    "suffix": null,
    "enchant": null,
-   "name": "Counterattack Lodestone"
+   "name": "Blackhand's Breadth"
   },
   {
    "slot": "trinket2",
@@ -194,7 +174,7 @@
    "id": 19510
   },
   {
-   "id": 18537
+   "id": 13965
   },
   {
    "id": 11815
@@ -209,10 +189,10 @@
   }
  ],
  "enchants": {
-  "Enchant 2H Weapon - Agility": 1003.9,
-  "Enchant 2H Weapon - Superior Impact": 1006.8,
-  "Enchant 2H Weapon - Strength": 1002.5,
-  "Enchant Weapon - Grand Crusader": 985.6
+  "Enchant 2H Weapon - Agility": 1007.8,
+  "Enchant 2H Weapon - Superior Impact": 1010.7,
+  "Enchant 2H Weapon - Strength": 1006.3,
+  "Enchant Weapon - Grand Crusader": 989.3
  },
  "alternatives": {
   "finger2": [
@@ -232,169 +212,169 @@
     "delta": -1.7
    }
   ],
-  "trinket1": [
+  "legs": [
    {
-    "name": "Vigilance Charm",
-    "id": 18370,
+    "name": "Grovekeeper Kilt",
+    "id": 273888,
     "delta": -1.2
    },
    {
-    "name": "Adaptive Combat Assistant",
-    "id": 272437,
-    "delta": -6.1
+    "name": "Outrider's Leather Pants",
+    "id": 22740,
+    "delta": -3.7
    },
    {
-    "name": "Frozen Heart of the Mountain",
-    "id": 249469,
-    "delta": -6.5
+    "name": "Mighty Leggings",
+    "id": 10152,
+    "delta": -5.1
    }
   ],
   "feet": [
    {
     "name": "Supreme Shoes",
     "id": 15435,
-    "delta": -1.6
+    "delta": -1.5
    },
    {
     "name": "Swiftwalker Boots",
     "id": 12553,
-    "delta": -2.1
+    "delta": -2.0
    },
    {
     "name": "Mighty Boots",
     "id": 10146,
-    "delta": -3.0
+    "delta": -2.9
    }
   ],
   "finger1": [
    {
     "name": "Cutthroat's Signet",
     "id": 272408,
-    "delta": -1.7
+    "delta": -1.8
    },
    {
     "name": "Opal Ring",
     "id": 11980,
-    "delta": -4.1
+    "delta": -2.4
    },
    {
-    "name": "Tarnished Elven Ring",
-    "id": 18500,
-    "delta": -4.9
+    "name": "Drakeclaw Band",
+    "id": 10795,
+    "delta": -3.6
    }
   ],
   "back": [
    {
     "name": "Blackveil Cape",
     "id": 11626,
-    "delta": -2.0
+    "delta": -1.8
    },
    {
     "name": "Master's Cloak",
     "id": 10249,
-    "delta": -2.5
+    "delta": -2.6
    },
    {
     "name": "Cloak of the Honor Guard",
     "id": 20073,
-    "delta": -4.0
-   }
-  ],
-  "legs": [
-   {
-    "name": "Grovekeeper Kilt",
-    "id": 273888,
-    "delta": -2.1
-   },
-   {
-    "name": "Outrider's Leather Pants",
-    "id": 22740,
-    "delta": -3.9
-   },
-   {
-    "name": "Mighty Leggings",
-    "id": 10152,
-    "delta": -4.9
+    "delta": -3.5
    }
   ],
   "waist": [
    {
     "name": "Might of the Timbermaw",
     "id": 19044,
-    "delta": -2.9
+    "delta": -2.4
    },
    {
     "name": "Cloudrunner Girdle",
     "id": 13252,
-    "delta": -8.4
+    "delta": -7.9
    },
    {
     "name": "Skulker's Leather Waistguard",
     "id": 252474,
-    "delta": -8.9
+    "delta": -8.5
    }
   ],
-  "wrist": [
+  "trinket1": [
    {
-    "name": "Forest Stalker's Bracers",
-    "id": 19589,
-    "delta": -3.1
+    "name": "Counterattack Lodestone",
+    "id": 18537,
+    "delta": -2.7
    },
    {
-    "name": "Forest Stalker's Bracers",
-    "id": 19590,
-    "delta": -5.8
+    "name": "Vigilance Charm",
+    "id": 18370,
+    "delta": -4.0
    },
    {
-    "name": "Bracers of the Eclipse",
-    "id": 18375,
-    "delta": -7.6
+    "name": "Adaptive Combat Assistant",
+    "id": 272437,
+    "delta": -8.8
+   }
+  ],
+  "trinket2": [
+   {
+    "name": "Counterattack Lodestone",
+    "id": 18537,
+    "delta": -2.8
+   },
+   {
+    "name": "Adaptive Combat Assistant",
+    "id": 272437,
+    "delta": -3.5
+   },
+   {
+    "name": "Vigilance Charm",
+    "id": 18370,
+    "delta": -4.1
    }
   ],
   "hands": [
    {
     "name": "Timbermaw Brawlers",
     "id": 19049,
-    "delta": -3.3
+    "delta": -3.2
    },
    {
     "name": "Theramore Gloves",
     "id": 271949,
-    "delta": -3.9
+    "delta": -4.0
    },
    {
     "name": "Slaghide Gauntlets",
     "id": 13258,
-    "delta": -6.9
+    "delta": -6.7
    }
   ],
-  "head": [
+  "wrist": [
    {
-    "name": "Outlaw's Collar",
-    "id": 279253,
-    "delta": -4.5
+    "name": "Forest Stalker's Bracers",
+    "id": 19589,
+    "delta": -3.2
    },
    {
-    "name": "Adventurer's Bandana",
-    "id": 10261,
-    "delta": -5.9
+    "name": "Forest Stalker's Bracers",
+    "id": 19590,
+    "delta": -6.0
    },
    {
-    "name": "Supreme Crown",
-    "id": 15439,
-    "delta": -5.9
+    "name": "Bracers of the Eclipse",
+    "id": 18375,
+    "delta": -7.4
    }
   ],
   "chest": [
    {
     "name": "Dawn Armor",
     "id": 252483,
-    "delta": -5.0
+    "delta": -4.1
    },
    {
     "name": "Feralheart Tunic",
     "id": 226795,
-    "delta": -14.3
+    "delta": -14.2
    },
    {
     "name": "Mighty Tunic",
@@ -402,28 +382,45 @@
     "delta": -16.4
    }
   ],
-  "trinket2": [
+  "head": [
    {
-    "name": "Adaptive Combat Assistant",
-    "id": 272437,
-    "delta": -5.1
+    "name": "Outlaw's Collar",
+    "id": 279253,
+    "delta": -4.6
    },
    {
-    "name": "Vigilance Charm",
-    "id": 18370,
-    "delta": -5.3
+    "name": "Adventurer's Bandana",
+    "id": 10261,
+    "delta": -5.0
    },
    {
-    "name": "Smolderweb's Eye",
-    "id": 13213,
-    "delta": -6.3
+    "name": "Supreme Crown",
+    "id": 15439,
+    "delta": -5.0
+   }
+  ],
+  "shoulder": [
+   {
+    "name": "Grovekeeper Mantle",
+    "id": 273890,
+    "delta": -4.9
+   },
+   {
+    "name": "Highlander's Leather Shoulders",
+    "id": 20059,
+    "delta": -6.5
+   },
+   {
+    "name": "Dark Warder's Pauldrons",
+    "id": 22241,
+    "delta": -7.8
    }
   ],
   "neck": [
    {
     "name": "Prismatic Pendant",
     "id": 12048,
-    "delta": -5.6
+    "delta": -5.1
    },
    {
     "name": "Mark of Fordring",
@@ -431,60 +428,43 @@
     "delta": -5.6
    },
    {
-    "name": "Onyxia Tooth Pendant",
-    "id": 18404,
-    "delta": -6.7
-   }
-  ],
-  "shoulder": [
-   {
-    "name": "Grovekeeper Mantle",
-    "id": 273890,
-    "delta": -6.4
-   },
-   {
-    "name": "Highlander's Leather Shoulders",
-    "id": 20059,
+    "name": "Vermilion Necklace",
+    "id": 12027,
     "delta": -6.9
-   },
-   {
-    "name": "Dark Warder's Pauldrons",
-    "id": 22241,
-    "delta": -8.1
    }
   ],
   "main_hand": [
    {
     "name": "Bonecrusher",
     "id": 18420,
-    "delta": -11.4
-   },
-   {
-    "name": "Brutehammer",
-    "id": 15267,
-    "delta": -21.8
+    "delta": -11.8
    },
    {
     "name": "Malown's Slam",
     "id": 13393,
-    "delta": -23.9
+    "delta": -21.3
+   },
+   {
+    "name": "Brutehammer",
+    "id": 15267,
+    "delta": -22.1
    }
   ],
   "ranged": [
    {
     "name": "Howling Idol",
     "id": 272427,
-    "delta": -12.7
+    "delta": -12.3
    },
    {
     "name": "Idol of Ferocity",
     "id": 22397,
-    "delta": -15.7
+    "delta": -14.3
    },
    {
     "name": "Mystic Mushroom",
     "id": 249396,
-    "delta": -21.2
+    "delta": -20.1
    }
   ]
  }

@@ -38,7 +38,7 @@ def breakdown(build):
 
 SEARCH = {n: json.load(open(sim.data(f'search_v1/{n}.json'))) for n in ('cat', 'hybrid', 'restart1')}
 SEARCH['restart4'] = json.load(open(sim.data('search/restart4.json')))
-data = {'builds': {}, 'meta': {'iterations': a.sim.ITER, 'forever': 'a73af71', 'date': '2026-11-22'}}
+data = {'builds': {}, 'meta': H.meta(), 'siteUrl': H.SITE}
 for b, info in C.BUILDS.items():
     _sp = round(breakdown(b)['casts'].get('Shifting Power', 0))
     talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '').replace('{sp}', str(_sp))) for t in R['talents'][b]]
@@ -117,6 +117,8 @@ def _fmt(v):
 
 
 _CURVES = _curves()
+data['talentRanks'] = json.load(open(sim.data('talent_ranks.json'))) if os.path.exists(sim.data('talent_ranks.json')) else None
+data['extra'] = json.load(open(sim.data('extra_sims.json'))) if os.path.exists(sim.data('extra_sims.json')) else {}
 data['tips'] = {}
 for _tr in data['trees']:
     for _t in _tr['talents']:
@@ -180,7 +182,9 @@ data['cooldowns'] = C.COOLDOWNS
 data['restart'] = [{'start': SEARCH[r]['log'][0]['dps'], 'steps': len(SEARCH[r]['log']) - 1, 'final': SEARCH[r]['final']} for r in ('restart1', 'restart4')]
 
 os.makedirs(sim.DOCS, exist_ok=True)
-html = open(os.path.join(sim.HERE, 'template.html')).read().replace('/*DATA*/null', json.dumps(data, separators=(',', ':'))).replace('__BIS_URL__', sim.BIS_URL).replace('__XT__', sim.NEW_TAB)
+html = open(os.path.join(sim.HERE, 'template.html')).read().replace('/*DATA*/null', json.dumps(data, separators=(',', ':'))).replace('__BIS_URL__', sim.BIS_URL).replace('__XT__', sim.NEW_TAB).replace('__HEAD__', H.head_tags('Forever Feral Guide: Feral Cat for WoW Forever',
+                                                     'Talents, rotation, consumables and pre-raid gear for Feral Cat in WoW Forever. Every number is simmed.',
+                                                     '', 'og.png'))
 open(os.path.join(sim.DOCS, 'index.html'), 'w').write(html)
 print('ok', len(html), 'bytes; hit caps', {b: v['hitCap'] for b, v in data['builds'].items()})
 print(json.dumps({b: v['casts'] for b, v in data['builds'].items()}))

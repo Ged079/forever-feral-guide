@@ -3,31 +3,15 @@
  "faction": "horde",
  "race": "RaceTauren",
  "talents": "050022-55000032023012125001-055",
- "dps": 997.7,
+ "dps": 1003.4,
  "log": [
   {
    "move": "start",
-   "dps": 963.8
+   "dps": 998.2
   },
   {
-   "move": "head: Feralheart Cap",
-   "gain": 13.9
-  },
-  {
-   "move": "ranged: Idol of the Dream",
-   "gain": 10.2
-  },
-  {
-   "move": "back: Cape of the Black Baron",
-   "gain": 4.3
-  },
-  {
-   "move": "hands: Raider Gloves",
-   "gain": 3.0
-  },
-  {
-   "move": "feet: Grovekeeper Sandals",
-   "gain": 2.0
+   "move": "trinket1: Blackhand's Breadth",
+   "gain": 5.8
   }
  ],
  "gear": [
@@ -117,10 +101,10 @@
   },
   {
    "slot": "trinket1",
-   "id": 19120,
+   "id": 13965,
    "suffix": null,
    "enchant": null,
-   "name": "Rune of the Guard Captain"
+   "name": "Blackhand's Breadth"
   },
   {
    "slot": "trinket2",
@@ -190,7 +174,7 @@
    "id": 19510
   },
   {
-   "id": 19120
+   "id": 13965
   },
   {
    "id": 18537
@@ -205,12 +189,29 @@
   }
  ],
  "enchants": {
-  "Enchant 2H Weapon - Agility": 995.4,
-  "Enchant 2H Weapon - Superior Impact": 997.7,
-  "Enchant 2H Weapon - Strength": 993.0,
-  "Enchant Weapon - Grand Crusader": 976.7
+  "Enchant 2H Weapon - Agility": 1000.2,
+  "Enchant 2H Weapon - Superior Impact": 1003.4,
+  "Enchant 2H Weapon - Strength": 998.7,
+  "Enchant Weapon - Grand Crusader": 982.3
  },
  "alternatives": {
+  "trinket2": [
+   {
+    "name": "Rune of the Guard Captain",
+    "id": 19120,
+    "delta": -0.1
+   },
+   {
+    "name": "Vigilance Charm",
+    "id": 18370,
+    "delta": -1.6
+   },
+   {
+    "name": "Hand of Justice",
+    "id": 11815,
+    "delta": -2.2
+   }
+  ],
   "finger2": [
    {
     "name": "Opal Ring",
@@ -220,267 +221,250 @@
    {
     "name": "Cutthroat's Signet",
     "id": 272408,
-    "delta": -1.4
+    "delta": -1.1
    },
    {
     "name": "Drakeclaw Band",
     "id": 10795,
-    "delta": -2.0
-   }
-  ],
-  "trinket2": [
-   {
-    "name": "Hand of Justice",
-    "id": 11815,
-    "delta": -0.9
-   },
-   {
-    "name": "Vigilance Charm",
-    "id": 18370,
-    "delta": -1.6
-   },
-   {
-    "name": "Adaptive Combat Assistant",
-    "id": 272437,
-    "delta": -2.6
-   }
-  ],
-  "legs": [
-   {
-    "name": "Grovekeeper Kilt",
-    "id": 273888,
-    "delta": -1.6
-   },
-   {
-    "name": "Outrider's Leather Pants",
-    "id": 22740,
-    "delta": -3.0
-   },
-   {
-    "name": "Plaguehound Leggings",
-    "id": 18736,
-    "delta": -5.2
-   }
-  ],
-  "finger1": [
-   {
-    "name": "Opal Ring",
-    "id": 11980,
-    "delta": -1.8
-   },
-   {
-    "name": "Cutthroat's Signet",
-    "id": 272408,
-    "delta": -2.2
-   },
-   {
-    "name": "Drakeclaw Band",
-    "id": 10795,
-    "delta": -2.8
-   }
-  ],
-  "trinket1": [
-   {
-    "name": "Hand of Justice",
-    "id": 11815,
-    "delta": -1.8
-   },
-   {
-    "name": "Vigilance Charm",
-    "id": 18370,
-    "delta": -2.3
-   },
-   {
-    "name": "Adaptive Combat Assistant",
-    "id": 272437,
-    "delta": -2.8
+    "delta": -1.9
    }
   ],
   "feet": [
    {
     "name": "Supreme Shoes",
     "id": 15435,
-    "delta": -2.0
+    "delta": -1.5
    },
    {
     "name": "Swiftwalker Boots",
     "id": 12553,
-    "delta": -2.0
+    "delta": -2.2
    },
    {
     "name": "Mighty Boots",
     "id": 10146,
-    "delta": -3.1
+    "delta": -2.7
+   }
+  ],
+  "finger1": [
+   {
+    "name": "Cutthroat's Signet",
+    "id": 272408,
+    "delta": -1.7
+   },
+   {
+    "name": "Opal Ring",
+    "id": 11980,
+    "delta": -4.2
+   },
+   {
+    "name": "Tarnished Elven Ring",
+    "id": 18500,
+    "delta": -4.5
    }
   ],
   "back": [
    {
     "name": "Blackveil Cape",
     "id": 11626,
-    "delta": -2.3
+    "delta": -2.4
    },
    {
     "name": "Master's Cloak",
     "id": 10249,
-    "delta": -3.3
+    "delta": -3.0
    },
    {
     "name": "Deathguard's Cloak",
     "id": 20068,
-    "delta": -3.9
-   }
-  ],
-  "chest": [
-   {
-    "name": "Dawn Armor",
-    "id": 252483,
-    "delta": -2.7
-   },
-   {
-    "name": "Feralheart Tunic",
-    "id": 226795,
-    "delta": -13.2
-   },
-   {
-    "name": "Mighty Tunic",
-    "id": 10151,
-    "delta": -16.9
+    "delta": -3.6
    }
   ],
   "waist": [
    {
     "name": "Might of the Timbermaw",
     "id": 19044,
-    "delta": -3.0
+    "delta": -2.7
    },
    {
     "name": "Cloudrunner Girdle",
     "id": 13252,
-    "delta": -8.3
+    "delta": -8.0
    },
    {
-    "name": "Skulker's Leather Waistguard",
-    "id": 252474,
-    "delta": -8.9
+    "name": "Feralheart Girdle",
+    "id": 226789,
+    "delta": -8.7
+   }
+  ],
+  "legs": [
+   {
+    "name": "Grovekeeper Kilt",
+    "id": 273888,
+    "delta": -2.9
+   },
+   {
+    "name": "Outrider's Leather Pants",
+    "id": 22740,
+    "delta": -3.2
+   },
+   {
+    "name": "Mighty Leggings",
+    "id": 10152,
+    "delta": -5.3
    }
   ],
   "wrist": [
    {
     "name": "Forest Stalker's Bracers",
     "id": 19589,
-    "delta": -3.4
+    "delta": -3.3
    },
    {
     "name": "Forest Stalker's Bracers",
     "id": 19590,
-    "delta": -6.6
+    "delta": -6.2
    },
    {
     "name": "Mighty Armsplints",
     "id": 10147,
-    "delta": -7.6
-   }
-  ],
-  "neck": [
-   {
-    "name": "Onyxia Tooth Pendant",
-    "id": 18404,
-    "delta": -3.6
-   },
-   {
-    "name": "Mark of Fordring",
-    "id": 15411,
-    "delta": -5.6
-   },
-   {
-    "name": "Prismatic Pendant",
-    "id": 12048,
-    "delta": -6.1
+    "delta": -7.3
    }
   ],
   "hands": [
    {
     "name": "Timbermaw Brawlers",
     "id": 19049,
-    "delta": -4.2
+    "delta": -3.6
    },
    {
     "name": "Raider Gloves",
     "id": 272100,
-    "delta": -4.3
+    "delta": -3.9
    },
    {
-    "name": "Slaghide Gauntlets",
-    "id": 13258,
-    "delta": -7.2
+    "name": "Grovekeeper Mitts",
+    "id": 273889,
+    "delta": -6.6
+   }
+  ],
+  "chest": [
+   {
+    "name": "Dawn Armor",
+    "id": 252483,
+    "delta": -4.2
+   },
+   {
+    "name": "Feralheart Tunic",
+    "id": 226795,
+    "delta": -13.6
+   },
+   {
+    "name": "Mighty Tunic",
+    "id": 10151,
+    "delta": -16.6
    }
   ],
   "head": [
    {
     "name": "Outlaw's Collar",
     "id": 279253,
-    "delta": -4.3
+    "delta": -4.6
    },
    {
     "name": "Adventurer's Bandana",
     "id": 10261,
-    "delta": -5.7
+    "delta": -5.0
    },
    {
     "name": "Supreme Crown",
     "id": 15439,
-    "delta": -5.7
+    "delta": -5.0
+   }
+  ],
+  "trinket1": [
+   {
+    "name": "Rune of the Guard Captain",
+    "id": 19120,
+    "delta": -5.1
+   },
+   {
+    "name": "Hand of Justice",
+    "id": 11815,
+    "delta": -6.9
+   },
+   {
+    "name": "Vigilance Charm",
+    "id": 18370,
+    "delta": -7.4
+   }
+  ],
+  "neck": [
+   {
+    "name": "Mark of Fordring",
+    "id": 15411,
+    "delta": -5.5
+   },
+   {
+    "name": "Prismatic Pendant",
+    "id": 12048,
+    "delta": -5.6
+   },
+   {
+    "name": "Vermilion Necklace",
+    "id": 12027,
+    "delta": -6.7
    }
   ],
   "shoulder": [
    {
     "name": "Grovekeeper Mantle",
     "id": 273890,
-    "delta": -5.0
+    "delta": -5.7
    },
    {
     "name": "Defiler's Leather Shoulders",
     "id": 20194,
-    "delta": -7.4
+    "delta": -7.1
    },
    {
     "name": "Dark Warder's Pauldrons",
     "id": 22241,
-    "delta": -9.1
-   }
-  ],
-  "ranged": [
-   {
-    "name": "Howling Idol",
-    "id": 272427,
-    "delta": -11.5
-   },
-   {
-    "name": "Idol of Ferocity",
-    "id": 22397,
-    "delta": -14.3
-   },
-   {
-    "name": "Idol of Rejuvenation",
-    "id": 22398,
-    "delta": -18.5
+    "delta": -8.8
    }
   ],
   "main_hand": [
    {
     "name": "Bonecrusher",
     "id": 18420,
-    "delta": -11.7
+    "delta": -11.8
    },
    {
     "name": "Malown's Slam",
     "id": 13393,
-    "delta": -21.1
+    "delta": -21.7
    },
    {
     "name": "Brutehammer",
     "id": 15267,
-    "delta": -22.1
+    "delta": -22.0
+   }
+  ],
+  "ranged": [
+   {
+    "name": "Howling Idol",
+    "id": 272427,
+    "delta": -12.0
+   },
+   {
+    "name": "Idol of Ferocity",
+    "id": 22397,
+    "delta": -13.7
+   },
+   {
+    "name": "Idol of Rejuvenation",
+    "id": 22398,
+    "delta": -20.8
    }
   ]
  }

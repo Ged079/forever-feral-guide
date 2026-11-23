@@ -29,6 +29,29 @@ def quality(iid):
     return QUALITY.get(ITEMS.get(iid, {}).get('quality', 1), '#e6e6e6')
 
 
+def meta():
+    """Which sim commit the numbers come from, its date, and when the page was built."""
+    import datetime, sim
+    sha = open(sim.data('SIM_VERSION')).read().strip()
+    r = subprocess.run(['git', '-C', sim.FOREVER, 'show', '-s', '--format=%cs', sha], capture_output=True, text=True)
+    return {'forever': sha[:7], 'foreverDate': r.stdout.strip() or None, 'built': datetime.date.today().isoformat(),
+            'iterations': sim.ITER}
+
+
+SITE = 'https://ged079.github.io/forever-feral-guide/'
+
+
+def head_tags(title, desc, path, image):
+    """Open Graph and Twitter tags, so a shared link shows a preview card (Discord, Slack, X, iMessage)."""
+    url, img = SITE + path, SITE + image
+    return '\n'.join([
+        '<meta property="og:type" content="website">', '<meta property="og:site_name" content="Forever Feral Guide">',
+        f'<meta property="og:title" content="{title}">', f'<meta property="og:description" content="{desc}">',
+        f'<meta property="og:url" content="{url}">', f'<meta property="og:image" content="{img}">',
+        '<meta property="og:image:width" content="1200">', '<meta property="og:image:height" content="630">',
+        '<meta name="twitter:card" content="summary_large_image">', f'<link rel="canonical" href="{url}">'])
+
+
 ICON_REPO = os.environ.get('ICON_REPO', os.path.expanduser('~/wow-ui-textures'))  # sparse clone of github.com/Gethe/wow-ui-textures
 
 
