@@ -363,7 +363,7 @@ function render() {
   const b = D.builds[build];
   renderPick();
   const top = Math.max(...b.parts.map(p => p[1]));
-  $('hero').innerHTML = `<div class="bhead"><div><div class="small">You picked</div><h3 style="font-size:28px">${esc(b.name)}</h3></div>
+  $('hero').innerHTML = `<div class="bhead"><div><h3 style="font-size:28px;margin:0">${esc(b.name)}</h3></div>
     <div style="text-align:right"><div class="big">${Math.round(b.dps[180])}</div><div class="small">DPS, 3 minute boss</div></div></div>
     <div class="lens"><span>1.5 min <b>${Math.round(b.dps[90])}</b></span><span>3 min <b>${Math.round(b.dps[180])}</b></span><span>5 min <b>${Math.round(b.dps[300])}</b></span></div>
     <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#6b6f77'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
