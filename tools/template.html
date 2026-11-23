@@ -153,7 +153,6 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 .ttip .nx{display:block;margin-top:8px;color:#9fa3ad;font-size:12.5px}.ttip .nx+.tx{color:#c9c6be}
 .ttip .tv{display:block;margin-top:8px;padding-top:7px;border-top:1px solid #2c2f37;color:#ec7a50;font-weight:600;font-size:12.5px}
 .ttip .tc{display:block;margin-top:4px;color:#9fa3ad;font-size:12.5px}
-.share{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--acc)}
 .thead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
 .calcbar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 18px;align-items:center;margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid color-mix(in srgb,var(--acc) 45%,var(--line))}
@@ -385,8 +384,7 @@ function render() {
     <div style="text-align:right"><div class="big">${Math.round(b.dps[180])}</div><div class="small">DPS, 3 minute boss</div></div></div>
     <div class="lens"><span>1.5 min <b>${Math.round(b.dps[90])}</b></span><span>3 min <b>${Math.round(b.dps[180])}</b></span><span>5 min <b>${Math.round(b.dps[300])}</b></span></div>
     <div class="pelt" role="img" aria-label="Where the damage comes from">${b.parts.map(([n, v]) => `<span style="width:${v}%;background:${COLORS[n] || '#6b6f77'}" title="${esc(n)} ${v}%">${v >= 9 ? esc(n.split(' ')[0]) : ''}</span>`).join('')}</div>
-    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#6b6f77'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>
-    <div class="share"><button class="btn ghost" type="button" id="share">Copy link to this build</button><span class="small">Opens the guide with ${esc(b.name)} picked</span></div>`;
+    <div class="legend">${b.parts.map(([n, v]) => `<span><i style="background:${COLORS[n] || '#6b6f77'}"></i>${esc(n)} ${v}%</span>`).join('')}</div>`;
 
 
   const ALTS = D.alternatives || [];
@@ -713,12 +711,6 @@ document.addEventListener('click', e => {
     const txt = $(cp.dataset.copy).textContent;
     const done = ok => { cp.textContent = ok ? 'Copied ✓' : 'Select and copy'; setTimeout(() => cp.textContent = 'Copy', 1500); };
     if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => done(true), () => done(false)); else done(false);
-    return;
-  }
-  if (e.target.closest('#share')) {
-    const btn = $('share'), url = D.siteUrl + '#build=' + build + '&fac=' + fac;
-    const done = ok => { btn.textContent = ok ? 'Link copied ✓' : url; setTimeout(() => btn.textContent = 'Copy link to this build', ok ? 1500 : 6000); };
-    if (navigator.clipboard) navigator.clipboard.writeText(url).then(() => done(true), () => done(false)); else done(false);
     return;
   }
   if (e.target.closest('#copyt')) {
