@@ -57,7 +57,7 @@ LOOP_FILL = {
     'cat': {'bite_cp': 4, 'rip_left': 3, 'rip_cp': '4 (5 if one more Shred still leaves energy for Rip right after)', 'builder': 'Shred'},
     'hybrid': {'bite_cp': 5, 'rip_left': 4, 'rip_cp': '4 (5 if one more Shred still leaves energy for Rip right after)', 'builder': 'Shred'},
 }
-LOOP_END = 'Last 8 s: no new Rip; Bite at 5 points. Last global: Bite at 2+ points.'
+LOOP_END = 'When the boss is about to die, don\u2019t start a new Rip (it needs about 8 s to pay off); spend your combo points on Ferocious Bite instead.'
 COOLDOWNS = 'On cooldown: Mighty Rage Potion, Goblin Sapper Charge, your racial. Major Mana Potion under 1400 mana.'
 
 BUFF_NAMES = {

@@ -388,7 +388,7 @@ function render() {
   $('loop').innerHTML = b.loop.map(([t, x]) => `<li>${IC(D.loopIcons[t])}<span><b>${esc(t)}</b><span class="small">${esc(x)}</span></span></li>`).join('');
   $('opener').innerHTML = D.openerChips.map(([ics, t, sub], i) => `${i ? '<span class="arr">→</span>' : ''}<span class="chip2"><span class="n">${i + 1}</span><span class="ics">${ics.map(IC).join('')}</span><span><b>${esc(t)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span></span>`).join('');
   $('tips').innerHTML = [
-    `<b>End of the fight:</b> ${esc(D.loopEnd.replace(/^Last 8 s: /, 'in the last 8 s, '))}`,
+    `<b>End of the fight:</b> ${esc(D.loopEnd)}`,
     `<b>Cooldowns:</b> ${esc(D.cooldowns.replace(/^On cooldown: /, 'use on cooldown: '))}`,
     `<b>No need to Prowl first.</b> In 3,000 simmed pulls the opener never used Ravage or Pounce, and Prowling before the pull changed nothing (within 0.5 DPS). Prowl only if you want Pounce's stun.`,
   ].map(x => `<li>${x}</li>`).join('');
