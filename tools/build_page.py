@@ -40,7 +40,16 @@ SEARCH = {n: json.load(open(sim.data(f'search_v1/{n}.json'))) for n in ('cat', '
 SEARCH['restart4'] = json.load(open(sim.data('search/restart4.json')))
 data = {'builds': {}, 'meta': H.meta(), 'siteUrl': H.SITE}
 for b, info in C.BUILDS.items():
-    talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '')) for t in R['talents'][b]]
+    _rf = sim.data('talent_ranks.json' if b == 'cat' else f'talent_ranks_{b}.json')
+    _rk = json.load(open(_rf))['ranks'] if os.path.exists(_rf) else {}
+
+    def _per_point(t):
+        """What each point of the talent adds, first to last, from the per-rank sims; None where a rank is missing."""
+        row = _rk.get(t['name'])
+        if not row or any(row[k] is None for k in range(t['points'] + 1)):
+            return None
+        return [round(row[k] - row[k - 1], 1) for k in range(1, t['points'] + 1)]
+    talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], ''), per=_per_point(t)) for t in R['talents'][b]]
     talents.sort(key=lambda t: -t['all'])
     sw = R['stats'][b]['perPoint']
     xw = json.load(open(sim.data('extra_weights.json')))

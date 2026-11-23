@@ -5,17 +5,17 @@ For each talent and each rank 0..max, the Cat build with only that talent set to
 rules ignored, so each number is that talent alone). The calculator adds the differences for a player's build, so
 its total is an estimate: talents that feed each other are counted one at a time.
 
-    talent_ranks.py     -> ../setup/talent_ranks.json
+    talent_ranks.py [build]     -> ../setup/talent_ranks.json (cat) or ../setup/talent_ranks_<build>.json
 """
-import json
+import json, sys
 import analyze as a
 import sim
 
 IT, SEED = 3000, 1
 
 
-def main():
-    base_str = a.TALENTS['cat']
+def main(build='cat'):
+    base_str = a.TALENTS[build]
     base = a.parse_talents(base_str)
     jobs, keys = [], []
     for ti, tree in enumerate(a.TREES):
@@ -36,9 +36,9 @@ def main():
     for (name, r), x in zip(keys, res):
         out[name][r] = round(x[0], 1)
     json.dump({'base': round(cat, 1), 'talents': base_str, 'iterations': IT, 'ranks': out},
-              open(sim.data('talent_ranks.json'), 'w'), indent=1)
-    print('cat', round(cat, 1), 'sims', len(jobs))
+              open(sim.data('talent_ranks.json' if build == 'cat' else f'talent_ranks_{build}.json'), 'w'), indent=1)
+    print(build, round(cat, 1), 'sims', len(jobs))
 
 
 if __name__ == '__main__':
-    main()
+    main(*sys.argv[1:2])

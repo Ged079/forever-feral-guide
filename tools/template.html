@@ -87,6 +87,8 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .val{display:grid;gap:4px;justify-items:end;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .val b{font-size:15px}.meter{width:100%;height:8px;border-radius:4px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden}
 .meter span{display:block;height:100%;background:var(--acc);border-radius:4px}
+.meter.split{overflow:visible}.meter.split>span{display:flex;gap:2px;background:transparent}
+.meter.split i{display:block;height:100%;min-width:3px;flex-basis:0;background:var(--acc);border-radius:2px}
 .neg .val b{color:var(--mute)}.zero .val b{color:var(--mute);font-weight:400}
 pre code{display:block;white-space:pre;padding:10px 12px;overflow-x:auto}
 .copy{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
@@ -234,7 +236,7 @@ footer{padding:28px 0 48px}
   <div class="tset" id="tset"></div>
   <div class="card" id="found" style="margin-top:16px"></div>
   <h3 style="margin-top:22px">What each point is worth</h3>
-  <p class="small">Each bar is what the talent is worth: the build's DPS minus the same build without it. "Last point" is the top rank alone.</p>
+  <p class="small">Each bar is what the talent is worth: the build's DPS minus the same build without it. Bars are split into the talent's points, first to last, so a bigger piece is a point worth more (hover a piece for its number).</p>
   <ul class="rows" id="tlist"></ul>
 </section>
 
@@ -346,7 +348,9 @@ function row(name, sub, v, max, opt = {}) {
   const cls = opt.label ? '' : Math.abs(v) < 0.5 ? 'zero' : v < 0 ? 'neg' : '';
   const w = max > 0 ? Math.max(0, Math.min(100, v / max * 100)) : 0;
   return `<li class="${cls}"><span class="nm"><b>${name}</b>${sub ? `<small>${sub}</small>` : ''}</span>
-    <span class="val"><b>${opt.label ?? fmt(v) + (Math.abs(v) < 0.5 ? '' : ' DPS')}</b>${opt.nobar ? '' : `<span class="meter"><span style="width:${w.toFixed(0)}%"></span></span>`}</span></li>`;
+    <span class="val"><b>${opt.label ?? fmt(v) + (Math.abs(v) < 0.5 ? '' : ' DPS')}</b>${opt.nobar ? '' : opt.per && opt.per.length > 1
+      ? `<span class="meter split" role="img" aria-label="${esc(opt.per.map((m, k) => `point ${k + 1} ${fmt(m)}`).join(', '))}"><span style="width:${w.toFixed(0)}%">${opt.per.map((m, k) => `<i title="Point ${k + 1}: ${fmt(m)} DPS" style="flex-grow:${Math.max(m, 0).toFixed(1)}"></i>`).join('')}</span></span>`
+      : `<span class="meter"><span style="width:${w.toFixed(0)}%"></span></span>`}</span></li>`;
 }
 
 function renderPick() {
@@ -377,7 +381,7 @@ function render() {
     <div id="altgrid" hidden><p class="small" style="margin:12px 0 10px">Same gear and the same 3,000 simmed fights as the rest of the guide. Gaps under 1 DPS are ties.</p><div class="agrid">${ALTS.map((x, i) => `<div class="acard${i ? '' : ' main'}"><div class="ahd"><b>${esc(x.name)}</b><span class="pill ${i ? (Math.abs(x.delta) < 1 ? 'tie' : 'neg') : ''}">${i ? (Math.abs(x.delta) < 1 ? 'tie' : fmt(x.delta)) : 'best'}</span></div><div class="adps">${Math.round(x.dps)}<span class="small"> DPS</span></div><p class="small">${esc(x.note)}</p><button class="btn ghost" type="button" data-view="${i}">View tree</button></div>`).join('')}</div></div>`;
   const tmax = Math.max(...b.talents.map(t => t.all));
   const TI = {}; D.trees.forEach(tr => tr.talents.forEach(x => TI[x.n] = D.icons[x.icon.toLowerCase()]));
-  $('tlist').innerHTML = b.talents.map(t => row(`<span class="tl">${TI[t.name] ? `<img class="ico" alt="" src="${TI[t.name]}">` : ''}<span>${wh('spell', t.spell, t.name)} ${t.points}/${t.max}<small>${esc(t.text)}${t.last != null && Math.abs(t.last) >= 0.5 ? ` Last point: ${fmt(t.last)}.` : ''}</small></span></span>`, '', t.all, tmax)).join('');
+  $('tlist').innerHTML = b.talents.map(t => row(`<span class="tl">${TI[t.name] ? `<img class="ico" alt="" src="${TI[t.name]}">` : ''}<span>${wh('spell', t.spell, t.name)} ${t.points}/${t.max}<small>${esc(t.text)}</small></span></span>`, '', t.all, tmax, {per: t.per})).join('');
 
   renderTalents();
   const IC = n => D.icons[n] ? `<img alt="" src="${D.icons[n]}">` : '';

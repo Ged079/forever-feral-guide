@@ -46,7 +46,7 @@ python3 analyze.py             # values, weights, hit curve            -> ../set
 python3 extra_weights.py       # Int, Spirit, MP5, Feral AP, weapon DPS -> ../setup/extra_weights.json
 python3 alternatives.py        # the other builds on the page          -> ../setup/alternatives.json
 python3 rank.py                # per-slot ranking, both factions       -> ../setup/rank/
-python3 talent_ranks.py        # every rank of every talent on Cat     -> ../setup/talent_ranks.json (talent calculator)
+python3 talent_ranks.py && python3 talent_ranks.py hybrid   # every rank of every talent -> ../setup/talent_ranks*.json (calculator, per-point bars)
 python3 extra_sims.py          # side questions, not on the page: bear-weave, powershift, fight length, AoE -> ../setup/extra_sims.json
 python3 og_image.py            # link-preview images (needs Playwright) -> ../docs/og.png, ../docs/bis/og.png
 python3 build_page.py          # the guide   -> ../docs/index.html
