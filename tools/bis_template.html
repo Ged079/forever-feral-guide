@@ -101,7 +101,6 @@ footer{padding:28px 0 48px}
 section[hidden]{display:none}
 @media(max-width:640px){.doll,.dbot{grid-template-columns:minmax(0,1fr)}.opt li{grid-template-columns:18px 30px minmax(0,1fr) 64px;gap:8px}.opt .ic{width:30px;height:30px}.sum .big{font-size:38px}}
 @media(prefers-reduced-motion:no-preference){.bar span{transition:width .3s ease}}
-.upd{display:inline-block;font-size:12.5px;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin:2px 0 8px}
 
 /* upgrade finder */
 .fmode .ctrl>div:not(:first-child){display:none}
@@ -161,7 +160,6 @@ section[hidden]{display:none}
 <main class="wrap">
 <header class="hero">
   <div class="kicker">WoW Forever · Phase 1 · Feral Cat</div>
-  <div class="upd" id="updated"></div>
   <h1>Pre-raid best in slot</h1>
   <p class="small">Every slot ranked by WoWSims Forever: each option is the best-in-slot set with only that piece swapped, so Δ DPS is what you lose by wearing it instead. The shaded band around "Best" is the sim's margin (±1.7 DPS, 95%): anything whose dot sits inside it is a tie. No raid loot, raid reputation or PvP rank gear.</p>
 </header>
@@ -314,8 +312,7 @@ function render() {
     `<b>Faction pieces:</b> Alliance and Horde sets differ only where a piece is faction-locked. Switch faction above to see yours.`,
     `<b>Can't get AV or exalted rep yet?</b> Switch Budget to "No AV, PvP or exalted rep": it swaps those pieces for the best you can get without them.`,
   ].map(x => `<li>${x}</li>`).join('');
-  $('updated').textContent = `Updated ${day(D.meta.built)} · numbers from the ${day(D.meta.foreverDate)} WoWSims Forever`;
-  $('foot').innerHTML = `Simmed with WoWSims Forever <code>${D.meta.forever}</code> · companion to the <a href="${esc(D.guideUrl)}">Forever Feral class guide</a>`;
+  $('foot').innerHTML = `Updated ${day(D.meta.built)} · WoWSims Forever <code>${D.meta.forever}</code> (${day(D.meta.foreverDate)}) · companion to the <a href="${esc(D.guideUrl)}">Forever Feral class guide</a>`;
   $('guidelink').href = D.guideUrl;
   if (/^https?:/.test(D.guideUrl)) document.querySelectorAll('a[href="' + D.guideUrl + '"]').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
   save();
