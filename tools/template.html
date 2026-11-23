@@ -71,7 +71,6 @@ section{padding:clamp(28px,4vw,52px) 0;border-bottom:1px solid var(--line);scrol
 .ti:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .ti .rk{position:absolute;right:-6px;bottom:-8px;font:700 11px/1 Barlow,sans-serif;background:#0c0d0f;color:#d3d5da;border:1px solid #4a4d55;border-radius:5px;padding:2px 4px}
 .ti.on .rk{color:#fff;border-color:#6a6d75}.ti.t-core .rk{color:#ffb595;border-color:#9c4a2c}
-.ti .in{position:absolute;right:-7px;top:-7px;width:16px;height:16px;border-radius:50%;background:#fff;color:#111;font:700 11px/16px Georgia,serif;text-align:center}
 .tpanel{position:relative;background:color-mix(in srgb,var(--line) 35%,var(--card));border-radius:12px;padding:16px;align-self:start}
 .tpanel .hd{display:flex;gap:12px;align-items:center;margin:6px 0 10px}.tpanel .hd img{width:52px;height:52px;border-radius:8px;border:2px solid #3d4047}
 .tpanel h4{font:700 28px/1.02 var(--head);margin:0}
@@ -497,10 +496,10 @@ function renderTalents() {
         const n = (pts[ti] || [])[i] || 0, v = val[x.n];
         const cls = calc ? ['ti', n ? 'on' : '', n === x.m ? 'full' : '', !n && canAdd(calc, ti, i) ? 'can' : ''].join(' ')
           : ['ti', n ? 'on' : '', n && v ? tier(v.all) : '', selTal[0] === ti && selTal[1] === i ? 'sel' : ''].join(' ');
-        return `<button type="button" class="${cls}" data-t="${ti},${i}" aria-label="${esc(x.n)} ${n} of ${x.m}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})">${n && D.talentText[x.n] && v && Math.abs(v.all) >= 10 ? '<span class="in">i</span>' : ''}<span class="rk">${n}/${x.m}</span></button>`;
+        return `<button type="button" class="${cls}" data-t="${ti},${i}" aria-label="${esc(x.n)} ${n} of ${x.m}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})"><span class="rk">${n}/${x.m}</span></button>`;
       }).join('')}</div>${narrow && selTal[0] === ti ? panel() : ''}</div>`).join('')
     + (narrow ? '' : panel())
-    + `<div class="tfoot"><span class="lg"><i style="border-color:#ec7a50"></i>Core · 40+ DPS</span><span class="lg"><i style="border-color:#c9ccd3"></i>Good · 10–40</span><span class="lg"><i style="border-color:#9a9da4"></i>Small · under 10</span><span class="lg"><span class="ti-i" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#fff;border:1px solid #888;color:#111;font:700 11px/16px Georgia,serif;text-align:center">i</span>Worth reading</span><span>Faded = not taken</span>
+    + `<div class="tfoot"><span class="lg"><i style="border-color:#ec7a50"></i>Core · 40+ DPS</span><span class="lg"><i style="border-color:#c9ccd3"></i>Good · 10–40</span><span class="lg"><i style="border-color:#9a9da4"></i>Small · under 10</span><span>Faded = not taken</span>
       <span class="sp"></span><span>${totals.join(' / ')}</span><button class="btn" id="copyt" type="button">Copy talent string</button></div>`;
 }
 function plainTrees(str) {
