@@ -111,3 +111,87 @@ OPENER_CHIPS = [
     (['spell_shadow_vampiricaura'], 'Shred', 'to 4 points'),
     (['ability_ghoulfrenzy'], 'Rip', ''),
 ]
+
+
+# Rank-by-rank talent tooltips. {0}, {1}, {2} are the talent's per-rank values from the sim's game data
+# (one per effect curve), shown with the unit named in TIP_UNITS; 'unit@i' reads effect i instead.
+# Talents without a curve are fixed text.
+# Written from what each effect changes in the game files (WoWSims Forever, spells_auto_gen.go).
+TIP_UNITS = {'pct': lambda v: abs(v), 'sec': lambda v: abs(v) / 1000, 'tenth': lambda v: abs(v) / 10,
+             'cent': lambda v: abs(v) / 100, 'lvl': lambda v: v * 60, 'lvlpct': lambda v: v * 60 / 100}
+TALENT_TIPS = {
+    # Balance
+    'Improved Wrath': ('Reduces the cast time of Wrath by {0} sec and its mana cost by {1}%.', ['sec', 'pct']),
+    'Genesis': ('Increases the periodic damage and healing of your spells and abilities by {0}%, Rake, Rip, Lacerate '
+                'and Pounce bleeds included, and the healing of Swiftmend by {1}%.', ['pct', 'pct']),
+    'Moonglow': ('Reduces the mana cost of your damaging spells by {0}%.', ['pct']),
+    'Improved Moonfire': ('Increases the critical strike chance of Moonfire by {0}% and its damage by {1}%.', ['pct', 'pct']),
+    "Nature's Majesty": ('Increases your critical strike chance with spells and melee attacks by {0}%, in every form.', ['pct']),
+    "Nature's Reach": ('Increases the range of your Balance spells and Faerie Fire by {0}%, and your chance to hit with '
+                       'melee attacks and spells by {1}%.', ['pct', 'pct']),
+    'Improved Entangling Roots': ('Increases the damage of Entangling Roots by {0}%.', ['pct']),
+    "Nature's Splendor": ('Increases the duration of Moonfire and Rejuvenation by 3 sec, Regrowth by 6 sec and Insect Swarm by 2 sec.', []),
+    'Insect Swarm': ('Swarms the target with insects for 12 sec, dealing Nature damage over time and lowering its chance to hit by 2%.', []),
+    'Vengeance': ('Increases the critical strike damage bonus of your Arcane and Nature spells by {0}%.', ['pct']),
+    'Improved Starfire': ('Reduces the cast time of Starfire by {0} sec and gives it a {1}% chance to stun the target for 3 sec.', ['sec', 'pct']),
+    'Overgrowth': ('Increases the number of targets Entangling Roots can hold by {0}.', ['pct']),
+    "Nature's Grace": ('When one of your spells critically strikes, your casting speed rises by 10% and your global '
+                       'cooldown drops by 10% for 3 sec.', []),
+    'Eclipse': ('Each Wrath that lands cuts the cast time of your next 2 Starfires by {1} sec. Stores up to 4 charges, '
+                'which last 15 sec.', ['pct', 'sec']),
+    'Moonfury': ('Increases the damage of your Arcane and Nature spells by {0}%.', ['pct']),
+    'Moonkin Form': ('Shapeshift into Moonkin Form, giving your party 3% spell critical strike chance. In the form, '
+                     'Omen of Clarity triggers twice as often, with half the time between triggers.', []),
+    # Feral Combat
+    'Ferocity': ('Reduces the cost of Maul, Swipe and Primal Bite by {0} Rage, and of Claw and Rake by {1} Energy.', ['tenth', 'pct']),
+    'Furor': ('When you shift into Cat Form you get back {1}% of the Energy you had when you left it, which keeps '
+              'regenerating while you are out of form. Shifting into Bear or Dire Bear Form has a {0}% chance to give 10 Rage.', ['pct', 'pct']),
+    'Feral Swiftness': ('Increases your chance to dodge by {0}% and your movement speed in Cat Form by {1}%.', ['pct', 'pct']),
+    'Feral Instinct': ('Improves your stealth while Prowling by {0} and increases the damage of Swipe by {1}%.', ['pct', 'pct']),
+    'Brutal Impact': ('Increases the stun of Bash and Pounce by {0} sec and reduces the cooldown of Bash by {1} sec.', ['sec', 'sec']),
+    'Thick Hide': ('Increases your armor by {1} (at level 60), plus {0} armor for each point of defense from gear and buffs. '
+                   'Bear and Dire Bear Form multiply both.', ['cent', 'lvl']),
+    'Shredding Attacks': ('Reduces the Energy cost of Shred by {0} and the Rage cost of Lacerate by {1}.', ['pct', 'tenth']),
+    'Savage Fury': ('Increases the damage of Claw, Rake, Shred, Maul and Swipe by {0}%, and of the Rake bleed by {1}%.', ['pct', 'pct']),
+    'Feral Charge': ('Cat Form: leap to an enemy 8 to 25 yards away (30 sec cooldown). Bear Form: charge an enemy 8 to 25 '
+                     'yards away for 5 Rage, interrupting its spellcasting and rooting it for 4 sec (15 sec cooldown).', []),
+    'Sharpened Claws': ('Increases your critical strike chance in Cat, Bear and Dire Bear Form by {0}%.', ['pct']),
+    'Predatory Strikes': ('Increases your attack power in Cat, Bear and Dire Bear Form by {0}% of your level, {1} at level 60.', ['pct', 'lvlpct@0']),
+    'Lacerate': ('Bear Form, 15 Rage: lacerates the target, causing a bleed for 15 sec that stacks up to 5 times. '
+                 'Generates extra threat.', []),
+    'Predatory Discipline': ('Ferocious Bite no longer spends your extra Energy, but still deals the extra damage for it.', []),
+    'Blood Frenzy': ('In Bear and Dire Bear Form, your critical strikes have a {0}% chance to give 5 Rage. In Cat Form, '
+                     'critical strikes with combo point abilities have a {1}% chance to add an extra combo point.', ['pct', 'pct']),
+    'Leader of the Pack': ('In Cat, Bear or Dire Bear Form, increases the critical strike chance of party members within '
+                           '45 yards by 3%.', []),
+    'Natural Instinct': ('Increases the critical strike damage bonus of your melee abilities by {0}%, and your healing by '
+                         '{1}% of your Intellect.', ['pct', 'pct']),
+    'Rend and Tear': ('Increases the damage of your melee abilities and bleeds against bleeding targets by {0}%. '
+                      'Auto attacks are not affected.', ['pct']),
+    'Natural Reaction': ('Increases your chance to dodge by {0}%. In Bear Form, each dodge has a {1}% chance to give 5 Rage.', ['pct', 'pct']),
+    'Primal Bite': ('Bear Form, 20 Rage: bite the target for 100% weapon damage plus 42, generating high threat. 6 sec cooldown.', []),
+    'Shifting Power': ('Cat Form: costs 55% of base mana to instantly gain 40 Energy. 8 sec cooldown and a 1 sec global '
+                       'cooldown; not usable at full Energy.', []),
+    # Restoration
+    "Nature's Focus": ('Gives Healing Touch, Regrowth, Tranquility, Wrath, Starfire, Hurricane and Entangling Roots a {0}% '
+                       'chance to lose no casting time when you take damage.', ['pct']),
+    'Heart of the Wild': ('Increases your Intellect by {0}%. In Bear and Dire Bear Form your Stamina rises by {1}%, and in '
+                          'Cat Form your Strength by {2}%.', ['pct', 'pct', 'pct']),
+    'Naturalist': ('Reduces the cast time of Healing Touch and Wild Growth by {0} sec, and increases all damage you deal by {1}%, '
+                   'physical included.', ['sec', 'pct']),
+    'Reflection': ('Allows {0}% of your mana regeneration to continue while casting.', ['pct']),
+    'Natural Shapeshifter': ('Reduces the mana cost of your shapeshifts and of Shifting Power by {0}%.', ['pct']),
+    'Subtlety': ('Reduces the threat of your Arcane and Nature spells by {0}%.', ['pct']),
+    'Gift of Nature': ('Increases the healing of Healing Touch, Regrowth, Swiftmend and Tranquility by {0}%, and of your '
+                       'heals over time by {1}%.', ['pct', 'pct']),
+    'Bloom': ('When your Rejuvenation or Regrowth runs its full duration, the target is healed for 100% of your Spirit.', []),
+    'Tranquil Spirit': ('Reduces the mana cost of Healing Touch and Tranquility by {0}%.', ['pct']),
+    'Improved Rejuvenation': ('Increases the healing of Rejuvenation by {0}%.', ['pct']),
+    'Swiftmend': ('Consumes a Rejuvenation or Regrowth on a friendly target to instantly heal it for the whole effect. '
+                  '15 sec cooldown.', []),
+    "Nature's Swiftness": ('Your next Nature spell with a cast time becomes instant. 3 min cooldown.', []),
+    'Living Spirit': ('Increases your Spirit by {0}%.', ['pct']),
+    'Improved Tranquility': ('Reduces the threat of Tranquility by {0}% and its cooldown by {1}%.', ['pct', 'pct']),
+    'Improved Regrowth': ('Increases the critical effect chance of Regrowth by {0}%.', ['pct']),
+    'Wild Growth': ('Heals up to 5 party or raid members within 15 yards of the target over 7 sec. 6 sec cooldown.', []),
+}

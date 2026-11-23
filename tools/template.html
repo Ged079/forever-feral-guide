@@ -143,6 +143,15 @@ ol.loop.open li::before{background:var(--tan);color:var(--on-acc)}
 #altgrid{scroll-margin-top:76px}
 .bislink{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;padding:16px 18px;border:1px solid var(--acc);border-radius:14px;background:color-mix(in srgb,var(--acc) 7%,var(--card));color:var(--ink);text-decoration:none}
 .bislink b{display:block;font:700 22px/1.1 var(--head)}.bislink .go{font-weight:700;color:var(--acc);white-space:nowrap}.bislink:hover{background:color-mix(in srgb,var(--acc) 12%,var(--card))}
+.ttip{position:fixed;z-index:200;max-width:320px;padding:10px 12px 11px;border-radius:8px;background:#121318;border:1px solid #4a4d57;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);color:#d9d6cf;font-size:13.5px;line-height:1.42;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .1s,transform .1s}
+.ttip.show{opacity:1;transform:none}
+.ttip .tn{font-weight:700;color:#fff;font-size:15px;display:block}
+.ttip .tr{display:block;color:#9fa3ad;font-size:12.5px;margin:1px 0 6px}
+.ttip .tx{display:block;color:#f1d27a}
+.ttip .nx{display:block;margin-top:8px;color:#9fa3ad;font-size:12.5px}.ttip .nx+.tx{color:#c9c6be}
+.ttip .tv{display:block;margin-top:8px;padding-top:7px;border-top:1px solid #2c2f37;color:#ec7a50;font-weight:600;font-size:12.5px}
+.ttip .tc{display:block;margin-top:4px;color:#9fa3ad;font-size:12.5px}
 .bph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .seg2{display:flex;gap:6px}.seg2 button{font:inherit;font-size:14px;font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;min-height:38px;cursor:pointer}
 .seg2 button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}
@@ -290,6 +299,7 @@ footer{padding:28px 0 48px}
   </div>
 </section>
 </main>
+<div class="ttip" id="ttip" role="tooltip"></div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox">
   <div class="mhead"><div><div class="small">Talent build</div><h3 id="mtitle"></h3><div class="small" id="msub"></div></div><button class="xbtn" type="button" id="mclose" aria-label="Close">×</button></div>
   <div class="mtrees" id="mtrees"></div>
@@ -407,6 +417,7 @@ function renderTalents() {
     return `<div class="tpanel"><div class="small">${esc(D.trees[ti].name)}</div>
       <div class="hd"><img alt="" src="${D.icons[x.icon.toLowerCase()] || ''}"><h4>${esc(x.n)}</h4></div>
       <div class="chips"><span class="chip">${n} / ${x.m} points</span>${v ? `<span class="chip dps">${fmt(v.all)} DPS in this build</span>` : ''}</div>
+      <p class="small" style="margin:10px 0 0">${n ? '' : 'Rank 1: '}${esc(D.tips[x.n][Math.max(n, 1) - 1])}</p>
       ${note ? `<p>${esc(note)}</p>` : ''}
       ${v && v.last != null && Math.abs(v.last) >= 0.5 ? `<p class="small">The last point alone: ${fmt(v.last)} DPS.</p>` : ''}
       <a class="small" href="https://www.wowhead.com/forever/spell=${x.s}" target="_blank" rel="noopener">Wowhead tooltip ↗</a></div>`;
@@ -430,7 +441,7 @@ function plainTrees(str) {
     const P = pts[ti] || [];
     const total = tr.talents.reduce((t, x, i) => t + (P[i] || 0), 0);
     return `<div class="tcol"><div class="bg" style="background-image:url(${D.treeBg[ti]})"></div><div class="th"><b>${esc(tr.name)}</b><span>${total} pts</span></div>
-      <div class="tg">${tr.talents.map((x, i) => { const n = P[i] || 0, d = n !== ((base[ti] || [])[i] || 0); return `<span class="ti${n ? ' on' : ''}${d ? ' t-core' : ''}" title="${esc(x.n)} ${n}/${x.m}${d ? ' (Cat build: ' + ((base[ti] || [])[i] || 0) + ')' : ''}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})"><span class="rk">${n}/${x.m}</span></span>`; }).join('')}</div></div>`;
+      <div class="tg">${tr.talents.map((x, i) => { const n = P[i] || 0, d = n !== ((base[ti] || [])[i] || 0); return `<span class="ti${n ? ' on' : ''}${d ? ' t-core' : ''}" tabindex="0" data-m="${ti},${i},${n},${(base[ti] || [])[i] || 0}" aria-label="${esc(x.n)} ${n} of ${x.m}" style="grid-row:${x.r + 1};grid-column:${x.c + 1};background-image:url(${D.icons[x.icon.toLowerCase()] || ''})"><span class="rk">${n}/${x.m}</span></span>`; }).join('')}</div></div>`;
   }).join('');
 }
 let mStr = '', lastFocus = null;
@@ -445,9 +456,48 @@ function openModal(x) {
   $('mcopy').textContent = 'Copy talent string';
   $('modal').classList.add('open'); document.body.style.overflow = 'hidden'; $('mclose').focus();
 }
-function closeModal() { $('modal').classList.remove('open'); document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+function closeModal() { hideTip(); $('modal').classList.remove('open'); document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
 addEventListener('keydown', e => { if (e.key === 'Escape' && $('modal').classList.contains('open')) closeModal(); });
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(renderTalents, 150); });
+// Talent tooltips: hover or keyboard focus on either tree; a tap in the build window.
+const tip = $('ttip');
+let tipFor = null;
+function tipHtml(el) {
+  let ti, i, n, extra = '';
+  if (el.dataset.m) {
+    let base; [ti, i, n, base] = el.dataset.m.split(',').map(Number);
+    if (n !== base) extra = `<span class="tc">The main Cat build has ${base}/${D.trees[ti].talents[i].m}.</span>`;
+  } else {
+    [ti, i] = el.dataset.t.split(',').map(Number);
+    const pts = D.builds[build].talentsString.split('-').map(x => x.split('').map(Number));
+    n = (pts[ti] || [])[i] || 0;
+    const v = D.builds[build].talents.find(t => t.name === D.trees[ti].talents[i].n);
+    if (n && v && Math.abs(v.all) >= 0.5) extra = `<span class="tv">Worth ${fmt(v.all)} DPS in ${esc(D.builds[build].name)}</span>`;
+  }
+  const x = D.trees[ti].talents[i], R = D.tips[x.n];
+  return `<span class="tn">${esc(x.n)}</span><span class="tr">Rank ${n}/${x.m}</span>`
+    + (n ? `<span class="tx">${esc(R[n - 1])}</span>` : '')
+    + (n < x.m ? (n ? '<span class="nx">Next rank:</span>' : '') + `<span class="tx">${esc(R[n])}</span>` : '') + extra;
+}
+function showTip(el) {
+  tipFor = el; tip.innerHTML = tipHtml(el); tip.classList.add('show');
+  const r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight, vw = innerWidth, vh = innerHeight;
+  let left = r.right + 10; if (left + w > vw - 8) left = r.left - w - 10; if (left < 8) left = Math.max(8, Math.min(vw - w - 8, r.left + r.width / 2 - w / 2));
+  let top = left === r.right + 10 || left === r.left - w - 10 ? r.top - 4 : r.bottom + 8;
+  if (top + h > vh - 8) top = left === r.right + 10 || left === r.left - w - 10 ? vh - h - 8 : r.top - h - 8;
+  tip.style.left = left + 'px'; tip.style.top = Math.max(8, top) + 'px';
+}
+function hideTip() { tipFor = null; tip.classList.remove('show'); }
+const tipEl = e => e.target.closest && e.target.closest('[data-t],[data-m]');
+document.addEventListener('pointerover', e => { if (e.pointerType === 'mouse') { const el = tipEl(e); if (el) showTip(el); else if (tipFor) hideTip(); } });
+document.addEventListener('focusin', e => { const el = tipEl(e); if (el && el.matches(':focus-visible')) showTip(el); });
+document.addEventListener('focusout', e => { if (e.target === tipFor) hideTip(); });
+document.addEventListener('pointerdown', e => {
+  if (e.pointerType === 'mouse') return;
+  const el = e.target.closest('[data-m]');
+  if (el && el !== tipFor) showTip(el); else hideTip();
+});
+document.addEventListener('scroll', hideTip, {passive: true, capture: true});
 const svg = $('hitsvg');
 function drawHit() {
   const b = D.builds[build], pts = b.hitCurve, W = svg.clientWidth, H = svg.clientHeight;

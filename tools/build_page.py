@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Join setup/*.json, the sim's damage breakdown and content.py into docs/index.html."""
-import json, os
+import json, os, re
 import analyze as a
 import sim
 import content as C
@@ -101,6 +101,31 @@ for _f in data['gear'].values():
 data['gearIcons'] = H.load_icons({r['icon'] for f in data['gear'].values() for r in f['rows']})
 data['gearHit'] = R['gear']['Hit Rating']
 data['trees'] = json.load(open(sim.data('trees.json')))
+
+
+def _curves():
+    """Per-rank values of every talent effect, from the sim's game data: {spell id: [[rank values] per effect]}."""
+    src = open(os.path.join(sim.FOREVER, 'sim/core/spelldata/spells_auto_gen.go')).read()
+    out = {}
+    for m in re.finditer(r"^\t(\d+):\s+\{(\{.*\})\},\s*$", src, re.M):
+        out[int(m.group(1))] = [[float(v) for v in row.split(',')] for row in re.findall(r"\{([^{}]*)\}", m.group(2))]
+    return out
+
+
+def _fmt(v):
+    return f'{v:.2f}'.rstrip('0').rstrip('.') if v != int(v) else str(int(v))
+
+
+_CURVES = _curves()
+data['tips'] = {}
+for _tr in data['trees']:
+    for _t in _tr['talents']:
+        _text, _units = C.TALENT_TIPS[_t['n']]
+        _cv = _CURVES.get(_t['s'], [])
+        _cols = [(u.split('@')[0], int(u.split('@')[1]) if '@' in u else i) for i, u in enumerate(_units)]
+        assert all(i < len(_cv) for _, i in _cols), (_t['n'], _cv)
+        data['tips'][_t['n']] = [_text.format(*[_fmt(C.TIP_UNITS[u](_cv[i][r])) for u, i in _cols]) for r in range(_t['m'])]
+        _t.pop('g', None)
 _alt = {x['name']: x['dps'] for x in data['alternatives']}
 _fc = round(_alt['Cat'] - _alt['Cat with Feral Charge'])
 data['talentText'] = {k: v.replace('{sp}', str(round(data['builds']['cat']['casts'].get('Shifting Power', 22)))).replace('{fc}', str(_fc))
