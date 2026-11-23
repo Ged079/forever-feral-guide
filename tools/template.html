@@ -389,7 +389,7 @@ function render() {
   $('opener').innerHTML = D.openerChips.map(([ics, t, sub], i) => `${i ? '<span class="arr">→</span>' : ''}<span class="chip2"><span class="n">${i + 1}</span><span class="ics">${ics.map(IC).join('')}</span><span><b>${esc(t)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span></span>`).join('');
   const jow = D.buffRaw.judgementOfWisdom;
   $('tips').innerHTML = [
-    `<b>Judgement of Wisdom</b> on the boss is worth about ${Math.round(jow)} DPS to you: Shifting Power runs on mana.`,
+    `<b>Ask a Paladin for Judgement of Wisdom on the boss.</b> Your hits on it then give you mana back, and since Shifting Power runs on mana that is worth about ${Math.round(jow)} DPS to you.`,
     `<b>End of the fight:</b> ${esc(D.loopEnd.replace(/^Last 8 s: /, 'in the last 8 s, '))}`,
     `<b>Cooldowns:</b> ${esc(D.cooldowns.replace(/^On cooldown: /, 'use on cooldown: '))}`,
     `<b>No need to Prowl first.</b> In 3,000 simmed pulls the opener never used Ravage or Pounce, and Prowling before the pull changed nothing (within 0.5 DPS). Prowl only if you want Pounce's stun.`,
