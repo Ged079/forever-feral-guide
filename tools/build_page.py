@@ -76,7 +76,6 @@ for b, cons in R['consumables'].items():
         'adds': cons['adds']}
 data['alternatives'] = json.load(open(sim.data('alternatives.json')))
 bl = R['buffs']['list']
-data['buffRaw'] = {x['key']: x['v'] for x in bl}
 data['buffs'] = sorted([{'name': C.BUFF_NAMES[x['key']], 'v': x['v']} for x in bl
                         if x['kind'] in ('raid', 'blessing', 'debuff') and x['key'] not in
                         ('sunderArmor', 'exposeArmor', 'faerieFire', 'curseOfRecklessness')], key=lambda x: -x['v'])
