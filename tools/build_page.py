@@ -40,8 +40,7 @@ SEARCH = {n: json.load(open(sim.data(f'search_v1/{n}.json'))) for n in ('cat', '
 SEARCH['restart4'] = json.load(open(sim.data('search/restart4.json')))
 data = {'builds': {}, 'meta': H.meta(), 'siteUrl': H.SITE}
 for b, info in C.BUILDS.items():
-    _sp = round(breakdown(b)['casts'].get('Shifting Power', 0))
-    talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '').replace('{sp}', str(_sp))) for t in R['talents'][b]]
+    talents = [dict(t, text=C.TALENT_TEXT.get(t['name'], '')) for t in R['talents'][b]]
     talents.sort(key=lambda t: -t['all'])
     sw = R['stats'][b]['perPoint']
     xw = json.load(open(sim.data('extra_weights.json')))
@@ -90,7 +89,7 @@ RANK = {f: json.load(open(sim.data(f'rank/{f}.json'))) for f in ('alliance', 'ho
 
 def gear_card(fac):
     g = json.load(open(sim.data(f'gear/cat_{fac}.json')))
-    rows = [{'slot': SLOTNAME[x['slot']], 'id': x['id'], 'name': x['name'], 'src': source(x['id'])} for x in g['gear']]
+    rows = [{'slot': SLOTNAME[x['slot']], 'id': x['id'], 'name': x['name'], 'src': source(x['id'], fac)} for x in g['gear']]
     return {'race': g['race'], 'dps': RANK[fac]['base'], 'rows': rows}
 
 
@@ -129,7 +128,7 @@ for _tr in data['trees']:
         _t.pop('g', None)
 _alt = {x['name']: x['dps'] for x in data['alternatives']}
 _fc = round(_alt['Cat'] - _alt['Cat with Feral Charge'])
-data['talentText'] = {k: v.replace('{sp}', str(round(data['builds']['cat']['casts'].get('Shifting Power', 22)))).replace('{fc}', str(_fc))
+data['talentText'] = {k: v.replace('{fc}', str(_fc))
                       for k, v in C.TALENT_TEXT.items()}
 _TA = json.load(open(sim.data('talent_assets.json')))
 data['icons'] = _TA['icons']
@@ -141,7 +140,7 @@ wd = round(xw['Weapon DPS'] / xw['Agility'], 1)
 def _itm(o):
     i = o['id']; ic = H.item_icon(i)
     return {'id': i, 'name': ITEMS[i]['name'] + (' ' + _SFX[o['suffix']] if o.get('suffix') in _SFX else ''), 'icon': ic,
-            'q': H.quality(i), 'src': source(i), 'delta': round(o['delta'], 1), 'hard': H.hard_to_get(i)}
+            'q': H.quality(i), 'src': source(i, 'alliance'), 'delta': round(o['delta'], 1), 'hard': H.hard_to_get(i)}
 _mh = RANK['alliance']['slots']['main_hand']['options']
 _seen, _ws = set(), []
 for o in _mh:

@@ -1,7 +1,7 @@
 # Hand-written prose for the guide. Numbers never live here: they come from results.json.
 
 TALENT_TEXT = {
-    'Shifting Power': 'Turns mana into energy instantly, on an 8 s cooldown. Use it at 53 energy or less, about {sp} times in a 3 minute fight. The biggest talent in the tree.',
+    'Shifting Power': 'Turns mana into energy on an 8 s cooldown. The biggest talent in the tree.',
     'Naturalist': 'All your damage goes up by a flat percent.',
     'Rend and Tear': 'Your melee abilities hit harder on a bleeding target. Your own Rake and Rip keep the boss bleeding.',
     'Sharpened Claws': 'More crit in Cat Form.',
@@ -51,7 +51,7 @@ LOOP = [
     ('Rip', 'When it is down and 8+ s of the fight are left: at 4 combo points, or 5 if one more Shred still leaves energy for Rip right after.', ['cat', 'hybrid']),
     ('Rake', 'When it is down, if 6+ s of the fight are left.', ['cat', 'hybrid']),
     ('{builder}', 'Your builder. Hold it back when you are pooling energy for a Bite.', ['cat', 'hybrid']),
-    ('Innervate', 'Under 1400 mana with 30 energy or less, then shift back to Cat. On fights of 3 minutes or less you can skip it (a few DPS more); on longer ones you need the mana.', ['cat', 'hybrid']),
+    ('Innervate', 'Under 1400 mana with 30 energy or less, then shift back to Cat. It barely matters: within 2 DPS either way at any fight length.', ['cat', 'hybrid']),
 ]
 LOOP_FILL = {
     'cat': {'bite_cp': 4, 'rip_left': 3, 'rip_cp': '4 (5 if one more Shred still leaves energy for Rip right after)', 'builder': 'Shred'},

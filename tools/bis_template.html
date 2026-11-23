@@ -24,7 +24,7 @@ __HEAD__
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
 h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.02;margin:0;text-wrap:balance}
-h1{font-size:clamp(38px,6vw,58px)}h2{font-size:clamp(28px,4vw,36px)}h3{font-size:21px;font-weight:600}
+h1{font-size:clamp(38px,6vw,58px)}h2{font-size:clamp(28px,4vw,36px)}h3{font-size:22px;font-weight:600}
 a{color:var(--acc)}p{margin:.4em 0;max-width:70ch}.small{font-size:14px;color:var(--mute)}
 .wrap{max-width:1120px;margin:0 auto;padding:0 max(4vw,16px)}
 .top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -67,10 +67,7 @@ input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);backg
 .cards{margin-top:8px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;scroll-margin-top:130px}
 .card h3{display:flex;justify-content:space-between;align-items:baseline}
-.opt .nm a{font-weight:600;text-decoration:none}.opt .nm a:hover{text-decoration:underline}.opt .src{display:block;font-size:12.5px;color:var(--mute);line-height:1.35}
-.opt .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;white-space:nowrap}
 .bar{height:7px;border-radius:4px;background:color-mix(in srgb,var(--line) 80%,transparent);overflow:hidden;margin-top:5px}.bar span{display:block;height:100%;background:var(--neg);border-radius:4px}
-.opt li.best .bar span{background:var(--acc)}.opt li.best .v{color:var(--acc)}
 .card.none{grid-column:1/-1;display:flex;flex-direction:column;gap:4px;align-items:flex-start;padding:22px}
 .stbl{margin-top:22px}
 .shd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:0 2px 8px;border-bottom:1px solid var(--line);scroll-margin-top:130px}
@@ -99,7 +96,7 @@ input[type=search]{width:100%;font:inherit;font-size:16px;color:var(--ink);backg
 .ep{list-style:none;padding:0;margin:8px 0}.ep .bar{margin:0;height:9px}.ep .bar span{background:var(--neg)}.ep .val{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
 footer{padding:28px 0 48px}
 section[hidden]{display:none}
-@media(max-width:640px){.doll,.dbot{grid-template-columns:minmax(0,1fr)}.opt li{grid-template-columns:18px 30px minmax(0,1fr) 64px;gap:8px}.opt .ic{width:30px;height:30px}.sum .big{font-size:38px}}
+@media(max-width:640px){.doll,.dbot{grid-template-columns:minmax(0,1fr)}.sum .big{font-size:38px}}
 @media(prefers-reduced-motion:no-preference){.bar span{transition:width .3s ease}}
 
 /* upgrade finder */
@@ -108,9 +105,10 @@ section[hidden]{display:none}
 @media(max-width:900px){.fgrid{grid-template-columns:minmax(0,1fr)}}
 .phd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
 .pbtns{display:flex;gap:6px;flex-wrap:wrap}
-.pb{font:inherit;font-size:13.5px;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 12px;min-height:34px;cursor:pointer}
-.pb:hover{border-color:var(--acc)}
-.btn{font:inherit;font-weight:700;font-size:14px;border:0;border-radius:10px;background:var(--acc);color:var(--on-acc);padding:8px 14px;min-height:38px;cursor:pointer}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;background:var(--acc);color:var(--on-acc);padding:10px 16px;min-height:44px;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn.ghost:hover{border-color:var(--acc)}
+.btn.sm{min-height:36px;padding:6px 12px;font-size:14px}
+.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .fpaste[hidden]{display:none}
 .fpaste{display:grid;gap:8px;margin:0 0 12px;padding:12px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
 .fpaste textarea{width:100%;font:13px/1.4 ui-monospace,monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px}
@@ -183,11 +181,11 @@ section[hidden]{display:none}
 <section id="tab-finder" hidden>
   <div class="fgrid">
     <div class="panel fmine">
-      <div class="phd"><h2>Your gear</h2><div class="pbtns"><button type="button" class="pb" id="fpaste">Paste WoWSims export</button><button type="button" class="pb" id="fbis">Fill with BiS</button><button type="button" class="pb" id="fclear">Clear</button></div></div>
+      <div class="phd"><h3>Your gear</h3><div class="pbtns"><button type="button" class="btn ghost sm" id="fpaste">Paste WoWSims export</button><button type="button" class="btn ghost sm" id="fbis">Fill with BiS</button><button type="button" class="btn ghost sm" id="fclear">Clear</button></div></div>
       <div class="fpaste" id="fpastebox" hidden>
         <label for="fjson" class="small">Paste the JSON from the WoWSims Forever site (Export, then JSON) or from the WowSimsExporter addon (<code>/wse</code>).</label>
         <textarea id="fjson" rows="4" spellcheck="false" placeholder='{"player":{"equipment":{"items":[...'></textarea>
-        <div class="frow2"><button type="button" class="btn" id="fload">Load my gear</button><span class="ferr" id="ferr"></span></div>
+        <div class="frow2"><button type="button" class="btn sm" id="fload">Load my gear</button><span class="ferr" id="ferr"></span></div>
       </div>
       <div class="fslots" id="fslots"></div>
       <p class="small">Tap a slot to pick what you wear. Saved in this browser only. Enchants are not counted, so compare items, not enchants.</p>
@@ -195,7 +193,7 @@ section[hidden]{display:none}
     <div>
       <div class="ftiles" id="ftiles"></div>
       <div class="panel">
-        <div class="phd"><h2>Best upgrades for you</h2></div>
+        <div class="phd"><h3>Best upgrades for you</h3></div>
         <div class="seg" id="fkind"></div>
         <div id="fwarn"></div>
         <ol class="fups" id="fups"></ol>
@@ -204,9 +202,9 @@ section[hidden]{display:none}
     </div>
   </div>
   <div class="fpick" id="fpick" hidden role="dialog" aria-modal="true" aria-labelledby="fptitle"><div class="fpbox">
-    <div class="phd"><h3 id="fptitle"></h3><button type="button" class="pb" id="fpclose" aria-label="Close">✕</button></div>
+    <div class="phd"><h3 id="fptitle"></h3><button type="button" class="btn ghost sm" id="fpclose" aria-label="Close">✕</button></div>
     <input type="search" id="fpq" placeholder="Search items" autocomplete="off">
-    <div class="fsuf" id="fsuf" hidden><label for="fpsuf" class="small">Random enchantment</label><select id="fpsuf"></select><button type="button" class="btn" id="fpok">Use this</button></div>
+    <div class="fsuf" id="fsuf" hidden><label for="fpsuf" class="small">Random enchantment</label><select id="fpsuf"></select><button type="button" class="btn sm" id="fpok">Use this</button></div>
     <ul class="fplist" id="fplist"></ul>
   </div></div>
 </section>
@@ -220,7 +218,7 @@ section[hidden]{display:none}
   <div class="panel"><h2>Method</h2>
     <p>The set was found by a search in WoWSims Forever: from the sim's preset gear, every shortlisted item in every slot was swapped in one at a time and the best swap kept, as long as it still won on fresh random runs, until no swap helped. Then every pair of slots was tried, then the weapon enchant.</p>
     <p>The ranking on this page then simmed each slot's options against that set, 3,000 iterations each on the same seed, so the gaps inside a slot are measured precisely. Cat build, 3 minute boss, full raid buffs and consumables.</p>
-    <p><b>Shortlist.</b> Phase 1 cloth and leather, druid weapons and idols, level 60 or lower. Left out: raid drops (Molten Core, Onyxia, ZG, BWL, AQ, Naxx), raid reputation (The Watchers), the Onyxia head quests and PvP rank gear. Each slot's shortlist is the top 30 by stat weights plus up to 10 items with use effects or set bonuses (45 weapons), so a weak-looking item with a strong proc still gets simmed.</p>
+    <p><b>Shortlist.</b> Phase 1 cloth and leather, druid weapons and idols, level 60 or lower. Left out: raid drops (Molten Core, Onyxia, ZG, BWL, AQ, Naxx), raid reputation (The Watchers), the Onyxia head quests and PvP rank gear. Each slot's shortlist is the top 30 by stat weights plus up to 10 items with use effects or set bonuses (45 weapons) and every item with a hidden equip stat, like Blackhand's Breadth's +1% crit, so a weak-looking item with a strong effect still gets simmed.</p>
     <p><b>"No AV, PvP or exalted rep"</b> swaps every piece that needs Alterac Valley, PvP or exalted reputation for the best item in that slot that doesn't, and estimates the set's DPS by adding the gaps. Gaps between slots aren't always independent, so treat that number as close, not exact.</p>
     <p><b>Not counted:</b> bonuses that need a zone or creature type, and gaps under about 1 DPS, which are ties.</p>
   </div>
@@ -240,15 +238,15 @@ const KINDS = [['dungeon','Dungeon'],['quest','Quest'],['crafted','Crafted'],['v
 const st = {fac: 'alliance', bud: 'max', topn: 5, q: '', kinds: new Set(), tab: 'gear'};  // empty set = all sources
 try { const s = JSON.parse(localStorage.getItem('ffbis') || '{}'); if (D.factions[s.fac]) st.fac = s.fac; if (['max','easy'].includes(s.bud)) st.bud = s.bud; if ([3,5,10].includes(s.topn)) st.topn = s.topn; } catch (e) {}
 const save = () => { try { localStorage.setItem('ffbis', JSON.stringify({fac: st.fac, bud: st.bud, topn: st.topn})); } catch (e) {} };
-const IT = id => D.items[id] || {n: 'Unknown', q: '#ccc', i: '', src: [], k: []};
+const IT0 = id => D.items[id] || {n: 'Unknown', q: '#ccc', i: '', src: [], k: []};
+// Sources can differ by faction (quests, city vendors): pick the current faction's.
+const IT = id => { const it = IT0(id); return Array.isArray(it.src) ? it : Object.assign({}, it, {src: it.src[st.fac] || []}); };
 const icon = (id, cls = 'ic') => { const u = D.icons[IT(id).i]; return u ? `<img class="${cls}" alt="" src="${u}">` : `<span class="${cls}"></span>`; };
 const nm = (id, suf) => esc(IT(id).n + (suf && D.suffixes[suf] ? ' ' + D.suffixes[suf] : ''));
 const wh = id => `https://www.wowhead.com/forever/item=${id}`;
 const fmt = v => Math.abs(v) < 0.05 ? '0' : (v > 0 ? '+' : '−') + Math.abs(v).toFixed(1);
 const seg = (el, opts, cur, key) => { $(el).innerHTML = opts.map(([v, l]) => `<button type="button" data-k="${key}" data-v="${v}" aria-pressed="${String(v) === String(cur)}">${l}</button>`).join(''); };
-
 function pickFor(F, slot) { const s = F.slots[slot]; if (!s || !s.bis) return null; return st.bud === 'easy' ? F.easy[slot] : s.bis; }
-
 function render() {
   if (st.tab === 'finder') renderFinder();
   const F = D.factions[st.fac];
@@ -317,7 +315,6 @@ function render() {
   if (/^https?:/.test(D.guideUrl)) document.querySelectorAll('a[href="' + D.guideUrl + '"]').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
   save();
 }
-
 function showTab(t) {
   st.tab = ['gear', 'finder', 'how', 'method'].includes(t) ? t : 'gear';
   document.querySelectorAll('[data-tab]').forEach(a => a.classList.toggle('on', a.dataset.tab === st.tab));
@@ -325,7 +322,6 @@ function showTab(t) {
   document.body.classList.toggle('fmode', st.tab === 'finder');
   if (st.tab === 'finder') renderFinder();
 }
-
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-k]:not([data-k=fkind])');
   if (b) { st[b.dataset.k] = b.dataset.k === 'topn' ? +b.dataset.v : b.dataset.v; render(); return; }
@@ -348,6 +344,7 @@ const fst = {mine: {}, kind: 'all', slot: null, pickId: null};
 try { const m = JSON.parse(localStorage.getItem('ffbis-mine') || 'null'); if (m && typeof m === 'object') fst.mine = m; } catch (e) {}
 const fsave = () => { try { localStorage.setItem('ffbis-mine', JSON.stringify(fst.mine)); } catch (e) {} };
 const FI = id => FD.items[id];
+const fsrc = it => { const s = it[16]; return !s ? [] : Array.isArray(s) ? s : s[st.fac] || []; };
 const iconUrl = name => D.icons[name] || (location.protocol.startsWith('http') && !/claude/.test(location.host) ? `https://wow.zamimg.com/images/wow/icons/medium/${name}.jpg` : '');
 const fimg = name => { const u = iconUrl(name); return `<span class="fi"${u ? ` style="background-image:url('${u}')"` : ''}></span>`; };
 const fname = (id, suf) => FI(id)[0] + (suf && FD.suffix[suf] ? ' ' + FD.suffix[suf][0] : '');
@@ -442,7 +439,7 @@ function renderFinder() {
   $('fwarn').innerHTML = warn.map(w => `<div class="fwarn"><span>⚠</span><span>${esc(w)}</span></div>`).join('');
   const ups = filled ? upgrades() : [];
   $('fups').innerHTML = !filled ? '' : ups.length ? ups.map((u, i) => {
-    const it = FI(u.id), src = (it[16] || [])[0] || '';
+    const it = FI(u.id), src = fsrc(it)[0] || '';
     const rep = u.cur && FI(u.cur[0]) ? 'replaces ' + esc(fname(u.cur[0], u.cur[1])) : 'fills an empty slot';
     return `<li class="fup${u.gain < D.err ? ' tie' : ''}"><span class="n">${i + 1}</span>${fimg(it[2])}<span><a class="q" style="--qc:${it[1]}" href="https://www.wowhead.com/forever/item=${u.id}" target="_blank" rel="noopener">${esc(fname(u.id, u.suf))}</a>
       <span class="src">${SL[u.slot].replace(/ \d$/, '')}${src ? ' · ' + esc(src) : ''}${it[8] ? ' · needs rep' : ''}</span><span class="src">${rep}</span></span>
@@ -480,7 +477,7 @@ function listPick() {
   const rows = Object.entries(FD.items).filter(([id, it]) => it[3] === grp && (!q || it[0].toLowerCase().includes(q)))
     .map(([id, it]) => [id, it, fep(+id, bestSuffix(slot, +id))]).sort((x, y) => y[2] - x[2]).slice(0, 60);
   $('fplist').innerHTML = `<li><button type="button" data-pid="0"><span class="fi"></span><span><span class="nm">Nothing in this slot</span></span><span></span></button></li>` +
-    rows.map(([id, it]) => `<li><button type="button" data-pid="${id}">${fimg(it[2])}<span><span class="nm q" style="--qc:${it[1]}">${esc(it[0])}${it[11].length ? ' <span class="small">(random enchant)</span>' : ''}</span><span class="src">${esc((it[16] || [])[0] || (it[7] ? '' : 'Raid, PvP or not in the pre-raid list'))}</span></span><span class="fv">${q ? '' : ''}</span></button></li>`).join('');
+    rows.map(([id, it]) => `<li><button type="button" data-pid="${id}">${fimg(it[2])}<span><span class="nm q" style="--qc:${it[1]}">${esc(it[0])}${it[11].length ? ' <span class="small">(random enchant)</span>' : ''}</span><span class="src">${esc(fsrc(it)[0] || (it[7] ? '' : 'Raid, PvP or not in the pre-raid list'))}</span></span><span class="fv">${q ? '' : ''}</span></button></li>`).join('');
 }
 function pickItem(id) {
   if (+id === 0) { setSlot(fst.slot, 0); return; }

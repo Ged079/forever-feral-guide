@@ -64,12 +64,20 @@ def enchant_name(eid, slot):
     return n.replace('Enchant ', '').replace('2H Weapon - ', '').replace('Weapon - ', '')
 
 
-def source(iid):
+CAPITALS = {'alliance': ('Orgrimmar', 'Thunder Bluff', 'Undercity'), 'horde': ('Stormwind City', 'Ironforge', 'Darnassus')}
+
+
+def source(iid, fac=None):
+    """Where an item comes from, two at most. With a faction, quests and city vendors of the other faction are left out."""
     it = ITEMS[iid]
     out = []
     for src in it.get('sources', []):
         k, v = next(iter(src.items()))
         v = v or {}
+        if fac and k == 'quest' and v.get('faction') == (2 if fac == 'alliance' else 1):
+            continue
+        if fac and k == 'soldBy' and ZONES.get(v.get('zoneId')) in CAPITALS[fac]:
+            continue
         if k == 'drop':
             z = ZONES.get(v.get('zoneId'))
             out.append(f"Drop{': ' + z if z else ''}")
@@ -81,9 +89,17 @@ def source(iid):
             out.append(f"Crafted: {C.PROFESSIONS.get(v.get('profession'), 'profession')}")
         elif k == 'rep':
             out.append(f"Reputation: {FACS.get(v.get('repFactionId'), '')} {REP.get(v.get('repLevel'), '')}".strip())
+    if not out and fac:
+        return source(iid)
     if not out:
         out = ['World drop (Auction House)' if it.get('randomSuffixOptions') or iid < 200000 else 'No source listed']
     return list(dict.fromkeys(out))[:2]
+
+
+def source_by_faction(iid):
+    """The item's sources, or per faction when the two factions get it from different places."""
+    a, h = source(iid, 'alliance'), source(iid, 'horde')
+    return a if a == h else {'alliance': a, 'horde': h}
 
 
 def kinds(iid):

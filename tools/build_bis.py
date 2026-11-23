@@ -85,7 +85,7 @@ def finder():
                            round(so.get('unroundedDps', 0), 2) if it.get('type') == 13 else 0,
                            it.get('setId') or 0, int(avail), int(H.hard_to_get(it['id'])), H.kinds(it['id']), fac,
                            sufs, so.get('randPropPoints', 0), int(bool(it.get('itemEffects'))), int(it.get('handType') == 4),
-                           int(bool(it.get('unique')))] + ([H.source(it['id'])[:2]] if avail else [])
+                           int(bool(it.get('unique')))] + ([H.source_by_faction(it['id'])] if avail else [])
         pool.setdefault(grp, []).append(it['id'])
     sufs = {sid for v in items.values() for sid in v[11]}
     suffix = {sid: [G.SUFFIX[sid]['name'], {i: v for i, v in enumerate(G.SUFFIX[sid].get('stats', [])) if v and w.get(i)}]
@@ -150,7 +150,7 @@ def main():
     for iid in used:
         it = ITEMS[iid]
         data['items'][iid] = {'n': it['name'], 'q': H.quality(iid), 'i': H.item_icon(iid),
-                              'src': H.source(iid), 'k': H.kinds(iid), 'r': H.hard_to_get(iid)}
+                              'src': H.source_by_faction(iid), 'k': H.kinds(iid), 'r': H.hard_to_get(iid)}
     data['guideUrl'] = sim.GUIDE_URL
     data['meta'] = H.meta()
     data['err'] = 1.7  # 95% margin of a gap, ignoring the shared-seed benefit (sd ~33 DPS, 3000 iterations)
